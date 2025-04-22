@@ -1,0 +1,220 @@
+/* Carousel container */
+.custom-carousel-container {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Split layout - desktop (lg and up) */
+.carousel-split-layout {
+  display: flex;
+  width: 100%;
+  height: 500px;
+  flex-direction: row;
+}
+
+/* Image container */
+.carousel-image-container {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s ease;
+}
+
+.carousel-image-container:hover .carousel-image {
+  transform: scale(1.05);
+}
+
+/* Gradient overlays on image */
+.left-image-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(13, 71, 161, 0.8) 0%,
+    rgba(25, 118, 210, 0) 100%
+  );
+}
+
+.right-image-gradient-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(25, 118, 210, 0) 0%,
+    rgba(13, 71, 161, 0.8) 100%
+  );
+}
+
+/* Content area */
+.carousel-content {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 60px;
+}
+
+.blue-gradient-bg {
+  background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+}
+
+.content-wrapper {
+  color: white;
+  text-align: left;
+  max-width: 500px;
+}
+
+/* Typography */
+.company-name {
+  font-size: 1.8rem; /* Adjusted font size for a more balanced look */
+  font-weight: 600; /* Reduced font weight for a lighter feel */
+  margin-bottom: 1rem; /* Adjusted margin for less space */
+  line-height: 1; /* Increased line-height for better readability */
+}
+
+.success-story {
+  font-size: 1.4rem; /* Slightly smaller font size */
+  line-height: 1; /* Increased line-height for clarity */
+  margin-bottom: 1.5rem; /* Adjusted margin */
+}
+
+.quote-text {
+  font-size: 1.6rem; /* Slightly smaller font size */
+  font-weight: 500; /* Reduced font weight for a lighter look */
+  margin-bottom: 1rem; /* Adjusted margin */
+  line-height: 1.5; /* Increased line-height */
+}
+
+.person-name {
+  font-size: 1.8rem; /* Adjusted font size for better proportion */
+  font-weight: 600; /* Slightly lighter font weight */
+  margin-bottom: 0.4rem; /* Kept the margin consistent */
+}
+
+.person-title {
+  font-size: 1.2rem; /* Slightly smaller font size for the title */
+  opacity: 0.8; /* Slightly reduced opacity */
+}
+
+/* Quote decoration */
+.quote-decoration {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem; /* Reduced the margin for a more compact design */
+}
+
+.quote-line {
+  width: 50px; /* Made the line a bit shorter */
+  height: 2px; /* Reduced line height for a subtler effect */
+  background: white;
+  margin-right: 10px; /* Reduced the space between the line and the icon */
+}
+
+.quote-icon {
+  font-size: 3.5rem; /* Smaller icon size */
+  opacity: 0.6; /* Slightly reduced opacity for a subtler look */
+}
+
+/* Animation adjustments */
+.react-reveal {
+  width: 100%;
+}
+
+/* Responsive adjustments - Tablet (md) */
+@media (max-width: 992px) {
+  .carousel-split-layout {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .carousel-image-container,
+  .carousel-content {
+    width: 100%;
+    height: 350px;
+  }
+
+  .carousel-content {
+    padding: 40px 30px;
+  }
+
+  .content-wrapper {
+    max-width: 100%;
+  }
+
+  .company-name,
+  .person-name {
+    font-size: 2rem;
+  }
+
+  .success-story,
+  .quote-text {
+    font-size: 1.4rem;
+  }
+}
+
+/* Responsive adjustments - Mobile (sm and below) */
+@media (max-width: 768px) {
+  .carousel-image-container,
+  .carousel-content {
+    height: 300px;
+  }
+
+  .carousel-content {
+    padding: 30px 20px;
+  }
+
+  .company-name,
+  .person-name {
+    font-size: 1.8rem;
+  }
+
+  .success-story,
+  .quote-text {
+    font-size: 1.2rem;
+  }
+
+  .person-title {
+    font-size: 1.1rem;
+  }
+
+  .quote-icon {
+    font-size: 3.5rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 576px) {
+  .carousel-content {
+    padding-bottom: 20px;
+  }
+  .carousel-image-container {
+    height: 350px;
+    padding-top: 70px;
+  }
+
+  .company-name,
+  .person-name {
+    font-size: 1.5rem;
+  }
+
+  .success-story,
+  .quote-text {
+    font-size: 1rem;
+  }
+}

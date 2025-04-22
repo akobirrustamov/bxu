@@ -1,0 +1,20 @@
+# Node (React)
+frontend/node_modules/
+frontend/build/
+frontend/.cache/
+*.pack
+
+# Java (Spring Boot)
+backend/target/
+backend/.idea/
+*.class
+*.jar
+*.war
+*.log
+
+# System
+.DS_Store
+*.log
+*.swp
+.env
+

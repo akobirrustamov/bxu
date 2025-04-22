@@ -1,0 +1,88 @@
+
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+
+.facility-block {
+    margin: auto;
+    width: 25%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    position: absolute;
+}
+.header-problem{
+    padding-top: 98px;
+
+}
+.my-bg-second {
+    width: 100%;
+
+
+ /* Ensures the image covers the container */
+    background-position: center; /* Centers the image */
+    background-image: url("./images/newbg.jpg");
+}
+
+.product-item img.post-image {
+    width: 100%; /* Ensure the image takes the full width of the container */
+    height: 400px; /* Set a fixed height to maintain uniformity */
+    object-fit: cover; /* Ensure the image is cropped to fit the container without distortion */
+    transition: all 0.5s ease-in-out;
+}
+
+.product-item:hover img.post-image {
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+.product-description {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+.product-item:hover .product-description {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media only screen and (max-width: 999px) {
+    .facility-block {
+        left: 0;
+        transform: translateX(0%);
+        position: static;
+        margin: auto;
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+.partner-carousel-container {
+    max-width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.item img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+.partner-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-cover: cover;
+    transition: transform 0.3s ease-in-out; /* Smooth scaling effect */
+}
+
+.partner-image:hover {
+    transform: scale(1.1); /* Scale to 110% on hover */
+}
