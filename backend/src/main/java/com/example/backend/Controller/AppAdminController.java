@@ -33,6 +33,7 @@ public class AppAdminController {
     @GetMapping("/hemis/token/last")
     public HttpEntity<?> getLastToken(){
         List<TokenHemis> all = tokenHemisRepo.findAll();
+        System.out.println(all);
         return ResponseEntity.ok(all.get(all.size()-1));
     }
     @GetMapping("/hemis")
