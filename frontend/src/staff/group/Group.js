@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./../Sidebar";
 import newbg from "./../images/newbg.jpg";
 import ApiCallBuxpxti from "../../config/ApiCallBxu";
-
+import ApiCall from "../../config/index"
 function Group() {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -2712,11 +2712,12 @@ function Group() {
     let page = 1;
     let hasNextPage = true;
 
-  
-      const response = await ApiCallBuxpxti(
-        `/v1/data/group-list?page=${page}`,
-        "GET"
-      );
+      let obj={
+        endpoint:"/v1/data/group-list?page=1",
+        method:"GET",
+        data:null
+      }
+        const response = await ApiCall(`/api/v1/hemis`, "POST", obj);
 
       if (response.status === 200 && response.data) {
         const { items } = response.data.data;
