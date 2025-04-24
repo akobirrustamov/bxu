@@ -20,59 +20,31 @@ const getMyCommands = async () => {
 
 // Generic API call function
 const ApiCallBuxpxti = async (
-  endpoint,
-  method = "GET",
-  data = null,
-  additionalHeaders = {}
+    endpoint,
+    method = "GET",
+    data = null,
+    additionalHeaders = {}
 ) => {
   try {
-    const token = await getMyCommands(); // Await token
-
-    // Handle case where no token is retrieved
-    if (!token) {
-      alert("No token found, authorization failed.");
-      return;
+    let obj={
+      endpoint:endpoint,
+      method:method,
+      data:data
     }
-    console.log("Token:", token); // Log the token for debugging
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // Add Bearer token to header
-    };
-    console.log(`${BASE_URL_BUXPXTI}${endpoint}`);
-
-    const config = {
-      url: `${BASE_URL_BUXPXTI}${endpoint}`,
-      method,
-      headers,
-    };
-
-    // Handle different HTTP methods (POST, GET, etc.)
-    if (["POST", "PUT", "PATCH", "DELETE"].includes(method.toUpperCase())) {
-      config.data = data;
-    } else if (method.toUpperCase() === "GET" && data) {
-      config.params = data;
-    }
-   
-
-    const response = await axios(config);
-    console.log("API Response:", response.data); // Log the response for debugging
-    
+    const response = await ApiCall("/api/v1/hemis", "POST", obj);
+    console.log(response)
     return response;
+
   } catch (error) {
-    // Handle error with better logging and user-friendly message
-    console.error("API Error:", error); // Log error for debugging
-
-    const message =
-      error?.response?.data?.message || error?.message || "An error occurred";
-    
+    console.error("API Error:", error);
+    const message = error?.response?.data?.message || error?.message || "An error occurred";
     alert(`${message} Shu xatolik!!!`);
-
     return {
       status: error?.response?.status || 500,
       message,
     };
   }
 };
+
 
 export default ApiCallBuxpxti;

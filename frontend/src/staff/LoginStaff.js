@@ -24,7 +24,6 @@ const LoginStaff = () => {
             const response = await ApiCall('/api/v1/app/staff/login', 'POST', obj, null, false);
             localStorage.removeItem("token");
             localStorage.removeItem("role");
-            alert(JSON.stringify(response.data))
             if (response.data) {
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("role", response.data.role);
