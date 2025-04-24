@@ -60,11 +60,9 @@ import NomenklaturaStaff from "./staff/nomenklatura/Nomenklatura";
 import MyProfile from "./staff/MyProfile";
 import DailyControlStaff from "./staff/daily-control/DailyControl";
 import Subfolder from "./staff/daily-control/Subfolder";
+import GroupDetails from "./staff/group/DetailGroupe";
 
-import axios  from "axios";
-
-
-
+import axios from "axios";
 
 // web site bxu
 import UniversityInfo from "./pages/home/university/University";
@@ -91,7 +89,6 @@ import ScientificActivity from "./pages/home/university/scientificactivity/Scien
 import UniversityAbout from "./pages/home/university/unversityAbout/UniversityAbout";
 import Buyruqlar from "./staff/commands/buyruq/Buyruqlar";
 import InProgress from "./staff/commands/buyruq/InProgress";
-
 
 function App() {
   const { t } = useTranslation();
@@ -124,8 +121,6 @@ function App() {
       }
     }
   }
-
-
 
   return (
     <div>
@@ -175,11 +170,20 @@ function App() {
         <Route path={"/university/rector"} element={<RectorUniversity />} />
         <Route path={"/university/numbers"} element={<StatisticUniversity />} />
         <Route path={"/university/contact"} element={<ContactUsUniversity />} />
-        <Route path={"/university/association"} element={<AssociationStudent />}/>
+        <Route
+          path={"/university/association"}
+          element={<AssociationStudent />}
+        />
         <Route path={"/university/support"} element={<Support />} />
-        <Route path={"/university/prorector"} element={<ProRectorUniversity />}/>
+        <Route
+          path={"/university/prorector"}
+          element={<ProRectorUniversity />}
+        />
         <Route path={"/university/head"} element={<HeadUniversity />} />
-        <Route path={"/university/professors"} element={<ProfessorUniversity />}/>
+        <Route
+          path={"/university/professors"}
+          element={<ProfessorUniversity />}
+        />
         <Route path={"/university/campuses"} element={<KampusUniversity />} />
         <Route
           path={"/university/partnership"}
@@ -202,8 +206,11 @@ function App() {
         <Route path={"/university/dormitory"} element={<Dormitory />} />
         <Route path={"/university/distance"} element={<Distance />} />
         <Route path={"/university/ecozone"} element={<EcoZone />} />
-        <Route path={"/university/scientificactivity"} element={<ScientificActivity />} />
-        <Route path={"/university/info"} element={<UniversityAbout/>} />
+        <Route
+          path={"/university/scientificactivity"}
+          element={<ScientificActivity />}
+        />
+        <Route path={"/university/info"} element={<UniversityAbout />} />
 
         {/*  app admins */}
 
@@ -216,17 +223,18 @@ function App() {
         <Route path={"/app/daily-control"} element={<DailyControl />} />
         <Route path={"/generator/login"} element={<AppLogin />} />
 
-
         {/*  mobil */}
         <Route path={"/mobil/login"} element={<LoginStaff />} />
         <Route path={"/mobil/"} element={<StaffHome />} />
         <Route path={"/mobil/commands"} element={<Topshiriq />} />
         <Route path={"/mobil/commands/buyruqlar"} element={<Buyruqlar />} />
-        <Route path={"/mobil/commands/buyruqlar/newcommand"} element={<NewCommand />} />
-        <Route path={"/mobil/commands/buyruqlar/jarayonda"} element={<InProgress />} />
-        {/* <Route path={"/mobil/commands/buyruq/ccccc"} element={<BatafsilBuyruq />} /> */}
+        <Route
+          path={"/mobil/commands/buyruqlar/newcommand"}
+          element={<NewCommand />}
+        />
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route path={"/mobil/groups"} element={<Group />} />
+        <Route path="/mobil/groups/:id" element={<GroupDetails />} />
         <Route path={"/mobil/timetable"} element={<DarsJadvali />} />
         <Route path={"/mobil/profile"} element={<MyProfile />} />
         <Route path={"/mobil/daily-control"} element={<DailyControlStaff />} />
