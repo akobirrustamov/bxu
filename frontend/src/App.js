@@ -91,6 +91,8 @@ import ScientificActivity from "./pages/home/university/scientificactivity/Scien
 import UniversityAbout from "./pages/home/university/unversityAbout/UniversityAbout";
 import Buyruqlar from "./staff/commands/buyruq/Buyruqlar";
 import InProgress from "./staff/commands/buyruq/InProgress";
+import Pending from "./staff/commands/buyruq/Pending";
+import Completed from "./staff/commands/buyruq/Completed";
 
 
 function App() {
@@ -224,6 +226,8 @@ function App() {
         <Route path={"/mobil/commands/buyruqlar"} element={<Buyruqlar />} />
         <Route path={"/mobil/commands/buyruqlar/newcommand"} element={<NewCommand />} />
         <Route path={"/mobil/commands/buyruqlar/jarayonda"} element={<InProgress />} />
+        <Route path={"/mobil/commands/buyruqlar/kutilmoqda"} element={<Pending />} />
+        <Route path={"/mobil/commands/buyruqlar/completed"} element={<Completed />} />
         {/* <Route path={"/mobil/commands/buyruq/ccccc"} element={<BatafsilBuyruq />} /> */}
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route path={"/mobil/groups"} element={<Group />} />

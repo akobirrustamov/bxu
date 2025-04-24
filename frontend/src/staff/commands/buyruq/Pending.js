@@ -1,21 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ApiCall from "../../../config/index";
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
-import { FaArchive, FaClock, FaUser, FaCheck } from 'react-icons/fa';
 import newbg from "../../../staff/images/newbg.jpg";
-import Sidebar from '../../Sidebar';
+import Sidebar from "../../Sidebar";
+import { FaArchive, FaClock, FaUser, FaCheck } from "react-icons/fa";
 
-function InProgress() {
+const Pending = () => {
     const [administrator, setAdministrator] = useState(null);
     const [commands, setCommands] = useState([]);
     const [filteredCommands, setFilteredCommands] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [expanded, setExpanded] = useState(0);
     const [searchName, setSearchName] = useState("");
-    const [selectedStatus, setSelectedStatus] = useState(0);
-
+    const [expanded, setExpanded] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,29 +22,31 @@ function InProgress() {
         try {
             const token = localStorage.getItem("token");
             const response = await ApiCall(`/api/v1/app/staff/me/${token}`, "GET");
-            if (response?.error === false && response.data) {
+
+            if (response.error === false && response.data) {
                 setAdministrator(response.data);
                 await getMyCommands(response.data.id);
             } else {
-                toast.error("Failed to fetch profile data");
+                alert("Failed to fetch profile data.");
             }
         } catch (error) {
-            toast.error("An unexpected error occurred.");
+            alert("An unexpected error occurred.");
         }
     };
 
-    const getMyCommands = async (id) => {
+    const getMyCommands = async (userId) => {
         try {
             const token = localStorage.getItem("token");
-            const response = await ApiCall(`/api/v1/app/staff/commands/${id}/2`, "GET");
-            if (response?.error === false && response.data) {
+            const response = await ApiCall(`/api/v1/app/staff/commands/${token}/3`, "GET");
+
+            if (response.error === false && response.data) {
                 setCommands(response.data);
                 setFilteredCommands(response.data);
             } else {
-                toast.error("Failed to fetch commands.");
+                alert("Failed to fetch commands.");
             }
         } catch (error) {
-            toast.error("An unexpected error occurred.");
+            alert("An unexpected error occurred.");
         } finally {
             setIsLoading(false);
         }
@@ -56,49 +54,35 @@ function InProgress() {
 
     useEffect(() => {
         filterCommands();
-    }, [searchName, selectedStatus, commands]);
+    }, [searchName, commands]);
 
     const filterCommands = () => {
-        let filtered = [...commands];
-
+        let filtered = commands;
         if (searchName.trim()) {
             filtered = filtered.filter((cmd) =>
-                cmd?.staff?.name?.toLowerCase().includes(searchName.toLowerCase()) ||
-                cmd?.text?.toLowerCase().includes(searchName.toLowerCase())
+                cmd.commandStaff?.name?.toLowerCase().includes(searchName.toLowerCase()) ||
+                cmd.text?.toLowerCase().includes(searchName.toLowerCase())
             );
         }
-
-        if (selectedStatus !== 0 && selectedStatus !== 3) {
-            filtered = filtered.filter((cmd) => cmd.status === selectedStatus);
-        }
-
-        if (selectedStatus === 3) {
-            const now = new Date();
-            filtered = filtered.filter((cmd) => {
-                const deadline = new Date(cmd.timeLimit);
-                return deadline < now;
-            });
-        }
-
         setFilteredCommands(filtered);
     };
 
-    const handleNavigateToDetail = useCallback((item) => {
-        navigate("/batafsil", { state: { itemData: item } });
-    }, [navigate]);
+    const handleNavigateToDetail = useCallback(
+        (item) => {
+            navigate("/batafsil", { state: { itemData: item } });
+        },
+        [navigate]
+    );
 
     const renderCommandItem = ({ item }) => {
-        const truncatedDescription = item.description?.length > 50
-            ? item.description.substring(0, 50) + "..."
-            : item.description;
-
+        const isExpanded = expanded === item.id;
         const toggleExpanded = (id) => {
-            setExpanded((prev) => (prev === id ? 0 : id));
+            setExpanded(expanded === id ? 0 : id);
         };
 
         const now = new Date();
-        const deadline = new Date(item.timeLimit);
-        const timeDiffInMs = deadline - now;
+        const tileLimitDate = new Date(item.timeLimit);
+        const timeDiffInMs = tileLimitDate - now;
         const timeDiffInHours = timeDiffInMs / (1000 * 60 * 60);
         const timeDiffInDays = Math.floor(timeDiffInHours / 24);
         const remainingHours = Math.floor(timeDiffInHours % 24);
@@ -108,40 +92,34 @@ function InProgress() {
 
         if (timeDiffInHours < 0) {
             timeText = `Topshiriq muddatida bajarilmadi: ${Math.abs(timeDiffInDays)} kun va ${Math.abs(remainingHours)} soat o'tdi`;
+            circleColor = "bg-red-500";
         } else if (timeDiffInHours > 24) {
             circleColor = "bg-green-500";
         } else if (timeDiffInHours > 12) {
-            circleColor = "bg-yellow-500";
+            circleColor = "bg-yellow-400";
         }
 
         return (
-            <div className="bg-white shadow rounded p-4 mb-4">
-                <h2 className="text-xl font-semibold">{item.text}</h2>
-
-                <p className="mt-2 text-gray-700 cursor-pointer" onClick={() => toggleExpanded(item.id)}>
+            <div className="bg-white rounded shadow p-4 mb-4" key={item.id}>
+                <h2 className="text-lg font-semibold">{item.text}</h2>
+                <p className="mt-2 cursor-pointer text-gray-700" onClick={() => toggleExpanded(item.id)}>
                     <FaArchive className="inline mr-2 text-gray-500" />
-                    {expanded === item.id ? item.description : truncatedDescription}
+                    {isExpanded ? item.description : `${item.description?.slice(0, 50)}...`}
                 </p>
-
                 <p className="text-sm text-gray-600 mt-2">
                     <FaClock className="inline mr-1 text-gray-500" />
                     <strong>Topshiriq berilgan sana:</strong>{" "}
-                    {new Date(item.createdAt).toLocaleDateString("en-GB")}{" "}
-                    {new Date(item.createdAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
+                    {new Date(item.createdAt).toLocaleString("en-GB", { hour: "2-digit", minute: "2-digit" })}
                 </p>
-
                 <p className="text-sm text-gray-600">
                     <FaClock className="inline mr-1 text-gray-500" />
                     <strong>Bajarish muddati:</strong>{" "}
-                    {deadline.toLocaleDateString("en-GB")}{" "}
-                    {deadline.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
+                    {tileLimitDate.toLocaleString("en-GB", { hour: "2-digit", minute: "2-digit" })}
                 </p>
-
                 <p className="text-sm text-gray-600">
                     <FaUser className="inline mr-1 text-gray-500" />
                     <strong>Topshiriq bajaruvchi:</strong> {item?.staff?.name || "N/A"}
                 </p>
-
                 <div className="flex items-center justify-between mt-4">
                     <div className="flex items-center space-x-2">
                         <div className={`w-3 h-3 rounded-full ${circleColor}`} />
@@ -149,11 +127,10 @@ function InProgress() {
                     </div>
                     <div className="text-green-600 text-lg">
                         <FaCheck />
-                        {item.status === 2 && <FaCheck className="inline ml-1 text-green-600" />}
+                        {item.status === 2 && <FaCheck className="inline ml-1" />}
                     </div>
                 </div>
-
-                <button onClick={() => handleNavigateToDetail(item)} className="mt-4 text-blue-600 hover:underline">
+                <button onClick={() => handleNavigateToDetail(item)} className="mt-3 text-indigo-600 hover:underline">
                     Batafsil..
                 </button>
             </div>
@@ -167,34 +144,29 @@ function InProgress() {
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
-
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center" style={{ backgroundImage: `url(${newbg})` }}>
                     <div className="w-full bg-gray-100 p-4">
                         <input
                             type="text"
-                            placeholder="Qidiruv.."
                             value={searchName}
                             onChange={(e) => setSearchName(e.target.value)}
+                            placeholder="Qidiruv.."
                             className="w-full p-2 border rounded-md"
                         />
-
                         {isLoading ? (
                             <div className="flex justify-center items-center h-40">
-                                <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                                <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
                             </div>
                         ) : (
-                            <div className="grid gap-4">
-                                {filteredCommands.map((item, index) => (
-                                    <div key={index}>{renderCommandItem({ item })}</div>
-                                ))}
+                            <div className="mt">
+                                {filteredCommands.map((item) => renderCommandItem({ item }))}
                             </div>
                         )}
                     </div>
                 </div>
             </div>
-            <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );
-}
+};
 
-export default InProgress;
+export default Pending;

@@ -89,7 +89,7 @@ const Buyruqlar = () => {
           <div
             
             className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
-            onClick={() => navigate("/kutilayotgan-buyruqlar")}
+            onClick={() => navigate("/mobil/commands/buyruqlar/kutilmoqda")}
           >
             <FontAwesomeIcon icon={faHandshake} size="3x" className="text-white" />
             <div className="mt-2">
@@ -104,7 +104,7 @@ const Buyruqlar = () => {
           <div
             
             className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
-            onClick={() => navigate("/tugallangan-buyruqlar")}
+            onClick={() => navigate("/mobil/commands/buyruqlar/completed")}
           >
             <FontAwesomeIcon icon={faCheck} size="3x" className="text-white" />
             <div className="mt-2">
