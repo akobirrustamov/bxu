@@ -52,6 +52,8 @@ import DailyControl from "./appAdmin/DailyControl";
 import LoginStaff from "./staff/LoginStaff";
 import StaffHome from "./staff/StaffHome";
 import Topshiriq from "./staff/commands/Topshiriq";
+import BatafsilBuyruq from "./staff/commands/buyruq/BatafsilBuyruq";
+import NewCommand from "./staff/commands/buyruq/NewCommand";
 import Group from "./staff/group/Group";
 import DarsJadvali from "./staff/dars_jadvali/DarsJadvali";
 import NomenklaturaStaff from "./staff/nomenklatura/Nomenklatura";
@@ -87,6 +89,8 @@ import Distance from "./pages/home/university/distance/Distance";
 import EcoZone from "./pages/home/university/ecozone/EcoZone";
 import ScientificActivity from "./pages/home/university/scientificactivity/ScientificActivity";
 import UniversityAbout from "./pages/home/university/unversityAbout/UniversityAbout";
+import Buyruqlar from "./staff/commands/buyruq/Buyruqlar";
+import InProgress from "./staff/commands/buyruq/InProgress";
 
 
 function App() {
@@ -217,6 +221,10 @@ function App() {
         <Route path={"/mobil/login"} element={<LoginStaff />} />
         <Route path={"/mobil/"} element={<StaffHome />} />
         <Route path={"/mobil/commands"} element={<Topshiriq />} />
+        <Route path={"/mobil/commands/buyruqlar"} element={<Buyruqlar />} />
+        <Route path={"/mobil/commands/buyruqlar/newcommand"} element={<NewCommand />} />
+        <Route path={"/mobil/commands/buyruqlar/jarayonda"} element={<InProgress />} />
+        {/* <Route path={"/mobil/commands/buyruq/ccccc"} element={<BatafsilBuyruq />} /> */}
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route path={"/mobil/groups"} element={<Group />} />
         <Route path={"/mobil/timetable"} element={<DarsJadvali />} />
