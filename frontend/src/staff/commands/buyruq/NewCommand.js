@@ -138,9 +138,7 @@ const NewCommand = () => {
                 const formData = new FormData();
                 formData.append("photo", file);
                 formData.append("prefix", `/command/${administrator.name}`);
-                const uploadResponse = await ApiCall('/api/v1/file/upload', "POST", formData, {
-                    "Content-Type": "multipart/form-data",
-                });
+                const uploadResponse = await ApiCall('/api/v1/file/upload', "POST", formData);
                 uploadedFile = uploadResponse.data;
             }
 
