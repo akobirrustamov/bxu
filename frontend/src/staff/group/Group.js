@@ -3,6 +3,7 @@ import Sidebar from "./../Sidebar";
 import newbg from "./../images/newbg.jpg";
 import ApiCall from "../../config/index";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 function Group() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function Group() {
   const [loading, setLoading] = useState(true);
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("Sirtqi bo'lim");
+  const [searchTerm, setSearchTerm] = useState(""); // <-- Yangi state
 
   const fetchGroups = async () => {
     let AllGroups = [];
@@ -57,10 +59,14 @@ function Group() {
     const matchesDepartment = selectedDepartment
       ? group.department.name === selectedDepartment
       : true;
-    return matchesDepartment;
+    const matchesSearch = searchTerm
+      ? group.name.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+    return matchesDepartment && matchesSearch;
   });
+
   const goDetails = (id) => {
-    navigate(`/mobil/groups/${id}`); // Navigatsiya orqali group details sahifasiga o'tish
+    navigate(`/mobil/groups/${id}`);
   };
 
   return (
@@ -82,38 +88,14 @@ function Group() {
               </h1>
               <div className="flex items-center justify-center gap-6 mt-4">
                 <h4 className="text-gray-700 font-medium flex items-center gap-2">
-                  <svg
-                    className="w-5 h-5 text-blue-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
+                  {/* Jami bo'limlar */}
                   Jami bo'limlar:{" "}
                   <span className="text-blue-600 font-semibold ml-1">
                     {departments.length}ta
                   </span>
                 </h4>
                 <h4 className="text-gray-700 font-medium flex items-center gap-2">
-                  <svg
-                    className="w-5 h-5 text-blue-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
+                  {/* Jami guruhlar */}
                   Jami guruhlar:{" "}
                   <span className="text-blue-600 font-semibold ml-1">
                     {groups.length}ta
@@ -124,7 +106,7 @@ function Group() {
             <div className="p-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                 <div className="w-full md:w-2/3 mx-auto">
-                  <div className="w-full flex items-center justify-between gap-2">
+                  <div className="w-full flex flex-wrap items-center justify-between gap-2">
                     {departments.map((dept, index) => (
                       <button
                         key={index}
@@ -142,69 +124,86 @@ function Group() {
                       </button>
                     ))}
                   </div>
+                  {/* Search input */}
+                  <div className="my-4 group relative">
+                    <input
+                      type="text"
+                      placeholder="🔍 Guruh qidiruvi..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full p-3 pl-12 pr-10 text-lg font-medium text-gray-800 bg-white rounded-2xl border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:border-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:focus:border-blue-400 dark:focus:ring-blue-900/50"
+                    />
+
+                    {/* Clear button (conditional) */}
+                    {searchTerm && (
+                      <button
+                        onClick={() => setSearchTerm("")}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors duration-200"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
 
               {loading ? (
-                <div className="flex justify-center items-center h-64">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-                </div>
+                <Loading />
               ) : (
                 <div className="flex justify-center flex-wrap gap-6">
-                  {groups.length > 0 ? (
-                    groups.map((group, index) => {
-                      if (group.department.name === selectedDepartment) {
-                        return (
-                          <div
-                            class="hover:scale-105 group transition-all duration-200 w-full lg:w-1/5 sm:w-1/2 md:w-1/3 cursor-pointer"
-                            key={index}
-                            onClick={() => goDetails(group.id)}
-                          >
-                            <div className="bg-white group-hover:!bg-blue-600 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 h-full border border-gray-100">
-                              <div className="p-3">
-                                <div className="flex items-center justify-between mb-3">
-                                  <h3 className="text-lg font-semibold text-gray-800 group-hover:text-white">
-                                    {group.name}
-                                  </h3>
-                                </div>
-                                <div className="flex items-center space-x-2 text-gray-600 group-hover:text-white">
-                                  <p className="text-sm">
-                                    {group.specialty.name}
-                                  </p>
-                                </div>
-                              </div>
+                  {filteredGroups.length > 0 ? (
+                    filteredGroups.map((group, index) => (
+                      <div
+                        className="hover:scale-105 group transition-all duration-200 w-full lg:w-1/5 sm:w-1/2 md:w-1/3 cursor-pointer"
+                        key={index}
+                        onClick={() => goDetails(group.id)}
+                      >
+                        <div className="bg-white group-hover:!bg-blue-600 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 h-full border border-gray-100">
+                          <div className="p-3">
+                            <div className="flex items-center justify-between mb-3">
+                              <h3 className="text-lg font-semibold text-gray-800 group-hover:text-white">
+                                {group.name}
+                              </h3>
+                            </div>
+                            <div className="flex items-center space-x-2 text-gray-600 group-hover:text-white">
+                              <p className="text-sm">{group.specialty.name}</p>
                             </div>
                           </div>
-                        );
-                      }
-                      return null;
-                    })
+                        </div>
+                      </div>
+                    ))
                   ) : (
                     <div className="w-full py-12 text-center">
                       <div className="max-w-md mx-auto p-6 bg-gray-50 rounded-xl">
-                        <svg
-                          className="w-12 h-12 mx-auto text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1.5}
-                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
                         <h3 className="mt-3 text-lg font-medium text-gray-900">
                           Guruhlar topilmadi
                         </h3>
                         <p className="mt-2 text-gray-500">
-                          Tanlangan kafedraga oid guruhlar mavjud emas.
+                          Tanlangan kafedraga oid yoki qidiruvga mos guruhlar
+                          mavjud emas.
                         </p>
                       </div>
                     </div>
                   )}
+                  <div className="w-full text-center mt-10">
+                    <p className="text-gray-700 font-bold text-2xl">
+                      Topilgan guruhlar soni:{" "}
+                      <span className="font-bold text-blue-600">
+                        {filteredGroups.length} ta
+                      </span>
+                    </p>
+                  </div>
                 </div>
               )}
             </div>

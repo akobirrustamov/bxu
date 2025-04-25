@@ -61,6 +61,7 @@ import MyProfile from "./staff/MyProfile";
 import DailyControlStaff from "./staff/daily-control/DailyControl";
 import Subfolder from "./staff/daily-control/Subfolder";
 import GroupDetails from "./staff/group/DetailGroupe";
+import DarsJadvalHafta from "./staff/group/DarsJadvalHafta";
 
 import axios from "axios";
 
@@ -239,6 +240,7 @@ function App() {
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route path={"/mobil/groups"} element={<Group />} />
         <Route path="/mobil/groups/:id" element={<GroupDetails />} />
+        <Route path="/mobil/groups/dasr-jadval/:id" element={<DarsJadvalHafta />} />
         <Route path={"/mobil/timetable"} element={<DarsJadvali />} />
         <Route path={"/mobil/profile"} element={<MyProfile />} />
         <Route path={"/mobil/daily-control"} element={<DailyControlStaff />} />

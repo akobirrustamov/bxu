@@ -2,17 +2,23 @@ import React, { useEffect, useState } from "react";
 import newbg from "./../images/newbg.jpg";
 import { useParams } from "react-router-dom";
 import ApiCall from "../../config/index";
+import Loading from "../components/Loading";
 import Sidebar from "../Sidebar";
 
 const DetailGroupe = () => {
   const { id } = useParams();
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    fetchStudents();
+    fetchGroups();
+  }, []);
   const fetchStudents = async () => {
     let AllStudents = [];
     let obj = {
-      endpoint: `/v1/data/student-list?_group=${id}`,
+      endpoint: `/v1/data/student-list?limit=100&_group=${id}`,
       method: "GET",
       data: null,
     };
@@ -26,10 +32,21 @@ const DetailGroupe = () => {
     setStudents(AllStudents);
     setLoading(false);
   };
+  const fetchGroups = async () => {
+    let obj = {
+      endpoint: "/v1/data/group-list?id=" + id,
+      method: "GET",
+      data: null,
+    };
+    const response = await ApiCall(`/api/v1/hemis`, "POST", obj);
 
-  useEffect(() => {
-    fetchStudents();
-  }, []);
+    if (response.data.success && response.data.data) {
+      let name = response.data.data.items[0].name;
+      setName(name);
+    } else {
+      console.error("Failed to fetch groups:", response.message);
+    }
+  };
 
   return (
     <div className="flex">
@@ -42,19 +59,96 @@ const DetailGroupe = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <h1 className="text-2xl font-bold mb-4">Guruh ID: {id}</h1>
-
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-          </div>
+          <Loading />
         ) : students.length !== 0 ? (
-          <div>
-            <div>
-              <h2 className="text-xl font-semibold mb-4">Talabalar ro'yxati</h2>
-              <p className="text-gray-600 mb-4">
-                Guruhdagi talabalar soni: {students.length}
-              </p>
+          <div className="px-14">
+            <div className="overflow-x-auto bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-lg mb-6 p-6 text-white">
+              <div className="flex justify-between items-start ">
+                <div>
+                  <h2 className="text-2xl font-bold mb-1 flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                    {name} guruhi talabalar ro'yxati
+                  </h2>
+                  <p className="text-blue-100 flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+                    Guruhdagi talabalar soni:{" "}
+                    <span className="font-semibold text-white ml-1">
+                      {students.length}
+                    </span>
+                  </p>
+                </div>
+
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => {
+                      window.location.href = `/mobil/groups/dasr-jadval/${id}`;
+                    }}
+                    className="bg-white text-blue-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                      />
+                    </svg>
+                    Dars Jadvali
+                  </button>
+                  <button className="bg-yellow-400 text-blue-800 hover:bg-yellow-300 font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    Davomat Jurnali
+                  </button>
+                </div>
+              </div>
+
+              {/* Bu yerga jadval yoki boshqa kontent qo'shishingiz mumkin */}
             </div>
             <div className="overflow-x-auto bg-white rounded-lg shadow">
               <table className="min-w-full divide-y divide-gray-200">
