@@ -92,6 +92,7 @@ import Buyruqlar from "./staff/commands/buyruq/Buyruqlar";
 import InProgress from "./staff/commands/buyruq/InProgress";
 import Pending from "./staff/commands/buyruq/Pending";
 import Completed from "./staff/commands/buyruq/Completed";
+import NomenklaturaFolder from "./staff/nomenklatura/NomenklaturaFolder";
 
 
 function App() {
@@ -238,6 +239,7 @@ function App() {
         <Route path={"/mobil/commands/buyruqlar/completed"} element={<Completed />} />
         {/* <Route path={"/mobil/commands/buyruq/ccccc"} element={<BatafsilBuyruq />} /> */}
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
+        <Route path={"/mobil/nomenklatura-detail"} element={<NomenklaturaFolder />} />
         <Route path={"/mobil/groups"} element={<Group />} />
         <Route path="/mobil/groups/:id" element={<GroupDetails />} />
         <Route path="/mobil/groups/dasr-jadval/:id" element={<DarsJadvalHafta />} />

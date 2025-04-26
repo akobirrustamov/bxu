@@ -59,7 +59,8 @@ function Nomenklatura(props) {
 
     const handleNavigateToDetail = useCallback((item, number) => {
         const updatedItem = { ...item, folder: number };
-        navigate("/nomenklatura-detail", { state: { itemData: updatedItem } });
+        navigate("/mobil/nomenklatura-detail", { state: { itemData: updatedItem } });
+
     }, [navigate]);
 
     const renderSubFolderCard = (subFolder, item) => (
