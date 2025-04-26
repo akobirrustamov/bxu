@@ -237,7 +237,7 @@ function App() {
         <Route path={"/mobil/commands/buyruqlar/jarayonda"} element={<InProgress />} />
         <Route path={"/mobil/commands/buyruqlar/kutilmoqda"} element={<Pending />} />
         <Route path={"/mobil/commands/buyruqlar/completed"} element={<Completed />} />
-        {/* <Route path={"/mobil/commands/buyruq/ccccc"} element={<BatafsilBuyruq />} /> */}
+        <Route path={"/mobil/commands/buyruqlar/batafsil"} element={<BatafsilBuyruq />} />
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route path={"/mobil/nomenklatura-detail"} element={<NomenklaturaFolder />} />
         <Route path={"/mobil/groups"} element={<Group />} />

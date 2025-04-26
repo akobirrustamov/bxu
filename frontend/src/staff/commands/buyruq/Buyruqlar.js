@@ -27,7 +27,7 @@ const Buyruqlar = () => {
 
       // Делаем API-запрос
       const response = await ApiCall(`/api/v1/app/staff/commands/buyruq/statistic/${token}`, "GET");
-      if (response.status === 200 && response.data) {
+      if (response.error === false && response.data) {
         setStatistic(response.data);
       } else {
         console.log("Failed to fetch commands.");

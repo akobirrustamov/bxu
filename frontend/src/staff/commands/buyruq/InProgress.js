@@ -40,7 +40,7 @@ function InProgress() {
     const getMyCommands = async (id) => {
         try {
             const token = localStorage.getItem("token");
-            const response = await ApiCall(`/api/v1/app/staff/commands/${id}/2`, "GET");
+            const response = await ApiCall(`/api/v1/app/staff/commands/${token}/2`, "GET");
             if (response?.error === false && response.data) {
                 setCommands(response.data);
                 setFilteredCommands(response.data);
@@ -84,7 +84,7 @@ function InProgress() {
     };
 
     const handleNavigateToDetail = useCallback((item) => {
-        navigate("/batafsil", { state: { itemData: item } });
+        navigate("/mobil/commands/buyruqlar/batafsil", { state: { itemData: item } });
     }, [navigate]);
 
     const renderCommandItem = ({ item }) => {
@@ -115,7 +115,7 @@ function InProgress() {
         }
 
         return (
-            <div className="bg-white shadow rounded p-4 mb-4">
+            <div className="bg-white shadow rounded p-4 mt-4">
                 <h2 className="text-xl font-semibold">{item.text}</h2>
 
                 <p className="mt-2 text-gray-700 cursor-pointer" onClick={() => toggleExpanded(item.id)}>
@@ -168,8 +168,8 @@ function InProgress() {
                 backgroundRepeat: "repeat",
             }}>
 
-                <div className="flex flex-col items-center">
-                    <div className="w-full bg-gray-100 p-4">
+                <div className="flex items-center">
+                    <div className="w-full p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv.."
