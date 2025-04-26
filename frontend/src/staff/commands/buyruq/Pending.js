@@ -69,7 +69,7 @@ const Pending = () => {
 
     const handleNavigateToDetail = useCallback(
         (item) => {
-            navigate("/batafsil", { state: { itemData: item } });
+            navigate("/mobil/commands/buyruqlar/batafsil", { state: { itemData: item } });
         },
         [navigate]
     );

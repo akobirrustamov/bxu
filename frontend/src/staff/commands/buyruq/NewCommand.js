@@ -85,7 +85,7 @@ const NewCommand = () => {
                     const defaultCommander = com.data[0];
                     setSelectedCommander(defaultCommander);
                     setSelectedRole(defaultCommander.rank.id);
-                    const resListStaff = await ApiCall(`/api/v1/app/commander/list-staff/${defaultCommander.rank.id}`, "GET");
+                    const resListStaff = await ApiCall(`/api/v1/app/commander/list-staff/${defaultCommander?.rank?.id}`, "GET");
                     setStaffList(resListStaff.data);
                 }
             }
@@ -159,7 +159,9 @@ const NewCommand = () => {
             const response = await ApiCall('/api/v1/app/command', "POST", submissionData);
             if (response.error === false) {
                 toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
-                navigate("/mobil/commands/buyruqlar");
+                setTimeout(() => {
+                    navigate("/mobil/commands/buyruqlar");
+                }, 2000);
             } else {
                 toast.error("Xatolik! Malumot yuborilmadi.");
             }

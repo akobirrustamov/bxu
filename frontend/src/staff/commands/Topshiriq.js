@@ -29,9 +29,9 @@ function Topshiriq() {
                     ApiCall('/api/v1/app/staff/commander/' + token, 'GET'),
                 ]);
 
-                console.log("Profile:", profile);
-                console.log("rank:", rankRes);
-                console.log("conk:", commanderRes);
+                // console.log("Profile:", profile);
+                // console.log("rank:", rankRes);
+                // console.log("conk:", commanderRes);
 
                 if (profile.error === false && profile.data) {
                     setAdministrator(profile.data);

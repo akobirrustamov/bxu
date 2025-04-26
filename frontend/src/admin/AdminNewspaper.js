@@ -97,7 +97,7 @@ const AdminNews = () => {
         formData.append('prefix', prefix);
 
         try {
-            const response = await ApiCall('/api/v1/file/upload', 'POST', formData, null, true);
+            const response = await ApiCall('/api/v1/file/upload', 'POST', formData, null, );
             return response.data; // Return the UUID of the uploaded image
         } catch (error) {
             console.error("Error uploading image:", error);
