@@ -93,6 +93,10 @@ import InProgress from "./staff/commands/buyruq/InProgress";
 import Pending from "./staff/commands/buyruq/Pending";
 import Completed from "./staff/commands/buyruq/Completed";
 import NomenklaturaFolder from "./staff/nomenklatura/NomenklaturaFolder";
+import Topshiriqlar from "./staff/commands/topshiriqlarim/Topshiriqlar";
+import NewTopshiriq from "./staff/commands/topshiriqlarim/NewTopshiriq";
+import InProgressTopshiriq from "./staff/commands/topshiriqlarim/InProgress";
+import JavobTopshiriq from "./staff/commands/topshiriqlarim/JavobTopshiriq";
 
 
 function App() {
@@ -238,6 +242,10 @@ function App() {
         <Route path={"/mobil/commands/buyruqlar/kutilmoqda"} element={<Pending />} />
         <Route path={"/mobil/commands/buyruqlar/completed"} element={<Completed />} />
         <Route path={"/mobil/commands/buyruqlar/batafsil"} element={<BatafsilBuyruq />} />
+        <Route path={"/mobil/commands/topshiriqlarim"} element={<Topshiriqlar />} />
+        <Route path={"/mobil/commands/topshiriqlarim/newtopshiriq"} element={<NewTopshiriq />} />
+        <Route path={"/mobil/commands/topshiriqlarim/jarayonda"} element={<InProgressTopshiriq />} />
+        <Route path={"/mobil/commands/topshiriqlarim/javobtopshiriq"} element={<JavobTopshiriq />} />
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route path={"/mobil/nomenklatura-detail"} element={<NomenklaturaFolder />} />
         <Route path={"/mobil/groups"} element={<Group />} />

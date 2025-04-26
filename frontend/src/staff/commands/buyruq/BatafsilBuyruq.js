@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaArchive, FaClock, FaUser, FaFileAlt, FaDownload, FaStar } from "react-icons/fa";
+import { FaArchive, FaClock, FaUser, FaFileAlt, FaDownload } from "react-icons/fa";
 import ApiCall, { baseUrl } from "../../../config/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import newbg from "../../../staff/images/newbg.jpg";
@@ -41,15 +41,63 @@ function BatafsilBuyruq() {
         fetchHistory();
     }, [item.id]);
 
-    const handleFileDownload = async (file) => {
-        const url = `${baseUrl}/api/v1/file/getFile/${file.id}`;
-        window.open(url, "_blank");
+    const downloadFile = async (item) => {
+        try {
+            // Fetch the PDF from the server
+            const response = await fetch(`${baseUrl}/api/v1/file/getFile/${item?.id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/pdf',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to download file");
+            }
+
+            // Convert response to blob
+            const blob = await response.blob();
+
+            // Create a temporary link to trigger download
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `${item.name}`; // Change the name as desired
+            document.body.appendChild(link);
+            link.click();
+
+            // Cleanup the link
+            link.remove();
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error("Error downloading file:", error);
+        }
+    };
+
+    const handleFileUpload = async () => {
+        if (!fileUri) return null;
+
+        const formData = new FormData();
+        formData.append("file", fileUri);
+
+        try {
+            const res = await fetch(`${baseUrl}/api/v1/file/upload`, {
+                method: "POST",
+                body: formData,
+            });
+            const data = await res.json();
+            if (data?.error === false) return data.data?.id;
+            else throw new Error(data?.message || "File upload error");
+        } catch (err) {
+            console.error("Upload failed:", err);
+            return null;
+        }
     };
 
     const handleReject = async () => {
         setIsLoading(true);
         try {
-            const fileId = fileUri ? null : await handleFileUpload();
+            const fileId = fileUri ? await handleFileUpload() : null;
             const obj = { responseText, fileId };
 
             const res = await ApiCall(`/api/v1/app/staff/reject/${item?.id}`, "POST", obj);
@@ -58,10 +106,6 @@ function BatafsilBuyruq() {
             console.error(err);
         }
         setIsLoading(false);
-    };
-
-    const handleFileUpload = async () => {
-        // To be implemented
     };
 
     const handleAccept = async () => {
@@ -82,7 +126,6 @@ function BatafsilBuyruq() {
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
-
                 <div className="p-6 max-w-6xl mx-auto rounded-lg ">
 
                     <div className="bg-white p-4 rounded shadow mb-4">
@@ -96,7 +139,7 @@ function BatafsilBuyruq() {
                         {item?.file && (
                             <div className="mt-3 flex items-center">
                                 <FaFileAlt className="mr-2" />
-                                <button onClick={() => handleFileDownload(item.file)} className="text-blue-600 underline">
+                                <button onClick={() => downloadFile(item.file)} className="text-blue-600 underline">
                                     {item.file.name?.split("_").slice(1).join("_")}
                                 </button>
                                 <FaDownload className="ml-2 text-gray-500" />
@@ -130,8 +173,17 @@ function BatafsilBuyruq() {
                                     placeholder="Sabab matni"
                                     className="w-full border rounded p-2 mb-3"
                                 />
-                                <button onClick={handleReject} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                                    Yuborish
+                                <input
+                                    type="file"
+                                    onChange={(e) => {
+                                        setFileName(e.target.files[0]?.name);
+                                        setFileUri(e.target.files[0]);
+                                    }}
+                                    className="mb-3"
+                                />
+                                {fileName && <p className="text-sm text-gray-700 mb-2">Yuklanadigan fayl: {fileName}</p>}
+                                <button onClick={handleReject} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" disabled={isLoading}>
+                                    {isLoading ? "Yuborilmoqda..." : "Yuborish"}
                                 </button>
                             </div>
                         )}

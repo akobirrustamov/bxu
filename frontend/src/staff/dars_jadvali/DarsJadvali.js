@@ -7,31 +7,25 @@ import Loading from "../components/Loading";
 function DarsJadvali() {
   const [jadval, setJadval] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [weekRange, setWeekRange] = useState("");
+  const [todayDate, setTodayDate] = useState("");
 
   useEffect(() => {
     fetchJadval();
   }, []);
 
-  const getWeekTimestamps = () => {
+  const getTodayTimestamps = () => {
     const now = new Date();
-    const dayOfWeek = now.getUTCDay();
-    const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-    const sundayOffset = 7 - dayOfWeek;
-
-    const monday = new Date(now);
-    monday.setUTCDate(now.getUTCDate() + mondayOffset);
-    monday.setUTCHours(0, 0, 0, 0);
-
-    const sunday = new Date(now);
-    sunday.setUTCDate(now.getUTCDate() + sundayOffset);
-    sunday.setUTCHours(23, 59, 59, 999);
+    const startOfDay = new Date(
+      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)
+    );
+    const endOfDay = new Date(
+      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59)
+    );
 
     return {
-      todayTimestamp: Math.floor(monday.getTime() / 1000),
-      tomorrowTimestamp: Math.floor(sunday.getTime() / 1000),
-      monday,
-      sunday,
+      todayTimestamp: Math.floor(startOfDay.getTime() / 1000),
+      tomorrowTimestamp: Math.floor(endOfDay.getTime() / 1000),
+      today: startOfDay,
     };
   };
 
@@ -46,9 +40,8 @@ function DarsJadvali() {
     try {
       setLoading(true);
       let allLessons = [];
-      let { todayTimestamp, tomorrowTimestamp, monday, sunday } =
-        getWeekTimestamps();
-      setWeekRange(`${formatDate(monday)} - ${formatDate(sunday)}`);
+      const { todayTimestamp, tomorrowTimestamp, today } = getTodayTimestamps();
+      setTodayDate(formatDate(today));
 
       let page = 1;
       let hasNextPage = true;
@@ -102,8 +95,7 @@ function DarsJadvali() {
   };
 
   const groupedLessons = groupByGroupName();
-
-  const lessonNumbers = [1, 2, 3, 4, 5, 6]; // 6 dars bor inobatga olindi
+  const lessonNumbers = [1, 2, 3, 4, 5, 6];
 
   return (
     <div className="flex">
@@ -120,16 +112,19 @@ function DarsJadvali() {
           <div className="max-w-7xl mx-auto">
             {/* Sarlavha */}
             <div className="text-center mb-2">
-              <h1 className="text-4xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                📚 Dars Jadvali{" "}
-                <span className="text-blue-400">({weekRange})</span>
+              <h1>
+                📚{" "}
+                <span className="text-4xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                  Bugungi Dars Jadvali{" "}
+                </span>
+                <span className="text-blue-400">({todayDate})</span>
               </h1>
               <div className="mt-2 text-xl font-semibold text-blue-700 bg-white inline-block px-6 py-2 rounded-lg border-2 border-blue-300 shadow-md">
-                📅 Bugun{" "}
+                📅{" "}
                 <span className="font-bold text-purple-600">
                   {Object.keys(groupedLessons).length}
                 </span>{" "}
-                ta guruh uchun dars belgilangan
+                ta guruh uchun darslar
               </div>
             </div>
 

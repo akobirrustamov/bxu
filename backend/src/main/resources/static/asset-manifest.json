@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.afd0a70d.css",
-    "main.js": "/static/js/main.7a969cc2.js",
+    "main.css": "/static/css/main.4e771567.css",
+    "main.js": "/static/js/main.043b1b00.js",
     "static/js/453.a074a449.chunk.js": "/static/js/453.a074a449.chunk.js",
-    "static/media/simpozium.jpg": "/static/media/simpozium.1327983be01ba8fbaada.jpg",
+    "static/media/simpozium.JPG": "/static/media/simpozium.1327983be01ba8fbaada.JPG",
     "static/media/gimn.mp3": "/static/media/gimn.e71423c07edf4a192a39.mp3",
     "static/media/1.jpg": "/static/media/1.7a58f24772e0304874ee.jpg",
     "static/media/pri.jpg": "/static/media/pri.9c2e223957897ec37636.jpg",
-    "static/media/world.svg": "/static/media/world.b07a54185c682e4cc7a6.svg",
+    "static/media/world.svg": "/static/media/world.72aeb4362762fe1731d7.svg",
     "static/media/bino4.png": "/static/media/bino4.32b7422c7537e9e90ce3.png",
     "static/media/bino22.png": "/static/media/bino22.608ce601f1529034607d.png",
     "static/media/2.png": "/static/media/2.788fc1a231797587600a.png",
@@ -64,7 +64,7 @@
     "static/media/image12.png": "/static/media/image12.557cc80d4a7ddaeb3f4b.png",
     "static/media/symbol5.png": "/static/media/symbol5.8f65541ddbb58d661006.png",
     "static/media/symbol6.png": "/static/media/symbol6.1eeed77d50ff86b58349.png",
-    "static/media/qrcode.svg": "/static/media/qrcode.75b8fa3dbb030379e038c95d9630e937.svg",
+    "static/media/qrcode.svg": "/static/media/qrcode.cdfff3bfd735d91b456028c1e1ab7d00.svg",
     "static/media/image4.png": "/static/media/image4.eb29eeff325d92e2f1aa.png",
     "static/media/image5.png": "/static/media/image5.7d535cc14fece2e4946b.png",
     "static/media/image13.png": "/static/media/image13.8cc21c62d1b1481dc4da.png",
@@ -137,12 +137,12 @@
     "index.html": "/index.html",
     "static/media/react-bootstrap-carousel.woff": "/static/media/react-bootstrap-carousel.96e0693824065d5b7d56.woff",
     "static/media/react-bootstrap-carousel.svg": "/static/media/react-bootstrap-carousel.190d0d1bf1c865be7a1b.svg",
-    "main.afd0a70d.css.map": "/static/css/main.afd0a70d.css.map",
-    "main.7a969cc2.js.map": "/static/js/main.7a969cc2.js.map",
+    "main.4e771567.css.map": "/static/css/main.4e771567.css.map",
+    "main.043b1b00.js.map": "/static/js/main.043b1b00.js.map",
     "453.a074a449.chunk.js.map": "/static/js/453.a074a449.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.afd0a70d.css",
-    "static/js/main.7a969cc2.js"
+    "static/css/main.4e771567.css",
+    "static/js/main.043b1b00.js"
   ]
 }

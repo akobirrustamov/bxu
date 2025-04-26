@@ -5,7 +5,9 @@ import { toast, ToastContainer } from "react-toastify";
 import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
 
+
 const Completed = () => {
+    const navigate = useNavigate();
     const [administrator, setAdministrator] = useState(null);
     const [commands, setCommands] = useState([]);
     const [filteredCommands, setFilteredCommands] = useState([]);
@@ -69,9 +71,8 @@ const Completed = () => {
     };
 
     const handleNavigateToDetail = useCallback((item) => {
-        // Navigate to detail page (implement navigation logic here)
-        toast(`Navigating to detail page for: ${item.text}`);
-    }, []);
+        navigate("/mobil/commands/buyruqlar/batafsil", { state: { itemData: item } });
+    }, [navigate]);
 
     const renderCommandItem = (item, index) => {
         const toggleExpanded = (id) => {
@@ -125,7 +126,7 @@ const Completed = () => {
                     onClick={() => handleNavigateToDetail(item)}
                     className="mt-4 text-blue-500 hover:underline"
                 >
-                    More Details
+                    Batafsil..
                 </button>
             </div>
         );
@@ -139,7 +140,7 @@ const Completed = () => {
                 backgroundRepeat: "repeat",
             }}>
                 <div className="flex flex-col items-center">
-                    <div className="w-full bg-gray-100 p-4">
+                    <div className="w-full p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv..."

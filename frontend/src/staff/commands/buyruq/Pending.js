@@ -145,7 +145,7 @@ const Pending = () => {
                 backgroundRepeat: "repeat",
             }}>
                 <div className="flex flex-col items-center" style={{ backgroundImage: `url(${newbg})` }}>
-                    <div className="w-full bg-gray-100 p-4">
+                    <div className="w-full p-4">
                         <input
                             type="text"
                             value={searchName}
