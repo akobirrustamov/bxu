@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import ApiCall, { baseUrl } from "../../config/index";
 import Loading from "../components/Loading";
 import Sidebar from "../Sidebar";
-import { saveAs } from "file-saver";
 
 const DetailGroupe = () => {
   const { id } = useParams();
@@ -59,30 +58,32 @@ const DetailGroupe = () => {
     }
   };
 
-  const downloadAttendance = async (groupId) => {
+  const downloadAttendance = async (id) => {
     try {
       setDownloading(true);
-      // const url = `${BASE_URL}/api/v1/app/attendance/${groupId}`; // local backend
+      const response = await fetch(`${baseUrl}/api/v1/app/attendance/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/pdf",
+        },
+      });
 
-      // const response = await fetch(url, {
-      //   method: "GET",
-      // });
-      const response = await fetch(
-        `${baseUrl}/api/v1/app/attendance/${groupId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/pdf",
-          },
-        }
-      );
       if (!response.ok) {
         throw new Error("Failed to download file");
       }
 
       const blob = await response.blob();
-      const fileName = `davomat_${groupId}.xlsx`;
-      saveAs(blob, fileName);
+
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      const fileName = `${name}-guruhi-davomati.xlsx`; 
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+
+      link.remove();
+      window.URL.revokeObjectURL(downloadUrl);
     } catch (error) {
       console.error("Error downloading file:", error);
       alert("Faylni yuklashda xatolik yuz berdi!");
