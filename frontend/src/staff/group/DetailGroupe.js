@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import newbg from "./../images/newbg.jpg";
-import { useParams } from "react-router-dom";
 import ApiCall, { baseUrl } from "../../config/index";
 import Loading from "../components/Loading";
+import { useParams } from "react-router-dom";
 import Sidebar from "../Sidebar";
 
 const DetailGroupe = () => {
