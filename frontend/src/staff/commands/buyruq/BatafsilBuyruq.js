@@ -99,28 +99,34 @@ function BatafsilBuyruq() {
     };
 
 
-    const handleReject = async () => {
-        setIsLoading(true);
-        try {
-            const fileId = fileUri ? null : await handleFileUpload();
-            console.log(fileId);
-
-            const obj = { responseText, fileId };
-
-            const res = await ApiCall(`/api/v1/app/staff/reject/${item?.id}`, "POST", obj);
-            console.log(res);
-
-            if (res.error === false) {
-                toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
-                setTimeout(() => {
-                    navigate("/mobil/commands/buyruqlar");
-                }, 500);
-            }
-        } catch (err) {
-            console.error(err);
+const handleReject = async () => {
+    setIsLoading(true);
+    try {
+        let uploadedFileId = null;
+        if (fileUri) {
+            uploadedFileId = await handleFileUpload();
         }
-        setIsLoading(false);
-    };
+
+        const obj = {
+            responseText,
+            fileId: uploadedFileId,
+        };
+
+        const res = await ApiCall(`/api/v1/app/staff/reject/${item?.id}`, "POST", obj);
+        console.log(res);
+
+        if (res.error === false) {
+            toast.success("Muvaffaqiyatli! Ma'lumotlar yuborildi.");
+            setTimeout(() => {
+                navigate("/mobil/commands/buyruqlar");
+            }, 500);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+    setIsLoading(false);
+};
+
 
     const handleAccept = async () => {
         setIsLoading(true);
