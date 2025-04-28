@@ -58,7 +58,7 @@ const Topshiriqlar = () => {
 
                     {/* Yangi topshiriq */}
                     <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
+                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
                         onClick={() => navigate("/mobil/commands/topshiriqlarim/newtopshiriq")}
                     >
                         <FontAwesomeIcon icon={faInbox} size="3x" className="text-white" />
@@ -72,7 +72,7 @@ const Topshiriqlar = () => {
 
                     {/* Jarayonda */}
                     <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
+                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
                         onClick={() => navigate("/mobil/commands/topshiriqlarim/jarayonda")}
                     >
                         <FontAwesomeIcon icon={faAreaChart} size="3x" className="text-white" />
@@ -86,7 +86,7 @@ const Topshiriqlar = () => {
 
                     {/* Kutilmoqda */}
                     <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
+                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
                         onClick={() => navigate("/mobil/commands/topshiriqlarim/kutilmoqda")}
                     >
                         <FontAwesomeIcon icon={faHandshake} size="3x" className="text-white" />
@@ -100,7 +100,7 @@ const Topshiriqlar = () => {
 
                     {/* Bajarilgan */}
                     <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
+                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
                         onClick={() => navigate("/mobil/commands/topshiriqlarim/completed")}
                     >
                         <FontAwesomeIcon icon={faCheck} size="3x" className="text-white" />

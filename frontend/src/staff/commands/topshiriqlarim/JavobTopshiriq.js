@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArchive, faClock, faUser, faFile, faDownload } from "@fortawesome/free-solid-svg-icons";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ApiCall, { baseUrl } from "../../../config/index";
 import newbg from "../../../staff/images/newbg.jpg";
 import Sidebar from '../../Sidebar';
@@ -85,8 +85,10 @@ const JavobTopshiriq = ({ goBack }) => {
             const response = await ApiCall(`/api/v1/app/staff/my-commands/${item.id}`, "PUT", payload);
 
             if (response.error === false) {
-                toast.success("Response submitted successfully");
-                navigate(-1)
+                toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
+                setTimeout(() => {
+                    navigate("/mobil/commands/topshiriqlarim");
+                }, 500);
             } else {
                 toast.error("Failed to submit response");
             }

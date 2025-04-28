@@ -162,7 +162,7 @@ const NewCommand = () => {
                 toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
                 setTimeout(() => {
                     navigate("/mobil/commands/buyruqlar");
-                }, 2000);
+                }, 500);
             } else {
                 toast.error("Xatolik! Malumot yuborilmadi.");
             }
@@ -273,7 +273,7 @@ const NewCommand = () => {
                     </button>
                 </div>
             </div>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer position="top-right" autoClose={2000} />
         </div>
     );
 };

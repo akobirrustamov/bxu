@@ -4,11 +4,14 @@ import ApiCall, { baseUrl } from "../../../config/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import newbg from "../../../staff/images/newbg.jpg";
 import Sidebar from '../../Sidebar';
+import { ToastContainer, toast } from "react-toastify";
 
 function BatafsilBuyruq() {
     const { state } = useLocation();
     const navigate = useNavigate();
     const item = state?.itemData;
+    // console.log(item);
+
 
     const [history, setHistory] = useState([]);
     const [accept, setAccept] = useState(0);
@@ -75,18 +78,19 @@ function BatafsilBuyruq() {
     };
 
     const handleFileUpload = async () => {
-        if (!fileUri) return null;
-
-        const formData = new FormData();
-        formData.append("file", fileUri);
 
         try {
-            const res = await fetch(`${baseUrl}/api/v1/file/upload`, {
-                method: "POST",
-                body: formData,
-            });
+            if (!fileUri || !fileName) {
+                return null;
+            }
+            const formData = new FormData();
+            formData.append("photo", fileUri);
+            formData.append("prefix", `/command/${item.commandStaff.name}`);
+            const res = await ApiCall('/api/v1/file/upload', "POST", formData);
             const data = await res.json();
-            if (data?.error === false) return data.data?.id;
+            console.log(res.data)
+            if (data?.error === false)
+                return data.data?.id;
             else throw new Error(data?.message || "File upload error");
         } catch (err) {
             console.error("Upload failed:", err);
@@ -94,14 +98,24 @@ function BatafsilBuyruq() {
         }
     };
 
+
     const handleReject = async () => {
         setIsLoading(true);
         try {
-            const fileId = fileUri ? await handleFileUpload() : null;
+            const fileId = fileUri ? null : await handleFileUpload();
+            console.log(fileId);
+
             const obj = { responseText, fileId };
 
             const res = await ApiCall(`/api/v1/app/staff/reject/${item?.id}`, "POST", obj);
-            if (res.error === false) navigate(-1);
+            console.log(res);
+
+            if (res.error === false) {
+                toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
+                setTimeout(() => {
+                    navigate("/mobil/commands/buyruqlar");
+                }, 500);
+            }
         } catch (err) {
             console.error(err);
         }
@@ -112,7 +126,12 @@ function BatafsilBuyruq() {
         setIsLoading(true);
         try {
             const res = await ApiCall(`/api/v1/app/staff/completed/${item?.id}/5`, "POST");
-            if (res.error === false) navigate(-1);
+            if (res.error === false) {
+                toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
+                setTimeout(() => {
+                    navigate("/mobil/commands/buyruqlar");
+                }, 500);
+            }
         } catch (err) {
             console.error(err);
         }
@@ -136,13 +155,22 @@ function BatafsilBuyruq() {
                         <p><FaUser className="inline mr-2" /> <strong>Buyruq beruvchi:</strong> {item?.commandStaff?.name}</p>
                         <p><FaUser className="inline mr-2" /> <strong>Bajaruvchi:</strong> {item?.staff?.name}</p>
 
-                        {item?.file && (
-                            <div className="mt-3 flex items-center">
-                                <FaFileAlt className="mr-2" />
-                                <button onClick={() => downloadFile(item.file)} className="text-blue-600 underline">
-                                    {item.file.name?.split("_").slice(1).join("_")}
-                                </button>
-                                <FaDownload className="ml-2 text-gray-500" />
+                        {item?.file && item?.responseFile && (
+                            <div className="mt-3 items-center">
+                                <div className="flex items-center mb-2">
+                                    <FaFileAlt className="mr-2" />
+                                    <button onClick={() => downloadFile(item.file)} className="text-blue-600 underline">
+                                        {item.file.name?.split("_").slice(1).join("_")}
+                                    </button>
+                                    <FaDownload className="ml-2 text-gray-500" />
+                                </div>
+                                <div className="flex items-center mb-2">
+                                    <FaFileAlt className="mr-2" />
+                                    <button onClick={() => downloadFile(item.file)} className="text-blue-600 underline">
+                                        {item.responseFile.name?.split("_").slice(1).join("_")}
+                                    </button>
+                                    <FaDownload className="ml-2 text-gray-500" />
+                                </div>
                             </div>
                         )}
 
@@ -202,6 +230,7 @@ function BatafsilBuyruq() {
                     </div>
                 </div>
             </div>
+            <ToastContainer position="top-right" autoClose={2000} />
         </div>
     );
 }

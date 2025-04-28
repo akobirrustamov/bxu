@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ApiCall from "../../../config/index";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import Loading from "../../components/Loading";
 import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
 
@@ -98,7 +99,7 @@ const Completed = () => {
         }
 
         return (
-            <div key={item.id} className="bg-white shadow-md rounded-lg p-4 mb-4">
+            <div key={item.id} className="bg-white shadow-md rounded-lg p-4 mt-4">
                 <div className="font-bold text-lg mb-2">{item.text}</div>
                 <div
                     className="text-sm text-gray-600 cursor-pointer"
@@ -133,31 +134,32 @@ const Completed = () => {
     };
 
     return (
-        <div className='flex'>
+        <div className="flex">
             <Sidebar />
-            <div className="p-4 sm:ml-64 w-full min-h-screen" style={{
+
+            <div className="px-4 sm:ml-64 w-full min-h-screen" style={{
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
-            }}>
-                <div className="flex flex-col items-center">
+            }}
+            >
+                <div className="flex items-center">
                     <div className="w-full p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv..."
-                            className="w-full p-2 border rounded-md"
                             value={searchName}
+                            className="w-full p-2 border rounded-md"
                             onChange={(e) => setSearchName(e.target.value)}
                         />
+                        {isLoading ? (
+                            <Loading />
+                        ) : (
+                            <div className="grid gap-4">
+                                {filteredCommands.map((item, index) =>
+                                    <div key={index}>{renderCommandItem(item)}</div>)}
+                            </div>
+                        )}
                     </div>
-                    {isLoading ? (
-                        <div className="flex justify-center items-center h-64">
-                            <div className="loader">Loading...</div>
-                        </div>
-                    ) : (
-                        <div className="p-4 w-full">
-                            {filteredCommands.map((item, index) => renderCommandItem(item, index))}
-                        </div>
-                    )}
                 </div>
             </div>
             <ToastContainer position="top-right" autoClose={3000} />
