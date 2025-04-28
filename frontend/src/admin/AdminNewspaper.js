@@ -185,7 +185,6 @@ const AdminNews = () => {
 
     const handleDownload = async (item) => {
         try {
-            // Fetch the PDF from the server
             const response = await fetch(`${baseUrl}/api/v1/file/getFile/${item?.mainPhoto?.id}`, {
                 method: 'GET',
                 headers: {
@@ -197,7 +196,6 @@ const AdminNews = () => {
                 throw new Error("Failed to download file");
             }
 
-            // Convert response to blob
             const blob = await response.blob();
 
             // Create a temporary link to trigger download
