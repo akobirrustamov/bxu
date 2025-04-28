@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import ApiCall from "../../../config/index";
 import newbg from "../../../staff/images/newbg.jpg";
 import Sidebar from "../../Sidebar";
+import { toast, ToastContainer } from "react-toastify";
 import { FaArchive, FaClock, FaUser, FaCheck } from "react-icons/fa";
+import Loading from '../../components/Loading';
 
 const Pending = () => {
     const [administrator, setAdministrator] = useState(null);
@@ -27,10 +29,10 @@ const Pending = () => {
                 setAdministrator(response.data);
                 await getMyCommands(response.data.id);
             } else {
-                alert("Failed to fetch profile data.");
+                toast.error("Failed to fetch profile data.");
             }
         } catch (error) {
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         }
     };
 
@@ -43,10 +45,10 @@ const Pending = () => {
                 setCommands(response.data);
                 setFilteredCommands(response.data);
             } else {
-                alert("Failed to fetch commands.");
+                toast.error("Failed to fetch commands.");
             }
         } catch (error) {
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         } finally {
             setIsLoading(false);
         }
@@ -74,7 +76,7 @@ const Pending = () => {
         [navigate]
     );
 
-    const renderCommandItem = ({ item }) => {
+    const renderCommandItem = ( item ) => {
         const isExpanded = expanded === item.id;
         const toggleExpanded = (id) => {
             setExpanded(expanded === id ? 0 : id);
@@ -100,7 +102,7 @@ const Pending = () => {
         }
 
         return (
-            <div className="bg-white rounded shadow p-4 mb-4" key={item.id}>
+            <div className="bg-white rounded shadow p-4 mt-4" key={item.id}>
                 <h2 className="text-lg font-semibold">{item.text}</h2>
                 <p className="mt-2 cursor-pointer text-gray-700" onClick={() => toggleExpanded(item.id)}>
                     <FaArchive className="inline mr-2 text-gray-500" />
@@ -140,31 +142,31 @@ const Pending = () => {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className="p-4 sm:ml-64 w-full min-h-screen" style={{
+            <div className="px-4 sm:ml-64 w-full min-h-screen" style={{
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
-                <div className="flex flex-col items-center" style={{ backgroundImage: `url(${newbg})` }}>
+                <div className="flex items-center">
                     <div className="w-full p-4">
                         <input
                             type="text"
+                            placeholder="Qidiruv..."
+                            className="w-full p-2 border rounded-md"
                             value={searchName}
                             onChange={(e) => setSearchName(e.target.value)}
-                            placeholder="Qidiruv.."
-                            className="w-full p-2 border rounded-md"
                         />
                         {isLoading ? (
-                            <div className="flex justify-center items-center h-40">
-                                <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-                            </div>
+                            <Loading />
                         ) : (
-                            <div className="mt">
-                                {filteredCommands.map((item) => renderCommandItem({ item }))}
+                            <div className="grid gap-4">
+                                {filteredCommands.map((item, index) =>
+                                    <div key={index}>{renderCommandItem(item)}</div>)}
                             </div>
                         )}
                     </div>
                 </div>
             </div>
+            <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );
 };

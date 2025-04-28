@@ -87,10 +87,10 @@ const Completed = () => {
         const remainingHours = Math.floor(timeDifferenceInHours % 24);
         const responseTime = new Date(item.responseTime);
         let circleColor = "bg-red-500";
-        let timeText = `Remaining time: ${Math.abs(timeDifferenceInDays)} days ${Math.abs(remainingHours)} hours`;
+        let timeText = `Qolgan vaqt: ${Math.abs(timeDifferenceInDays)} kun ${Math.abs(remainingHours)} soat`
 
         if (timeDifferenceInHours < 0) {
-            timeText = `Task overdue: ${Math.abs(timeDifferenceInDays)} days and ${Math.abs(remainingHours)} hours ago`;
+            timeText = `Topshiriq muddatida bajarilmadi:${Math.abs(timeDifferenceInDays)} kun va ${Math.abs(remainingHours)} soat o'tdi`;
         } else if (timeDifferenceInHours > 24) {
             circleColor = "bg-green-500";
         } else if (timeDifferenceInHours > 12) {
@@ -107,19 +107,19 @@ const Completed = () => {
                     {expanded === item.id ? item.description : `${item.description.substring(0, 50)}...`}
                 </div>
                 <div className="text-sm text-gray-500 mt-2">
-                    <span className="font-bold">Assigned Date:</span>{" "}
+                    <span className="font-bold">Topshiriq berilgan sana:</span>{" "}
                     {new Date(item.createdAt).toLocaleString()}
                 </div>
                 <div className="text-sm text-gray-500">
-                    <span className="font-bold">Due Date:</span>{" "}
+                    <span className="font-bold">Bajarish muddati:</span>{" "}
                     {tileLimitDate.toLocaleString()}
                 </div>
                 <div className="text-sm text-gray-500">
-                    <span className="font-bold">Completion Date:</span>{" "}
+                    <span className="font-bold">Bajarilgan muddati:</span>{" "}
                     {responseTime.toLocaleString()}
                 </div>
                 <div className="text-sm text-gray-500">
-                    <span className="font-bold">Assigned To:</span>{" "}
+                    <span className="font-bold">Topshiriq bajaruvchi:</span>{" "}
                     {item.staff?.name || "N/A"}
                 </div>
                 <button

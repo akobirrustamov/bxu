@@ -4,7 +4,7 @@ import ApiCall, { baseUrl } from "../../config/index";
 import Loading from "../components/Loading";
 import { useParams } from "react-router-dom";
 import Sidebar from "../Sidebar";
-import { saveAs } from "file-saver";
+// import { saveAs } from "file-saver";
 
 const DetailGroupe = () => {
   const { id } = useParams();
@@ -82,7 +82,7 @@ const DetailGroupe = () => {
 
       const blob = await response.blob();
       const fileName = `davomat_${groupId}.xlsx`;
-      saveAs(blob, fileName);
+      // saveAs(blob, fileName);
     } catch (error) {
       console.error("Error downloading file:", error);
       alert("Faylni yuklashda xatolik yuz berdi!");

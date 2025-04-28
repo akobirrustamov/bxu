@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
 import ApiCall from "../../../config/index";
+import { toast, ToastContainer } from "react-toastify";
+import Loading from "../../components/Loading";
 
 const InProgressTopshiriq = () => {
     const [commands, setCommands] = useState([]);
@@ -10,16 +12,35 @@ const InProgressTopshiriq = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [expanded, setExpanded] = useState(0);
     const navigate = useNavigate();
+    const [searchName, setSearchName] = useState("");
 
     useEffect(() => {
         getMyCommands();
     }, []);
 
+    useEffect(() => {
+        filterCommands()
+    }, [searchName, commands])
+
+    const filterCommands = () => {
+        let filtered = commands
+
+        if (searchName.trim()) {
+            filtered = commands.filter((cmd) =>
+                cmd.commandStaff?.name?.toLowerCase().includes(searchName.toLowerCase()) ||
+                cmd.text?.toLowerCase().includes(searchName.toLowerCase())
+            )
+        }
+        setFilteredCommands(filtered)
+    }
+
+
+
     const getMyCommands = async () => {
         try {
             const token = localStorage.getItem("token");
             if (!token) {
-                alert("Token not found.");
+                toast.error("Token not found.");
                 return;
             }
 
@@ -29,18 +50,16 @@ const InProgressTopshiriq = () => {
                 setCommands(response.data);
                 setFilteredCommands(response.data);
             } else {
-                alert("Error: Failed to fetch commands.");
+                toast.error("Error: Failed to fetch commands.");
             }
         } catch (error) {
-            alert("Error: An unexpected error occurred.");
+            toast.error("Error: An unexpected error occurred.");
         } finally {
             setIsLoading(false);
         }
     };
 
     const handleNavigateToDetail = useCallback((item) => {
-        console.log(item);
-        
         navigate("/mobil/commands/topshiriqlarim/javobtopshiriq", { state: { itemData: item } });
     }, [navigate]);
 
@@ -72,7 +91,7 @@ const InProgressTopshiriq = () => {
         }
 
         return (
-            <div key={item.id} className="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div key={item.id} className="bg-white shadow rounded p-4 mt-4">
                 <h3 className="text-xl font-bold text-gray-800">{item.text}</h3>
                 <p
                     onClick={() => toggleExpanded(item.id)}
@@ -120,26 +139,35 @@ const InProgressTopshiriq = () => {
     };
 
     return (
-        <div className="flex min-h-screen">
+        <div className="flex">
             <Sidebar />
 
-            <div
-                className="flex-1 p-6 overflow-y-auto"
-                style={{
-                    backgroundImage: `url(${newbg})`,
-                    backgroundRepeat: "repeat",
-                }}
+            <div className="px-4 sm:ml-64 w-full min-h-screen" style={{
+                backgroundImage: `url(${newbg})`,
+                backgroundRepeat: "repeat",
+            }}
             >
-                {isLoading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <div className="loader border-t-4 border-indigo-500 rounded-full w-12 h-12 animate-spin"></div>
+                <div className="flex items-center">
+                    <div className="w-full p-4">
+                        <input
+                            type="text"
+                            placeholder="Qidiruv..."
+                            value={searchName}
+                            className="w-full p-2 border rounded-md"
+                            onChange={(e) => setSearchName(e.target.value)}
+                        />
+                        {isLoading ? (
+                            <Loading />
+                        ) : (
+                            <div className="grid gap-4">
+                                {filteredCommands.map((item, index) =>
+                                    <div key={index}>{renderCommandItem(item)}</div>)}
+                            </div>
+                        )}
                     </div>
-                ) : (
-                    <div className="space-y-4 max-w-4xl mx-auto">
-                        {filteredCommands.map((item) => renderCommandItem(item))}
-                    </div>
-                )}
+                </div>
             </div>
+            <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );
 };

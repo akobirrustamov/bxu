@@ -98,6 +98,8 @@ import Topshiriqlar from "./staff/commands/topshiriqlarim/Topshiriqlar";
 import NewTopshiriq from "./staff/commands/topshiriqlarim/NewTopshiriq";
 import InProgressTopshiriq from "./staff/commands/topshiriqlarim/InProgress";
 import JavobTopshiriq from "./staff/commands/topshiriqlarim/JavobTopshiriq";
+import PendingTopshiriq from "./staff/commands/topshiriqlarim/Pending";
+import CompletedTopshiriq from "./staff/commands/topshiriqlarim/Completed";
 
 
 function App() {
@@ -248,7 +250,9 @@ function App() {
         <Route path={"/mobil/commands/topshiriqlarim"} element={<Topshiriqlar />} />
         <Route path={"/mobil/commands/topshiriqlarim/newtopshiriq"} element={<NewTopshiriq />} />
         <Route path={"/mobil/commands/topshiriqlarim/jarayonda"} element={<InProgressTopshiriq />} />
+        <Route path={"/mobil/commands/topshiriqlarim/kutilmoqda"} element={<PendingTopshiriq />} />
         <Route path={"/mobil/commands/topshiriqlarim/javobtopshiriq"} element={<JavobTopshiriq />} />
+        <Route path={"/mobil/commands/topshiriqlarim/completed"} element={<CompletedTopshiriq />} />
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route
           path={"/mobil/nomenklatura-detail"}

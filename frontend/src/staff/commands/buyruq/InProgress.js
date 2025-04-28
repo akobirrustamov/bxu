@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaArchive, FaClock, FaUser, FaCheck } from 'react-icons/fa';
 import newbg from "../../../staff/images/newbg.jpg";
 import Sidebar from '../../Sidebar';
+import Loading from '../../components/Loading';
 
 function InProgress() {
     const [administrator, setAdministrator] = useState(null);
@@ -163,7 +164,7 @@ function InProgress() {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className="p-4 sm:ml-64 w-full min-h-screen" style={{
+            <div className=" sm:ml-64 w-full min-h-screen" style={{
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
@@ -179,12 +180,10 @@ function InProgress() {
                         />
 
                         {isLoading ? (
-                            <div className="flex justify-center items-center h-40">
-                                <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-                            </div>
+                            <Loading />
                         ) : (
-                            <div className="grid gap-4">
-                                {filteredCommands.map((item, index) => (
+                            <div className="grid grid-cols-4 gap-4">
+                            {filteredCommands.map((item, index) => (
                                     <div key={index}>{renderCommandItem({ item })}</div>
                                 ))}
                             </div>

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInbox, faAreaChart, faHandshake, faCheck } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
+import Loading from "../../components/Loading";
 
 const Topshiriqlar = () => {
     const navigate = useNavigate();
@@ -38,9 +39,7 @@ const Topshiriqlar = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <div className="text-xl">Loading...</div>
-            </div>
+            <Loading />
         );
     }
 
@@ -88,7 +87,7 @@ const Topshiriqlar = () => {
                     {/* Kutilmoqda */}
                     <div
                         className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
-                        onClick={() => navigate("/kutilayotgan-topshiriqlar")}
+                        onClick={() => navigate("/mobil/commands/topshiriqlarim/kutilmoqda")}
                     >
                         <FontAwesomeIcon icon={faHandshake} size="3x" className="text-white" />
                         <div className="mt-2">
@@ -102,7 +101,7 @@ const Topshiriqlar = () => {
                     {/* Bajarilgan */}
                     <div
                         className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex flex-col justify-center items-center"
-                        onClick={() => navigate("/tugallangan-topshiriqlar")}
+                        onClick={() => navigate("/mobil/commands/topshiriqlarim/completed")}
                     >
                         <FontAwesomeIcon icon={faCheck} size="3x" className="text-white" />
                         <div className="mt-2">

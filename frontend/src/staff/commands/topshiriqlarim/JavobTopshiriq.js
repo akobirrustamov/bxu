@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArchive, faClock, faUser, faFile, faDownload } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import ApiCall, { baseUrl } from "../../../config/index";
 import newbg from "../../../staff/images/newbg.jpg";
 import Sidebar from '../../Sidebar';
@@ -17,6 +17,7 @@ const JavobTopshiriq = ({ goBack }) => {
     const [responseText, setResponseText] = useState("");
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const now = new Date();
     const tileLimitDate = new Date(item.timeLimit);
@@ -36,10 +37,10 @@ const JavobTopshiriq = ({ goBack }) => {
             if (response.error === false && response.data) {
                 setHistory(response.data);
             } else {
-                toast.alert("Failed to fetch history");
+                toast.error("Failed to fetch history");
             }
         } catch (error) {
-            toast.alert("Unexpected error");
+            toast.error("Unexpected error");
         }
         setIsLoading(false);
     };
@@ -61,13 +62,13 @@ const JavobTopshiriq = ({ goBack }) => {
         });
 
         if (response.error === false && response.data) return response.data;
-        toast.alert("File upload failed");
+        toast.error("File upload failed");
         return null;
     };
 
     const postResponse = async () => {
         if (!responseText && !file) {
-            toast.alert("Response text or file is required.");
+            toast.error("Response text or file is required.");
             return;
         }
 
@@ -84,14 +85,14 @@ const JavobTopshiriq = ({ goBack }) => {
             const response = await ApiCall(`/api/v1/app/staff/my-commands/${item.id}`, "PUT", payload);
 
             if (response.error === false) {
-                toast.alert("Response submitted successfully");
-                goBack();
+                toast.success("Response submitted successfully");
+                navigate(-1)
             } else {
-                toast.alert("Failed to submit response");
+                toast.error("Failed to submit response");
             }
         } catch (error) {
-            console.error(error);
-            toast.alert("Unexpected error");
+            console.log(error);
+            toast.error("Unexpected");
         }
         setIsLoading(false);
     };
