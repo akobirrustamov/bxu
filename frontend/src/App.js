@@ -62,6 +62,7 @@ import DailyControlStaff from "./staff/daily-control/DailyControl";
 import Subfolder from "./staff/daily-control/Subfolder";
 import GroupDetails from "./staff/group/DetailGroupe";
 import DarsJadvalHafta from "./staff/group/DarsJadvalHafta";
+import Xodimlar from "./staff/xodimlar/Xodimlar";
 
 import axios from "axios";
 
@@ -237,6 +238,8 @@ function App() {
         <Route path={"/mobil/"} element={<StaffHome />} />
         <Route path={"/mobil/commands"} element={<Topshiriq />} />
         <Route path={"/mobil/commands/buyruqlar"} element={<Buyruqlar />} />
+        <Route path="/mobil/commands/xodimlar" element={<Xodimlar />} />
+
         <Route path={"/mobil/commands/buyruqlar/newcommand"} element={<NewCommand />} />
         <Route path={"/mobil/commands/buyruqlar/jarayonda"} element={<InProgress />} />
         <Route path={"/mobil/commands/buyruqlar/kutilmoqda"} element={<Pending />} />
@@ -247,10 +250,16 @@ function App() {
         <Route path={"/mobil/commands/topshiriqlarim/jarayonda"} element={<InProgressTopshiriq />} />
         <Route path={"/mobil/commands/topshiriqlarim/javobtopshiriq"} element={<JavobTopshiriq />} />
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
-        <Route path={"/mobil/nomenklatura-detail"} element={<NomenklaturaFolder />} />
+        <Route
+          path={"/mobil/nomenklatura-detail"}
+          element={<NomenklaturaFolder />}
+        />
         <Route path={"/mobil/groups"} element={<Group />} />
         <Route path="/mobil/groups/:id" element={<GroupDetails />} />
-        <Route path="/mobil/groups/dasr-jadval/:id" element={<DarsJadvalHafta />} />
+        <Route
+          path="/mobil/groups/dasr-jadval/:id"
+          element={<DarsJadvalHafta />}
+        />
         <Route path={"/mobil/timetable"} element={<DarsJadvali />} />
         <Route path={"/mobil/profile"} element={<MyProfile />} />
         <Route path={"/mobil/daily-control"} element={<DailyControlStaff />} />
