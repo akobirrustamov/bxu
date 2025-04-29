@@ -126,7 +126,7 @@ const NewCommand = () => {
         const deadline = new Date(selectedDateTime);
         const timeDifference = deadline - currentTime;
 
-        if (timeDifference <= 60 * 60 * 1000) {
+        if (timeDifference <= 6 ) {
             toast.error("Xatolik! Topshiriq muddati kamida 1 soat bo'lishi kerak.");
             return;
         }
@@ -138,10 +138,11 @@ const NewCommand = () => {
                 const formData = new FormData();
                 formData.append("photo", file);
                 formData.append("prefix", `/command/${administrator.name}`);
-                const uploadResponse = await ApiCall('/api/v1/file/upload', "POST", formData, {
-                    "Content-Type": "multipart/form-data",
-                });
+                const uploadResponse = await ApiCall('/api/v1/file/upload', "POST", formData);
                 uploadedFile = uploadResponse.data;
+                // alert(JSON.stringify(uploadedFile));
+                // console.log(uploadResponse.data);
+                
             }
 
             const selectedStaffList = Object.values(selectedStaff);
@@ -161,7 +162,7 @@ const NewCommand = () => {
                 toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
                 setTimeout(() => {
                     navigate("/mobil/commands/buyruqlar");
-                }, 2000);
+                }, 500);
             } else {
                 toast.error("Xatolik! Malumot yuborilmadi.");
             }
@@ -272,7 +273,7 @@ const NewCommand = () => {
                     </button>
                 </div>
             </div>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer position="top-right" autoClose={2000} />
         </div>
     );
 };

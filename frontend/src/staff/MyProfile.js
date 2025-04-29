@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import ApiCall from "../config/index";
+import ApiCall, {baseUrl} from "../config/index";
 import Sidebar from "./Sidebar";
 import newbg from "./images/newbg.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -94,15 +94,19 @@ function StaffProfile() {
     };
 
     const handleSubmitPassword = async () => {
-        if (password !== reenteredPassword) {
-            alert("Error", "Passwords do not match.");
+        if (password !== reenteredPassword ) {
+            alert("Parol bir biriga mos emas.");
+            return;
+        }
+        if (password.length<7){
+            alert("Parol uzunligi kam.");
             return;
         }
 
         try {
             const token = localStorage.getItem("token");
             const response = await ApiCall(`/api/v1/app/staff/password/${token}`, "POST", password);
-            if (response.status === 200) {
+            if (!response.error) {
                 alert("Success", "Password changed successfully.");
                 setPassword("");
                 setReenteredPassword("");
@@ -169,11 +173,9 @@ function StaffProfile() {
             formData.append("photo", file);
             formData.append("prefix", "/command/staff");
 
-            const response = await ApiCall("/api/v1/file/upload", "POST", formData, {
-                "Content-Type": "multipart/form-data",
-            });
+            const response = await ApiCall("/api/v1/file/upload", "POST", formData);
 
-            if (response.status === 200 && response.data) {
+            if (!response?.error && response?.data) {
                 await handleProfileImageUpdate(response.data);
             } else {
                 alert("Error", "Failed to upload file.");
@@ -189,8 +191,8 @@ function StaffProfile() {
         try {
             const token = localStorage.getItem("token");
             const response = await ApiCall(`/api/v1/app/staff/setPhoto/${token}`, "PUT", { uuid });
-            if (response.status === 200) {
-                alert("Success", "Profil rasmi muvaffaqiyatli o'zgartirildi.");
+            if (!response.error) {
+                alert("Profil rasmi muvaffaqiyatli o'zgartirildi.");
                 fetchProfileData();
                 setFile(null);
             } else {
@@ -230,7 +232,7 @@ function StaffProfile() {
                                                 onChange={handleFileChange}
                                             />
                                             <img
-                                                src={`${ApiCall.defaults.baseURL}/api/v1/file/getFile/${administrator.file.id}`}
+                                                src={`${baseUrl}/api/v1/file/getFile/${administrator.file.id}`}
                                                 alt="Profile"
                                                 className="w-32 h-32 rounded-full border-4 border-gray-700 object-cover"
                                             />

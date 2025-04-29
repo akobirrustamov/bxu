@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaArchive, FaClock, FaUser, FaCheck } from 'react-icons/fa';
 import newbg from "../../../staff/images/newbg.jpg";
 import Sidebar from '../../Sidebar';
+import Loading from '../../components/Loading';
 
 function InProgress() {
     const [administrator, setAdministrator] = useState(null);
@@ -115,7 +116,7 @@ function InProgress() {
         }
 
         return (
-            <div className="bg-white shadow rounded p-4 mt-4">
+            <div className="bg-white shadow rounded p-4">
                 <h2 className="text-xl font-semibold">{item.text}</h2>
 
                 <p className="mt-2 text-gray-700 cursor-pointer" onClick={() => toggleExpanded(item.id)}>
@@ -143,9 +144,9 @@ function InProgress() {
                 </p>
 
                 <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center gap-2">
                         <div className={`w-3 h-3 rounded-full ${circleColor}`} />
-                        <span className={`text-sm ${timeDiffInHours < 0 ? "text-red-600" : ""}`}>{timeText}</span>
+                        <span className={`text-sm w-11/12 ${timeDiffInHours < 0 ? "text-red-600" : ""}`}>{timeText}</span>
                     </div>
                     <div className="text-green-600 text-lg">
                         <FaCheck />
@@ -163,13 +164,13 @@ function InProgress() {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className="p-4 sm:ml-64 w-full min-h-screen" style={{
+            <div className=" sm:ml-64 w-full min-h-screen" style={{
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
 
                 <div className="flex items-center">
-                    <div className="w-full p-4">
+                    <div className="w-full max-w-[1440px] mx-auto p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv.."
@@ -179,16 +180,15 @@ function InProgress() {
                         />
 
                         {isLoading ? (
-                            <div className="flex justify-center items-center h-40">
-                                <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-                            </div>
+                            <Loading />
                         ) : (
-                            <div className="grid gap-4">
+                            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4 mt-4">
                                 {filteredCommands.map((item, index) => (
                                     <div key={index}>{renderCommandItem({ item })}</div>
                                 ))}
                             </div>
                         )}
+
                     </div>
                 </div>
             </div>

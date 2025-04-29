@@ -1,7 +1,11 @@
 package com.example.backend.Controller;
 
+import com.example.backend.DTO.DailyControlSubFolderContentDto;
+import com.example.backend.Entity.Attachment;
 import com.example.backend.Entity.DailyControlSubFolder;
 import com.example.backend.Entity.DailyControlSubFolderContent;
+import com.example.backend.Entity.Staff;
+import com.example.backend.Repository.AttachmentRepo;
 import com.example.backend.Repository.DailyControlSubFolderContentRepo;
 import com.example.backend.Repository.DailyControlSubFolderRepo;
 import com.example.backend.Repository.StaffRepo;
@@ -25,6 +29,7 @@ public class DailyControlSubfolderController {
     private final DailyControlSubFolderRepo dailyControlSubFolderRepo;
     private final DailyControlSubFolderContentRepo dailyControlSubFolderContentRepo;
     private final StaffRepo staffRepo;
+    private final AttachmentRepo attachmentRepo;
 
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode("333aae7133c19eda8f7f61ce07e64281c295df67681b1ed47c9c270a488f94d0");
@@ -56,26 +61,26 @@ public class DailyControlSubfolderController {
 
     @PostMapping("/content/{token}")
     public ResponseEntity<DailyControlSubFolderContent> createContent(
-            @RequestBody DailyControlSubFolderContent content,@PathVariable String token) {
+            @RequestBody DailyControlSubFolderContentDto content, @PathVariable String token) {
         try {
+            DailyControlSubFolderContent dailyControlSubFolderContent = new DailyControlSubFolderContent();
             String staffId = getStaffIdFromToken(token);
-            content.setCreatedAt(LocalDateTime.now());
-            System.out.println(content);
-
-            // Set staff if not already set
-            if (content.getStaff() == null) {
-                staffRepo.findById(Integer.parseInt(staffId))
-                        .ifPresent(content::setStaff);
+            Staff staff = staffRepo.findById(Integer.parseInt(staffId)).orElse(null);
+            Attachment attachment = attachmentRepo.findById(content.getFilePath()).orElse(null);
+            Optional<DailyControlSubFolder> byId = dailyControlSubFolderRepo.findById(content.getDailyControlSubFolder());
+            if (byId.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
 
-            // Validate subfolder exists
-            if (content.getDailyControlSubFolder() == null ||
-                    content.getDailyControlSubFolder().getId() == null) {
-                return ResponseEntity.badRequest().build();
-            }
+            dailyControlSubFolderContent.setCreatedAt(LocalDateTime.now());
+            dailyControlSubFolderContent.setName(content.getName());
+            dailyControlSubFolderContent.setDescription(content.getDescription());
+            dailyControlSubFolderContent.setStaff(staff);
+            dailyControlSubFolderContent.setDailyControlSubFolder(byId.get());
+            dailyControlSubFolderContent.setAttachment(attachment);
+            DailyControlSubFolderContent save = dailyControlSubFolderContentRepo.save(dailyControlSubFolderContent);
 
-            DailyControlSubFolderContent savedContent = dailyControlSubFolderContentRepo.save(content);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedContent);
+            return ResponseEntity.status(HttpStatus.CREATED).body(save);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

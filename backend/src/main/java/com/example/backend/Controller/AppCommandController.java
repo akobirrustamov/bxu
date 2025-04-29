@@ -2,14 +2,8 @@ package com.example.backend.Controller;
 
 import com.example.backend.DTO.CommandRequestDto;
 import com.example.backend.DTO.StaffRank;
-import com.example.backend.Entity.Attachment;
-import com.example.backend.Entity.Command;
-import com.example.backend.Entity.History;
-import com.example.backend.Entity.Staff;
-import com.example.backend.Repository.AttachmentRepo;
-import com.example.backend.Repository.CommandRepo;
-import com.example.backend.Repository.HistoryRepo;
-import com.example.backend.Repository.StaffRepo;
+import com.example.backend.Entity.*;
+import com.example.backend.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +23,14 @@ public class AppCommandController {
     private final StaffRepo staffRepo;
     private final AttachmentRepo attachmentRepo;
     private final HistoryRepo historyRepo;
+    private final CommandMessageRepo commandMessageRepo;
+
+    @GetMapping("/message/{commandId}")
+    private    HttpEntity<?> getCommandMessage(@PathVariable Integer commandId){
+        List<CommandMessage> commandMessages = commandMessageRepo.findByCommandId(commandId);
+        return ResponseEntity.ok(commandMessages);
+    }
+
 
     @PostMapping
     public HttpEntity<?> addCommand(@RequestBody CommandRequestDto commandDto) {

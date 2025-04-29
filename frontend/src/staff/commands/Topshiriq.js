@@ -4,6 +4,7 @@ import ApiCall from "../../config/index";
 import newbg from "./../images/newbg.jpg";
 import bbg from "./../images/img.png";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 function Topshiriq() {
   const navigation = useNavigate();
@@ -61,13 +62,6 @@ function Topshiriq() {
     fetchProfileData();
   }, [navigation]);
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
-    );
-  }
 
   return (
     <div className="flex ">
@@ -79,43 +73,45 @@ function Topshiriq() {
           backgroundRepeat: "repeat",
         }}
       >
-        {/* Контейнер всех карточек */}
-        <div className="text-[#09025E96] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-2 transition-all duration-500">
-          {/* Только если не ректор */}
-          {rank[0]?.name !== "Rektor" && (
-            <div
-              style={{ backgroundImage: `url(${bbg})` }}
-              className="bg-cover bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer"
-            >
-              <p className="text-xl font-semibold mb-2 text-center">
-                📅 Mening topshiriqlarim
-              </p>
-            </div>
-          )}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className="text-[#09025E96] mt-2 transition-all duration-500">
 
-          {/* Если есть командиры, показываем кнопки */}
-          {commander.length > 0 && (
-            <>
-              <div
-                style={{ backgroundImage: `url(${bbg})` }}
-                className="bg-white p-6 bg-cover rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex items-center justify-center"
-                onClick={() => navigation("/mobil/commands/buyruqlar")}
+            {/* Только если не ректор */}
+            {rank[0]?.name !== 'Rektor' && (
+              <div style={{ backgroundImage: `url(${bbg})`, }}
+                className="bg-cover mt-2 py-9 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer"
+                onClick={() => navigation("/mobil/commands/topshiriqlarim")}
               >
-                <p className="text-xl font-semibold text-center">
-                  📑 Buyruqlar
-                </p>
+                <p className="text-xl font-semibold mb-2 text-center">📅 Mening topshiriqlarim</p>
               </div>
+            )}
 
-              <div
-                style={{ backgroundImage: `url(${bbg})` }}
-                className="bg-white p-6 bg-cover rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex items-center justify-center"
-                onClick={() => navigation("/mobil/commands/xodimlar")}
-              >
-                <p className="text-xl font-semibold text-center">👔 Xodimlar</p>
-              </div>
-            </>
-          )}
-        </div>
+            {/* Если есть командиры, показываем кнопки */}
+            {commander.length > 0 && (
+              <>
+                <div
+                  style={{ backgroundImage: `url(${bbg})` }}
+                  className="bg-white mt-4 py-9 p-6 bg-cover rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex items-center justify-center"
+                  onClick={() => navigation("/mobil/commands/buyruqlar")}
+                >
+                  <p className="text-xl font-semibold text-center">
+                    📑 Buyruqlar
+                  </p>
+                </div>
+
+                <div
+                  style={{ backgroundImage: `url(${bbg})` }}
+                  className="bg-white mt-4 py-9 p-6 bg-cover rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex items-center justify-center"
+                  onClick={() => navigation("/mobil/commands/xodimlar")}
+                >
+                  <p className="text-xl font-semibold text-center">👔 Xodimlar</p>
+                </div>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

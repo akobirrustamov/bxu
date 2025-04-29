@@ -19,9 +19,9 @@ public class AttachmentController {
 
     @PostMapping("/upload")
     public HttpEntity<?> uploadFile(@RequestParam MultipartFile photo, @RequestParam String prefix) throws IOException {
-//        System.out.println("Received prefix: " + prefix);
-//        System.out.println("Received file: " + photo.getOriginalFilename());
-//        System.out.println("File size: " + photo.getSize());
+        System.out.println("Received prefix: " + prefix);
+        System.out.println("Received file: " + photo.getOriginalFilename());
+        System.out.println("File size: " + photo.getSize());
 
         return attachmentService.uploadFile(photo, prefix);
     }
