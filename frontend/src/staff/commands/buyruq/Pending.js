@@ -76,7 +76,7 @@ const Pending = () => {
         [navigate]
     );
 
-    const renderCommandItem = ( item ) => {
+    const renderCommandItem = (item) => {
         const isExpanded = expanded === item.id;
         const toggleExpanded = (id) => {
             setExpanded(expanded === id ? 0 : id);
@@ -123,9 +123,9 @@ const Pending = () => {
                     <strong>Topshiriq bajaruvchi:</strong> {item?.staff?.name || "N/A"}
                 </p>
                 <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center space-x-2">
-                        <div className={`w-3 h-3 rounded-full ${circleColor}`} />
-                        <span className={`text-sm ${timeDiffInHours < 0 ? "text-red-600" : ""}`}>{timeText}</span>
+                    <div className="flex items-center gap-2">
+                        <div className={`w-3 h-3 rounded-full ${circleColor}`} ></div>
+                        <span className={`text-sm w-11/12 ${timeDiffInHours < 0 ? "text-red-600" : ""}`}>{timeText}</span>
                     </div>
                     <div className="text-green-600 text-lg">
                         <FaCheck />

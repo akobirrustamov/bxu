@@ -103,7 +103,7 @@ const NewTopshiriq = () => {
                     {item?.commandStaff?.name || "N/A"}
                 </p>
 
-                <div className="flex items-center mt-4">
+                <div className="flex items-center justify-between mt-4">
                     <div className={`w-3 h-3 rounded-full mr-2 ${circleColor}`}></div>
                     <span className={`text-sm ${timeDifferenceInHours < 0 ? "text-red-500" : "text-black"}`}>
                         {timeText}
