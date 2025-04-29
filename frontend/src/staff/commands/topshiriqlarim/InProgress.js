@@ -91,7 +91,7 @@ const InProgressTopshiriq = () => {
         }
 
         return (
-            <div key={item.id} className="bg-white shadow rounded p-4 mt-4">
+            <div key={item.id} className="bg-white shadow rounded p-4">
                 <h3 className="text-xl font-bold text-gray-800">{item.text}</h3>
                 <p
                     onClick={() => toggleExpanded(item.id)}
@@ -148,7 +148,7 @@ const InProgressTopshiriq = () => {
             }}
             >
                 <div className="flex items-center">
-                    <div className="w-full p-4">
+                    <div className="w-full max-w-[1440px] mx-auto p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv..."
@@ -159,7 +159,7 @@ const InProgressTopshiriq = () => {
                         {isLoading ? (
                             <Loading />
                         ) : (
-                            <div className="grid gap-4">
+                            <div className="grid gap-4 mt-4">
                                 {filteredCommands.map((item, index) =>
                                     <div key={index}>{renderCommandItem(item)}</div>)}
                             </div>

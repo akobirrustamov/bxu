@@ -116,7 +116,7 @@ function InProgress() {
         }
 
         return (
-            <div className="bg-white shadow rounded p-4 mt-4">
+            <div className="bg-white shadow rounded p-4">
                 <h2 className="text-xl font-semibold">{item.text}</h2>
 
                 <p className="mt-2 text-gray-700 cursor-pointer" onClick={() => toggleExpanded(item.id)}>
@@ -170,7 +170,7 @@ function InProgress() {
             }}>
 
                 <div className="flex items-center">
-                    <div className="w-full p-4">
+                    <div className="w-full max-w-[1440px] mx-auto p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv.."
@@ -182,12 +182,13 @@ function InProgress() {
                         {isLoading ? (
                             <Loading />
                         ) : (
-                            <div className="grid grid-cols-4 gap-4">
-                            {filteredCommands.map((item, index) => (
+                            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4 mt-4">
+                                {filteredCommands.map((item, index) => (
                                     <div key={index}>{renderCommandItem({ item })}</div>
                                 ))}
                             </div>
                         )}
+
                     </div>
                 </div>
             </div>

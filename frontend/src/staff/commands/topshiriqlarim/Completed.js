@@ -99,7 +99,7 @@ const CompletedTopshiriq = () => {
         }
 
         return (
-            <div key={item.id} className="bg-white shadow-md rounded-lg p-4 mt-4">
+            <div key={item.id} className="bg-white shadow rounded p-4">
                 <div className="font-bold text-lg mb-2">{item.text}</div>
                 <div
                     className="text-sm text-gray-600 cursor-pointer"
@@ -137,13 +137,13 @@ const CompletedTopshiriq = () => {
         <div className="flex">
             <Sidebar />
 
-            <div className="px-4 sm:ml-64 w-full min-h-screen" style={{
+            <div className="sm:ml-64 w-full min-h-screen" style={{
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}
             >
                 <div className="flex items-center">
-                    <div className="w-full p-4">
+                    <div className="w-full max-w-[1440px] mx-auto p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv..."
@@ -154,7 +154,7 @@ const CompletedTopshiriq = () => {
                         {isLoading ? (
                             <Loading />
                         ) : (
-                            <div className="grid gap-4">
+                            <div className="grid gap-4 mt-2">
                                 {filteredCommands.map((item, index) =>
                                     <div key={index}>{renderCommandItem(item)}</div>)}
                             </div>

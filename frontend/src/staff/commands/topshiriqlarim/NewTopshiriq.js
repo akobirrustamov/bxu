@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
 import ApiCall from "../../../config/index";
+import Loading from "../../components/Loading";
 
 const NewTopshiriq = () => {
     const [commands, setCommands] = useState([]);
@@ -74,7 +75,7 @@ const NewTopshiriq = () => {
         }
 
         return (
-            <div key={item.id} className="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div key={item.id} className="bg-white shadow rounded p-4">
                 <h3 className="text-xl font-bold text-gray-800">{item.text}</h3>
                 <p
                     onClick={() => toggleExpanded(item.id)}
@@ -133,9 +134,7 @@ const NewTopshiriq = () => {
                             }}
             >
                 {isLoading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <div className="loader border-t-4 border-indigo-500 rounded-full w-12 h-12 animate-spin"></div>
-                    </div>
+                    <Loading />
                 ) : (
                     <div className="space-y-4 max-w-4xl mx-auto">
                         {filteredCommands.map((item) => renderCommandItem(item))}

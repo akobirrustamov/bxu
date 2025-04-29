@@ -54,62 +54,66 @@ const Topshiriqlar = () => {
                 }}
             >
                 {/* Контейнер карточек */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-2 transition-all duration-500">
+                <div className="mt-2 transition-all duration-500">
 
-                    {/* Yangi topshiriq */}
-                    <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
-                        onClick={() => navigate("/mobil/commands/topshiriqlarim/newtopshiriq")}
-                    >
-                        <FontAwesomeIcon icon={faInbox} size="3x" className="text-white" />
-                        <div className="mt-2">
-                            <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
-                                {statistic?.inProgressCommandsCount || 0}
-                            </span>
+                    <div className="flex w-full gap-6">
+                        {/* Yangi topshiriq */}
+                        <div
+                            className="bg-green-500 hover:bg-green-600 w-1/2 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
+                            onClick={() => navigate("/mobil/commands/topshiriqlarim/newtopshiriq")}
+                        >
+                            <FontAwesomeIcon icon={faInbox} size="3x" className="text-white" />
+                            <div className="mt-2">
+                                <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
+                                    {statistic?.inProgressCommandsCount || 0}
+                                </span>
+                            </div>
+                            <p className="text-xl font-semibold text-center text-white mt-2">Yangi topshiriq</p>
                         </div>
-                        <p className="text-xl font-semibold text-center text-white mt-2">Yangi topshiriq</p>
+
+                        {/* Jarayonda */}
+                        <div
+                            className="bg-green-500 hover:bg-green-600 w-1/2 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
+                            onClick={() => navigate("/mobil/commands/topshiriqlarim/jarayonda")}
+                        >
+                            <FontAwesomeIcon icon={faAreaChart} size="3x" className="text-white" />
+                            <div className="mt-2">
+                                <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
+                                    {statistic?.inProgressCommandsCount || 0}
+                                </span>
+                            </div>
+                            <p className="text-xl font-semibold text-center text-white mt-2">Jarayonda</p>
+                        </div>
                     </div>
 
-                    {/* Jarayonda */}
-                    <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
-                        onClick={() => navigate("/mobil/commands/topshiriqlarim/jarayonda")}
-                    >
-                        <FontAwesomeIcon icon={faAreaChart} size="3x" className="text-white" />
-                        <div className="mt-2">
-                            <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
-                                {statistic?.inProgressCommandsCount || 0}
-                            </span>
+                    <div className="flex w-full gap-6 mt-4">
+                        {/* Kutilmoqda */}
+                        <div
+                            className="bg-green-500 hover:bg-green-600 w-1/2 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
+                            onClick={() => navigate("/mobil/commands/topshiriqlarim/kutilmoqda")}
+                        >
+                            <FontAwesomeIcon icon={faHandshake} size="3x" className="text-white" />
+                            <div className="mt-2">
+                                <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
+                                    {statistic?.pendingCommandsCount || 0}
+                                </span>
+                            </div>
+                            <p className="text-xl font-semibold text-center text-white mt-2">Kutilmoqda</p>
                         </div>
-                        <p className="text-xl font-semibold text-center text-white mt-2">Jarayonda</p>
-                    </div>
 
-                    {/* Kutilmoqda */}
-                    <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
-                        onClick={() => navigate("/mobil/commands/topshiriqlarim/kutilmoqda")}
-                    >
-                        <FontAwesomeIcon icon={faHandshake} size="3x" className="text-white" />
-                        <div className="mt-2">
-                            <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
-                                {statistic?.pendingCommandsCount || 0}
-                            </span>
+                        {/* Bajarilgan */}
+                        <div
+                            className="bg-green-500 hover:bg-green-600 w-1/2 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
+                            onClick={() => navigate("/mobil/commands/topshiriqlarim/completed")}
+                        >
+                            <FontAwesomeIcon icon={faCheck} size="3x" className="text-white" />
+                            <div className="mt-2">
+                                <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
+                                    {statistic?.completedCommandsCount || 0}
+                                </span>
+                            </div>
+                            <p className="text-xl font-semibold text-center text-white mt-2">Bajarilgan</p>
                         </div>
-                        <p className="text-xl font-semibold text-center text-white mt-2">Kutilmoqda</p>
-                    </div>
-
-                    {/* Bajarilgan */}
-                    <div
-                        className="bg-green-500 p-6 rounded-lg shadow-md hover:shadow-xl transform transition hover:scale-105 cursor-pointer flex flex-col justify-center items-center"
-                        onClick={() => navigate("/mobil/commands/topshiriqlarim/completed")}
-                    >
-                        <FontAwesomeIcon icon={faCheck} size="3x" className="text-white" />
-                        <div className="mt-2">
-                            <span className="bg-orange-600 text-white px-3 py-2 rounded-full text-xl font-bold">
-                                {statistic?.completedCommandsCount || 0}
-                            </span>
-                        </div>
-                        <p className="text-xl font-semibold text-center text-white mt-2">Bajarilgan</p>
                     </div>
 
                 </div>

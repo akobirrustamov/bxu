@@ -17,7 +17,8 @@ function BatafsilBuyruq() {
     const [fileUri, setFileUri] = useState(null);
     const [responseText, setResponseText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [commandMessage, setCommandMessage]=useState([])
+    const [commandMessage, setCommandMessage] = useState([]);
+
     const now = new Date();
     const deadline = new Date(item?.timeLimit);
     const timeDiffHours = (deadline - now) / (1000 * 60 * 60);
@@ -29,27 +30,25 @@ function BatafsilBuyruq() {
     const color = timeDiffHours < 0 ? "bg-red-500" : timeDiffHours > 24 ? "bg-green-500" : "bg-yellow-400";
 
     useEffect(() => {
-
         fetchHistory();
-        fetchCommandMessage()
+        fetchCommandMessage();
     }, [item.id]);
+
     const fetchHistory = async () => {
         try {
             const res = await ApiCall(`/api/v1/app/command/get-history/${item.id}`, "GET");
-            console.log('history',res.data);
-
             setHistory(res.data || []);
         } catch (err) {
             console.error("Error fetching history:", err);
         }
     };
+
     const fetchCommandMessage = async () => {
         try {
             const res = await ApiCall(`/api/v1/app/command/message/${item.id}`, "GET");
-            console.log(res.data)
-            setCommandMessage(res.data)
+            setCommandMessage(res.data || []);
         } catch (err) {
-            console.error("Error fetching history:", err);
+            console.error("Error fetching command message:", err);
         }
     };
 
@@ -141,14 +140,19 @@ function BatafsilBuyruq() {
         setIsLoading(false);
     };
 
+    const getMessageForHistory = (his) => {
+        return commandMessage.find(msg => {
+            const hisTime = new Date(his.createdAt).getTime();
+            const msgTime = new Date(msg.createdAt).getTime();
+            return Math.abs(hisTime - msgTime) < 5000;
+        });
+    };
+
     return (
         <div className='flex'>
             <Sidebar />
-            <div className="p-4 sm:ml-64 w-full min-h-screen" style={{
-                backgroundImage: `url(${newbg})`,
-                backgroundRepeat: "repeat",
-            }}>
-                <div className="p-6 max-w-6xl mx-auto rounded-lg ">
+            <div className="p-4 sm:ml-64 w-full min-h-screen" style={{ backgroundImage: `url(${newbg})`, backgroundRepeat: "repeat" }}>
+                <div className="p-6 max-w-6xl mx-auto rounded-lg">
                     <div className="bg-white p-4 rounded shadow mb-4">
                         <h1 className="text-2xl font-bold mb-4">{item?.text}</h1>
                         <p className="mb-2"><FaArchive className="inline mr-2" /> <strong>Mazmuni:</strong> {item?.description}</p>
@@ -222,9 +226,11 @@ function BatafsilBuyruq() {
                             <div className="bg-white p-4 rounded shadow">
                                 <h2 className="text-lg font-bold mb-4">Topshiriq tarixi</h2>
                                 {history.map((his) => (
-                                    <div key={his.id} className="text-sm mb-3">
-                                        <span className="inline-block w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
-                                        {formatHistory(his, item, downloadFile)}
+                                    <div key={his.id} className="flex text-sm mb-3">
+                                        <span className="mt-1 w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
+                                        <div>
+                                            {formatHistory(his, item, downloadFile, getMessageForHistory(his))}
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -237,7 +243,7 @@ function BatafsilBuyruq() {
     );
 }
 
-function formatHistory(his, item, downloadFile) {
+function formatHistory(his, item, downloadFile, messageObj) {
     const date = new Date(his.createdAt).toLocaleDateString("en-GB");
     const time = new Date(his.createdAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
@@ -254,7 +260,7 @@ function formatHistory(his, item, downloadFile) {
 
     return (
         <>
-            <p>{text}</p>
+            <p className="mb-1">{text}</p>
             {his.file && (
                 <button
                     onClick={() => downloadFile(his.file)}
@@ -262,6 +268,19 @@ function formatHistory(his, item, downloadFile) {
                 >
                     <FaDownload className="mr-1" /> {his.file.name?.split("_").slice(1).join("_")}
                 </button>
+            )}
+            {his.fromStatus === 3 && his.toStatus === 1 && messageObj && (
+                <div className="flex items-center gap-2 mt-1 ml-4">
+                    {messageObj.message && <p className="text-sm text-gray-700">📌 Sabab: {messageObj.message}</p>}
+                    {messageObj.file && (
+                        <button
+                            onClick={() => downloadFile(messageObj.file)}
+                            className="text-blue-600 underline text-sm flex items-center mt-1"
+                        >
+                            <FaDownload className="mr-1" /> {messageObj.file.name?.split("_").slice(1).join("_")}
+                        </button>
+                    )}
+                </div>
             )}
         </>
     );

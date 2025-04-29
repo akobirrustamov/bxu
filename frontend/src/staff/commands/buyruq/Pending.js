@@ -102,7 +102,7 @@ const Pending = () => {
         }
 
         return (
-            <div className="bg-white rounded shadow p-4 mt-4" key={item.id}>
+            <div className="bg-white rounded shadow p-4" key={item.id}>
                 <h2 className="text-lg font-semibold">{item.text}</h2>
                 <p className="mt-2 cursor-pointer text-gray-700" onClick={() => toggleExpanded(item.id)}>
                     <FaArchive className="inline mr-2 text-gray-500" />
@@ -142,12 +142,12 @@ const Pending = () => {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className="px-4 sm:ml-64 w-full min-h-screen" style={{
+            <div className="sm:ml-64 w-full min-h-screen" style={{
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
                 <div className="flex items-center">
-                    <div className="w-full p-4">
+                    <div className="w-full max-w-[1440px] mx-auto p-4">
                         <input
                             type="text"
                             placeholder="Qidiruv..."
@@ -158,7 +158,7 @@ const Pending = () => {
                         {isLoading ? (
                             <Loading />
                         ) : (
-                            <div className="grid gap-4">
+                            <div className="grid gap-4 mt-4">
                                 {filteredCommands.map((item, index) =>
                                     <div key={index}>{renderCommandItem(item)}</div>)}
                             </div>

@@ -34,9 +34,7 @@ const JavobTopshiriq = ({ goBack }) => {
         setIsLoading(true);
         try {
             const response = await ApiCall(`/api/v1/app/command/get-history/${id}`, "GET");
-            const resTest =await ApiCall(`/api/v1/app/staff/reject/${id}`, "GET")
             console.log('history', response.data);
-            console.log('reject', resTest);
             if (response.error === false && response.data) {
                 setHistory(response.data);
             } else {
