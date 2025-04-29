@@ -17,7 +17,7 @@ function BatafsilBuyruq() {
     const [fileUri, setFileUri] = useState(null);
     const [responseText, setResponseText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-
+    const [commandMessage, setCommandMessage]=useState([])
     const now = new Date();
     const deadline = new Date(item?.timeLimit);
     const timeDiffHours = (deadline - now) / (1000 * 60 * 60);
@@ -29,18 +29,29 @@ function BatafsilBuyruq() {
     const color = timeDiffHours < 0 ? "bg-red-500" : timeDiffHours > 24 ? "bg-green-500" : "bg-yellow-400";
 
     useEffect(() => {
-        const fetchHistory = async () => {
-            try {
-                const res = await ApiCall(`/api/v1/app/command/get-history/${item.id}`, "GET");
-                console.log('history',res.data);
-                
-                setHistory(res.data || []);
-            } catch (err) {
-                console.error("Error fetching history:", err);
-            }
-        };
+
         fetchHistory();
+        fetchCommandMessage()
     }, [item.id]);
+    const fetchHistory = async () => {
+        try {
+            const res = await ApiCall(`/api/v1/app/command/get-history/${item.id}`, "GET");
+            console.log('history',res.data);
+
+            setHistory(res.data || []);
+        } catch (err) {
+            console.error("Error fetching history:", err);
+        }
+    };
+    const fetchCommandMessage = async () => {
+        try {
+            const res = await ApiCall(`/api/v1/app/command/message/${item.id}`, "GET");
+            console.log(res.data)
+            setCommandMessage(res.data)
+        } catch (err) {
+            console.error("Error fetching history:", err);
+        }
+    };
 
     const downloadFile = async (file) => {
         try {
