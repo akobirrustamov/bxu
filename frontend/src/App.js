@@ -63,6 +63,7 @@ import Subfolder from "./staff/daily-control/Subfolder";
 import GroupDetails from "./staff/group/DetailGroupe";
 import DarsJadvalHafta from "./staff/group/DarsJadvalHafta";
 import Xodimlar from "./staff/xodimlar/Xodimlar";
+import BatafsilXodimlar from "./staff/xodimlar/BatafsilXodimlar";
 
 import axios from "axios";
 
@@ -254,6 +255,10 @@ function App() {
           element={<BatafsilBuyruq />}
         />
         <Route path="/mobil/commands/xodimlar" element={<Xodimlar />} />
+        <Route
+          path="/mobil/commands/xodimlar/batafsil-xodim"
+          element={<BatafsilXodimlar />}
+        />
 
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
         <Route

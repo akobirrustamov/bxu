@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function Xodimlar() {
   const navigation = useNavigate();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [listStaff, setListStaff] = useState([]);
   const [expandedRank, setExpandedRank] = useState(null);
@@ -37,7 +38,6 @@ function Xodimlar() {
       if (response.data) {
         let items = response.data[0];
         let rankname = response.data[0].rank.name;
-        console.log(rankname);
 
         setNameRank(rankname);
         if (response.data.length > 0) {
@@ -58,11 +58,12 @@ function Xodimlar() {
 
   const handleNavigateToDetail = useCallback(
     (staff) => {
-      navigation.navigate("Batafsil xodim", { staffData: staff });
+      navigate("/mobil/commands/xodimlar/batafsil-xodim", {
+        state: { staffData: staff },
+      });
     },
-    [navigation]
+    [navigate]
   );
-
   // Filtrlash (search uchun to'g'ri kod)
   const getFilteredListStaff = () => {
     if (!searchTerm) {
@@ -166,7 +167,7 @@ function Xodimlar() {
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors duration-200"
+                  className="absolute right-[100px] top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors duration-200"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -302,7 +303,7 @@ function Xodimlar() {
                                     onClick={() =>
                                       handleNavigateToDetail(staff)
                                     }
-                                    className="text-xs bg-white border border-blue-200/80 text-blue-600 px-2.5 py-0.5 rounded-md hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors duration-150"
+                                    className="text-xs bg-white border border-blue-200/80 text-blue-600 px-2.5 py-0.5 rounded-md hover:!bg-blue-600 hover:text-white hover:border-blue-600 transition-colors duration-150"
                                   >
                                     Batafsil
                                   </button>
