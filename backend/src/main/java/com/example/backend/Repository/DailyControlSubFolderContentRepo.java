@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface DailyControlSubFolderContentRepo extends JpaRepository<DailyControlSubFolderContent,Integer> {
 
-    @Query(value = "select * from daily_control_sub_folder_content where daily_control_sub_folder_id=:subfolderId", nativeQuery = true)
-    List<DailyControlSubFolderContent> findBySubfolderId(Integer subfolderId);
+    @Query(value = "SELECT * FROM daily_control_sub_folder_content WHERE daily_control_sub_folder_id = :subfolderId ORDER BY created_at DESC", nativeQuery = true)
+
+    List<DailyControlSubFolderContent> findBySubfolderId( Integer subfolderId);
+
 }
