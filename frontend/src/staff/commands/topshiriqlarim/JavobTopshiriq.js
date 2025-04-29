@@ -34,6 +34,9 @@ const JavobTopshiriq = ({ goBack }) => {
         setIsLoading(true);
         try {
             const response = await ApiCall(`/api/v1/app/command/get-history/${id}`, "GET");
+            const resTest =await ApiCall(`/api/v1/app/staff/reject/${id}`, "GET")
+            console.log('history', response.data);
+            console.log('reject', resTest);
             if (response.error === false && response.data) {
                 setHistory(response.data);
             } else {
@@ -150,7 +153,7 @@ const JavobTopshiriq = ({ goBack }) => {
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
-                <div className="p-6 max-w-6xl mx-auto rounded-lg ">
+                <div className="max-w-6xl mx-auto rounded-lg ">
                     <div className="bg-white p-4 rounded shadow mb-4">
                         <h1 className="text-2xl font-bold mb-4">{item.text}</h1>
                         <p className="mb-2"><FontAwesomeIcon icon={faArchive} /> <b>Topshiriq mazmuni:</b> {item.description}</p>

@@ -10,8 +10,6 @@ function BatafsilBuyruq() {
     const { state } = useLocation();
     const navigate = useNavigate();
     const item = state?.itemData;
-    // console.log(item);
-
 
     const [history, setHistory] = useState([]);
     const [accept, setAccept] = useState(0);
@@ -25,51 +23,42 @@ function BatafsilBuyruq() {
     const timeDiffHours = (deadline - now) / (1000 * 60 * 60);
     const days = Math.floor(timeDiffHours / 24);
     const hours = Math.floor(timeDiffHours % 24);
-
     const timeText = timeDiffHours < 0
         ? `Topshiriq muddati o'tgan: ${Math.abs(days)} kun ${Math.abs(hours)} soat`
         : `Qolgan vaqt: ${days} kun ${hours} soat`;
-
     const color = timeDiffHours < 0 ? "bg-red-500" : timeDiffHours > 24 ? "bg-green-500" : "bg-yellow-400";
 
     useEffect(() => {
         const fetchHistory = async () => {
             try {
                 const res = await ApiCall(`/api/v1/app/command/get-history/${item.id}`, "GET");
+                console.log('history',res.data);
+                
                 setHistory(res.data || []);
             } catch (err) {
-                console.error(err);
+                console.error("Error fetching history:", err);
             }
         };
         fetchHistory();
     }, [item.id]);
 
-    const downloadFile = async (item) => {
+    const downloadFile = async (file) => {
         try {
-            // Fetch the PDF from the server
-            const response = await fetch(`${baseUrl}/api/v1/file/getFile/${item?.id}`, {
+            const response = await fetch(`${baseUrl}/api/v1/file/getFile/${file?.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/pdf',
                 },
             });
+            if (!response.ok) throw new Error("Failed to download file");
 
-            if (!response.ok) {
-                throw new Error("Failed to download file");
-            }
-
-            // Convert response to blob
             const blob = await response.blob();
-
-            // Create a temporary link to trigger download
             const downloadUrl = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.download = `${item.name}`; // Change the name as desired
+            link.download = `${file.name}`;
             document.body.appendChild(link);
             link.click();
-
-            // Cleanup the link
             link.remove();
             window.URL.revokeObjectURL(downloadUrl);
         } catch (error) {
@@ -78,68 +67,65 @@ function BatafsilBuyruq() {
     };
 
     const handleFileUpload = async () => {
-
         try {
-            if (!fileUri || !fileName) {
-                return null;
-            }
+            if (!fileUri || !fileName) return null;
+
             const formData = new FormData();
             formData.append("photo", fileUri);
             formData.append("prefix", `/command/${item.commandStaff.name}`);
+
             const res = await ApiCall('/api/v1/file/upload', "POST", formData);
-            const data = await res.json();
-            console.log(res.data)
-            if (data?.error === false)
-                return data.data?.id;
-            else throw new Error(data?.message || "File upload error");
+            if (res?.error) throw new Error(res?.data?.message || "File upload error");
+
+            const uploadedFileId = res?.data;
+            if (!uploadedFileId) throw new Error("No file ID returned from server");
+
+            return uploadedFileId;
         } catch (err) {
-            console.error("Upload failed:", err);
+            toast.error("Fayl yuklashda xatolik. Qayta urinib ko'ring.");
             return null;
         }
     };
 
+    const handleReject = async () => {
+        setIsLoading(true);
+        try {
+            let uploadedFileId = null;
 
-const handleReject = async () => {
-    setIsLoading(true);
-    try {
-        let uploadedFileId = null;
-        if (fileUri) {
-            uploadedFileId = await handleFileUpload();
-        }
+            if (fileUri) {
+                uploadedFileId = await handleFileUpload();
+                if (!uploadedFileId) {
+                    setIsLoading(false);
+                    return;
+                }
+            }
 
-        const obj = {
-            responseText,
-            fileId: uploadedFileId,
-        };
+            const obj = {
+                responseText,
+                fileId: uploadedFileId,
+            };
 
-        const res = await ApiCall(`/api/v1/app/staff/reject/${item?.id}`, "POST", obj);
-        console.log(res);
+            const res = await ApiCall(`/api/v1/app/staff/reject/${item?.id}`, "POST", obj);
+            if (res?.error) throw new Error(res?.data?.message || "Server error");
 
-        if (res.error === false) {
             toast.success("Muvaffaqiyatli! Ma'lumotlar yuborildi.");
-            setTimeout(() => {
-                navigate("/mobil/commands/buyruqlar");
-            }, 500);
+            setTimeout(() => navigate("/mobil/commands/buyruqlar"), 500);
+        } catch (err) {
+            toast.error("Xatolik yuz berdi: " + err.message);
         }
-    } catch (err) {
-        console.error(err);
-    }
-    setIsLoading(false);
-};
-
+        setIsLoading(false);
+    };
 
     const handleAccept = async () => {
         setIsLoading(true);
         try {
             const res = await ApiCall(`/api/v1/app/staff/completed/${item?.id}/5`, "POST");
             if (res.error === false) {
-                toast.success("Muvaffaqiyatli! Malumotlar yuborildi.");
-                setTimeout(() => {
-                    navigate("/mobil/commands/buyruqlar");
-                }, 500);
+                toast.success("Muvaffaqiyatli! Ma'lumotlar yuborildi.");
+                setTimeout(() => navigate("/mobil/commands/buyruqlar"), 500);
             }
         } catch (err) {
-            console.error(err);
+            console.error("Accept error:", err);
         }
         setIsLoading(false);
     };
@@ -152,7 +138,6 @@ const handleReject = async () => {
                 backgroundRepeat: "repeat",
             }}>
                 <div className="p-6 max-w-6xl mx-auto rounded-lg ">
-
                     <div className="bg-white p-4 rounded shadow mb-4">
                         <h1 className="text-2xl font-bold mb-4">{item?.text}</h1>
                         <p className="mb-2"><FaArchive className="inline mr-2" /> <strong>Mazmuni:</strong> {item?.description}</p>
@@ -172,7 +157,7 @@ const handleReject = async () => {
                                 </div>
                                 <div className="flex items-center mb-2">
                                     <FaFileAlt className="mr-2" />
-                                    <button onClick={() => downloadFile(item.file)} className="text-blue-600 underline">
+                                    <button onClick={() => downloadFile(item.responseFile)} className="text-blue-600 underline">
                                         {item.responseFile.name?.split("_").slice(1).join("_")}
                                     </button>
                                     <FaDownload className="ml-2 text-gray-500" />
@@ -225,11 +210,11 @@ const handleReject = async () => {
                         {history.length > 0 && (
                             <div className="bg-white p-4 rounded shadow">
                                 <h2 className="text-lg font-bold mb-4">Topshiriq tarixi</h2>
-                                {history.map((his, idx) => (
-                                    <p key={idx} className="text-sm mb-1">
+                                {history.map((his) => (
+                                    <div key={his.id} className="text-sm mb-3">
                                         <span className="inline-block w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
-                                        {formatHistory(his, item)}
-                                    </p>
+                                        {formatHistory(his, item, downloadFile)}
+                                    </div>
                                 ))}
                             </div>
                         )}
@@ -241,19 +226,34 @@ const handleReject = async () => {
     );
 }
 
-function formatHistory(his, item) {
+function formatHistory(his, item, downloadFile) {
     const date = new Date(his.createdAt).toLocaleDateString("en-GB");
     const time = new Date(his.createdAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
+    let text = "";
     if (his.fromStatus === 1 && his.toStatus === 2)
-        return `Topshiriq ${item?.staff?.name} tomonidan ${date}, ${time} da ko'rildi.`;
-    if (his.fromStatus === 2 && his.toStatus === 3)
-        return `Topshiriq ${item?.staff?.name} tomonidan ${date}, ${time} da yuklandi.`;
-    if (his.fromStatus === 3 && his.toStatus === 1)
-        return `Topshiriq ${item?.commandStaff?.name} tomonidan ${date}, ${time} da qaytarildi.`;
-    if (his.fromStatus === 3 && his.toStatus === 4)
-        return `Topshiriq ${item?.commandStaff?.name} tomonidan ${date}, ${time} da qabul qilindi.`;
-    return "";
+        text = `Topshiriq ${item?.staff?.name} tomonidan ${date}, ${time} da ko'rildi.`;
+    else if (his.fromStatus === 2 && his.toStatus === 3)
+        text = `Topshiriq ${item?.staff?.name} tomonidan ${date}, ${time} da yuklandi.`;
+    else if (his.fromStatus === 3 && his.toStatus === 1) {
+        text = `Topshiriq ${item?.commandStaff?.name} tomonidan ${date}, ${time} da qaytarildi.`;
+        if (his.responseText) text += ` Sabab: ${his.responseText}`;
+    } else if (his.fromStatus === 3 && his.toStatus === 4)
+        text = `Topshiriq ${item?.commandStaff?.name} tomonidan ${date}, ${time} da qabul qilindi.`;
+
+    return (
+        <>
+            <p>{text}</p>
+            {his.file && (
+                <button
+                    onClick={() => downloadFile(his.file)}
+                    className="text-blue-600 underline text-sm flex items-center mt-1"
+                >
+                    <FaDownload className="mr-1" /> {his.file.name?.split("_").slice(1).join("_")}
+                </button>
+            )}
+        </>
+    );
 }
 
 export default BatafsilBuyruq;

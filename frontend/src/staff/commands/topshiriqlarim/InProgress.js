@@ -95,25 +95,25 @@ const InProgressTopshiriq = () => {
                 <h3 className="text-xl font-bold text-gray-800">{item.text}</h3>
                 <p
                     onClick={() => toggleExpanded(item.id)}
-                    className="text-gray-600 mt-2 cursor-pointer flex items-center"
+                    className="text-gray-600 text-sm mt-2 cursor-pointer flex items-center"
                 >
                     <i className="fas fa-archive mr-2"></i>
                     {expanded === item.id ? item.description : truncatedDescription}
                 </p>
 
-                <p className="text-gray-700 mt-2 flex items-center">
+                <p className="text-gray-700 text-sm mt-2 flex items-center">
                     <i className="fas fa-clock mr-2"></i>
                     <span className="font-bold mr-2">Topshiriq berilgan sana:</span>
                     {new Date(item.createdAt).toLocaleDateString("en-GB")} {new Date(item.createdAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
                 </p>
 
-                <p className="text-gray-700 flex items-center">
+                <p className="text-gray-700 text-sm flex items-center">
                     <i className="fas fa-clock mr-2"></i>
                     <span className="font-bold mr-2">Bajarish muddati:</span>
                     {`${timeLimitDate.toLocaleDateString("en-GB")}, ${timeLimitDate.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`}
                 </p>
 
-                <p className="text-gray-700 flex items-center">
+                <p className="text-gray-700 text-sm flex items-center">
                     <i className="fas fa-user mr-2"></i>
                     <span className="font-bold mr-2">Topshiriq beruvchi:</span>
                     {item?.commandStaff?.name || "N/A"}
@@ -142,7 +142,7 @@ const InProgressTopshiriq = () => {
         <div className="flex">
             <Sidebar />
 
-            <div className="px-4 sm:ml-64 w-full min-h-screen" style={{
+            <div className="sm:ml-64 w-full min-h-screen" style={{
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}
