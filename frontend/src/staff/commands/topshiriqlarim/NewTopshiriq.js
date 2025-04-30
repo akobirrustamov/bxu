@@ -4,6 +4,8 @@ import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
 import ApiCall from "../../../config/index";
 import Loading from "../../components/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInbox} from "@fortawesome/free-solid-svg-icons";
 
 const NewTopshiriq = () => {
     const [commands, setCommands] = useState([]);
@@ -127,12 +129,15 @@ const NewTopshiriq = () => {
             <Sidebar />
 
             <div
-                className="flex-1 p-6 overflow-y-auto"
+                className="sm:ml-64 w-full min-h-screen"
                 style={{
-                                backgroundImage: `url(${newbg})`,
-                                backgroundRepeat: "repeat",
-                            }}
+                    backgroundImage: `url(${newbg})`,
+                    backgroundRepeat: "repeat",
+                }}
+
             >
+                <h1 className="text-3xl my-6 text-gray-600 font-semibold text-center">
+                    <FontAwesomeIcon icon={faInbox} className="text-gray-600 mr-2" />Yangi topshiriq</h1>
                 {isLoading ? (
                     <Loading />
                 ) : (

@@ -5,6 +5,8 @@ import newbg from "../../../staff/images/newbg.jpg";
 import ApiCall from "../../../config/index";
 import { toast, ToastContainer } from "react-toastify";
 import Loading from "../../components/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAreaChart } from "@fortawesome/free-solid-svg-icons";
 
 const InProgressTopshiriq = () => {
     const [commands, setCommands] = useState([]);
@@ -149,6 +151,8 @@ const InProgressTopshiriq = () => {
             >
                 <div className="flex items-center">
                     <div className="w-full max-w-[1440px] mx-auto p-4">
+                        <h1 className="text-3xl mb-6 text-gray-600 font-semibold text-center">
+                            <FontAwesomeIcon icon={faAreaChart} className="text-gray-600 mr-2" />Jarayonda</h1>
                         <input
                             type="text"
                             placeholder="Qidiruv..."

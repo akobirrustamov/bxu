@@ -53,6 +53,7 @@ const Topshiriqlar = () => {
                     backgroundRepeat: "repeat",
                 }}
             >
+                <h2 className="text-center mb-6 font-semibold text-gray-600">📅 Mening topshiriqlarim</h2>
                 {/* Контейнер карточек */}
                 <div className="mt-2 transition-all duration-500">
 

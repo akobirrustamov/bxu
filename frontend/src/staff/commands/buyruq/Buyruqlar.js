@@ -51,6 +51,7 @@ const Buyruqlar = () => {
           backgroundRepeat: "repeat",
         }}
       >
+        <h2 className="text-center mb-6 font-semibold text-gray-600">📑 Buyruqlar</h2>
         {isLoading ? (
           <Loading />
         ) : (

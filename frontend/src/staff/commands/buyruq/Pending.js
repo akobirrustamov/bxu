@@ -6,6 +6,8 @@ import Sidebar from "../../Sidebar";
 import { toast, ToastContainer } from "react-toastify";
 import { FaArchive, FaClock, FaUser, FaCheck } from "react-icons/fa";
 import Loading from '../../components/Loading';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandshake } from "@fortawesome/free-solid-svg-icons";
 
 const Pending = () => {
     const [administrator, setAdministrator] = useState(null);
@@ -148,6 +150,7 @@ const Pending = () => {
             }}>
                 <div className="flex items-center">
                     <div className="w-full max-w-[1440px] mx-auto p-4">
+                    <h2 className='text-center mb-6 text-gray-600'><FontAwesomeIcon icon={faHandshake} className='mr-2' />Kutilmoqda</h2>
                         <input
                             type="text"
                             placeholder="Qidiruv..."

@@ -7,6 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInbox } from "@fortawesome/free-solid-svg-icons";
+import Loading from "../../components/Loading";
 
 const NewCommand = () => {
     const navigate = useNavigate();
@@ -126,7 +129,7 @@ const NewCommand = () => {
         const deadline = new Date(selectedDateTime);
         const timeDifference = deadline - currentTime;
 
-        if (timeDifference <= 6 ) {
+        if (timeDifference <= 6) {
             toast.error("Xatolik! Topshiriq muddati kamida 1 soat bo'lishi kerak.");
             return;
         }
@@ -142,7 +145,7 @@ const NewCommand = () => {
                 uploadedFile = uploadResponse.data;
                 // alert(JSON.stringify(uploadedFile));
                 // console.log(uploadResponse.data);
-                
+
             }
 
             const selectedStaffList = Object.values(selectedStaff);
@@ -171,9 +174,7 @@ const NewCommand = () => {
         }
     };
 
-    if (isLoading) {
-        return <div className="flex justify-center items-center h-screen text-xl">Yuklanmoqda...</div>;
-    }
+
 
     return (
         <div className="flex">
@@ -182,96 +183,102 @@ const NewCommand = () => {
                 backgroundImage: `url(${newbg})`,
                 backgroundRepeat: "repeat",
             }}>
-                <div className="max-w-3xl mx-auto p-6 space-y-6">
-                    <h1 className="text-2xl font-bold text-center">Yangi topshiriq yaratish</h1>
+                {isLoading ? (
+                    <Loading />
+                ) : (
+                    <div className="max-w-3xl mx-auto p-6 space-y-6">
 
-                    <select
-                        className="w-full border border-gray-500 rounded px-4 py-2 bg-gray-100 cursor-not-allowed"
-                        value={selectedRole}
-                        disabled
-                    >
-                        {commanders.map((cmd) => (
-                            <option key={cmd.id} value={cmd.id}>
-                                {cmd.rank.name}
-                            </option>
-                        ))}
-                    </select>
+                        <h1 className="text-3xl text-gray-600 font-semibold text-center">
+                            <FontAwesomeIcon icon={faInbox} className="text-gray-600 mr-2" />Yangi topshiriq yaratish</h1>
 
-                    <input
-                        type="text"
-                        className="w-full border border-gray-500 rounded px-4 py-2"
-                        placeholder="Topshiriq sarlavhasi"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
+                        <select
+                            className="w-full border border-gray-500 rounded px-4 py-2 bg-gray-100 cursor-not-allowed"
+                            value={selectedRole}
+                            disabled
+                        >
+                            {commanders.map((cmd) => (
+                                <option key={cmd.id} value={cmd.id}>
+                                    {cmd.rank.name}
+                                </option>
+                            ))}
+                        </select>
 
-                    <textarea
-                        className="w-full border border-gray-500 rounded px-4 py-2"
-                        placeholder="Topshiriq haqida batafsil ma'lumot"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        rows={4}
-                    />
+                        <input
+                            type="text"
+                            className="w-full border border-gray-500 rounded px-4 py-2"
+                            placeholder="Topshiriq sarlavhasi"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
 
-                    <input type="file" onChange={handleFileChange} className="w-full" />
-                    {fileName && <p className="text-sm text-gray-600">Fayl: {fileName}</p>}
+                        <textarea
+                            className="w-full border border-gray-500 rounded px-4 py-2"
+                            placeholder="Topshiriq haqida batafsil ma'lumot"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            rows={4}
+                        />
 
-                    <input
-                        type="datetime-local"
-                        className="w-full border border-gray-500 rounded px-4 py-2"
-                        value={selectedDateTime}
-                        onChange={(e) => setSelectedDateTime(e.target.value)}
-                    />
+                        <input type="file" onChange={handleFileChange} className="w-full" />
+                        {fileName && <p className="text-sm text-gray-600">Fayl: {fileName}</p>}
 
-                    <h3 className="text-lg text-center font-semibold mt-4">
-                        <i className="fa-solid fa-user-group"></i> Xodimlarni tanlang
-                    </h3>
+                        <input
+                            type="datetime-local"
+                            className="w-full border border-gray-500 rounded px-4 py-2"
+                            value={selectedDateTime}
+                            onChange={(e) => setSelectedDateTime(e.target.value)}
+                        />
 
-                    {staffList.map((item) => (
-                        <div key={item.rank.id} className="border bg-gray-200 border-gray-500 p-3 rounded mb-2">
-                            <div className="flex justify-between items-center">
-                                <label className="flex items-center space-x-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={item.staff.every((staff) => selectedStaff[staff.id])}
-                                        onChange={() => handleRankCheckboxToggle(item.rank.id, item.staff)}
-                                    />
-                                    <span className="font-medium">{item.rank.name}</span>
-                                </label>
-                                <button
-                                    type="button"
-                                    onClick={() => toggleExpandRank(item.rank.id)}
-                                    className="text-blue-500 text-sm"
-                                >
-                                    {expandedRank === item.rank.id ? "Yopish" : "Ko'rish"}
-                                </button>
-                            </div>
+                        <h3 className="text-lg text-center font-semibold mt-4">
+                            <i className="fa-solid fa-user-group"></i> Xodimlarni tanlang
+                        </h3>
 
-                            {expandedRank === item.rank.id && (
-                                <div className="mt-2 ml-4 space-y-1">
-                                    {item.staff.map((staff) => (
-                                        <label key={staff.id} className="block">
-                                            <input
-                                                type="checkbox"
-                                                className="mr-2"
-                                                checked={!!selectedStaff[staff.id]}
-                                                onChange={() => handleStaffCheckboxToggle(item.rank.id, staff.id)}
-                                            />
-                                            {staff.name}
-                                        </label>
-                                    ))}
+                        {staffList.map((item) => (
+                            <div key={item.rank.id} className="border bg-gray-200 border-gray-500 p-3 rounded mb-2">
+                                <div className="flex justify-between items-center">
+                                    <label className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={item.staff.every((staff) => selectedStaff[staff.id])}
+                                            onChange={() => handleRankCheckboxToggle(item.rank.id, item.staff)}
+                                        />
+                                        <span className="font-medium">{item.rank.name}</span>
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleExpandRank(item.rank.id)}
+                                        className="text-blue-500 text-sm"
+                                    >
+                                        {expandedRank === item.rank.id ? "Yopish" : "Ko'rish"}
+                                    </button>
                                 </div>
-                            )}
-                        </div>
-                    ))}
 
-                    <button
-                        onClick={handleSubmit}
-                        className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold"
-                    >
-                        Yuborish
-                    </button>
-                </div>
+                                {expandedRank === item.rank.id && (
+                                    <div className="mt-2 ml-4 space-y-1">
+                                        {item.staff.map((staff) => (
+                                            <label key={staff.id} className="block">
+                                                <input
+                                                    type="checkbox"
+                                                    className="mr-2"
+                                                    checked={!!selectedStaff[staff.id]}
+                                                    onChange={() => handleStaffCheckboxToggle(item.rank.id, staff.id)}
+                                                />
+                                                {staff.name}
+                                            </label>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+
+                        <button
+                            onClick={handleSubmit}
+                            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold"
+                        >
+                            Yuborish
+                        </button>
+                    </div>
+                )}
             </div>
             <ToastContainer position="top-right" autoClose={2000} />
         </div>

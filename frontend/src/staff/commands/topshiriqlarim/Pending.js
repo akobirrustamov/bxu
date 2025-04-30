@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
 import Loading from '../../components/Loading';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandshake} from "@fortawesome/free-solid-svg-icons";
 
 function PendingTopshiriq() {
     const navigate = useNavigate()
@@ -161,6 +163,8 @@ function PendingTopshiriq() {
             }}>
                 <div className="flex items-center">
                     <div className="w-full max-w-[1440px] mx-auto p-4">
+                        <h1 className="text-3xl mb-6 text-gray-600 font-semibold text-center">
+                            <FontAwesomeIcon icon={faHandshake} className="text-gray-600 mr-2" />Kutilmoqda</h1>
                         <input
                             type="text"
                             placeholder="Qidiruv..."

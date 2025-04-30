@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import Loading from "../../components/Loading";
 import Sidebar from "../../Sidebar";
 import newbg from "../../../staff/images/newbg.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 
 const Completed = () => {
@@ -144,6 +146,7 @@ const Completed = () => {
             >
                 <div className="flex items-center">
                     <div className="w-full max-w-[1440px] mx-auto p-4">
+                        <h2 className='text-center mb-6 text-gray-600'><FontAwesomeIcon icon={faCheck} className='mr-2' />Bajarilgan</h2>
                         <input
                             type="text"
                             placeholder="Qidiruv..."

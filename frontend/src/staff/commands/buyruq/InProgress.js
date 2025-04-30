@@ -7,6 +7,8 @@ import { FaArchive, FaClock, FaUser, FaCheck } from 'react-icons/fa';
 import newbg from "../../../staff/images/newbg.jpg";
 import Sidebar from '../../Sidebar';
 import Loading from '../../components/Loading';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAreaChart } from "@fortawesome/free-solid-svg-icons";
 
 function InProgress() {
     const [administrator, setAdministrator] = useState(null);
@@ -171,6 +173,8 @@ function InProgress() {
 
                 <div className="flex items-center">
                     <div className="w-full max-w-[1440px] mx-auto p-4">
+                        
+                        <h2 className='text-center mb-6 text-gray-600'><FontAwesomeIcon icon={faAreaChart} className='mr-2' />Jarayonda</h2>
                         <input
                             type="text"
                             placeholder="Qidiruv.."
