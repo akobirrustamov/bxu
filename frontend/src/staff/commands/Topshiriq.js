@@ -62,7 +62,6 @@ function Topshiriq() {
     fetchProfileData();
   }, [navigation]);
 
-
   return (
     <div className="flex ">
       <Sidebar />
@@ -77,14 +76,16 @@ function Topshiriq() {
           <Loading />
         ) : (
           <div className="text-[#09025E96] mt-2 transition-all duration-500">
-
             {/* Только если не ректор */}
-            {rank[0]?.name !== 'Rektor' && (
-              <div style={{ backgroundImage: `url(${bbg})`, }}
+            {rank[0]?.name !== "Rektor" && (
+              <div
+                style={{ backgroundImage: `url(${bbg})` }}
                 className="bg-cover mt-2 py-9 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer"
                 onClick={() => navigation("/mobil/commands/topshiriqlarim")}
               >
-                <p className="text-xl font-semibold mb-2 text-center">📅 Mening topshiriqlarim</p>
+                <p className="text-xl font-semibold mb-2 text-center">
+                  📅 Mening topshiriqlarim
+                </p>
               </div>
             )}
 
@@ -106,7 +107,9 @@ function Topshiriq() {
                   className="bg-white mt-4 py-9 p-6 bg-cover rounded-lg shadow-md hover:shadow-lg transform transition hover:scale-100 cursor-pointer flex items-center justify-center"
                   onClick={() => navigation("/mobil/commands/xodimlar")}
                 >
-                  <p className="text-xl font-semibold text-center">👔 Xodimlar</p>
+                  <p className="text-xl font-semibold text-center">
+                    👔 Xodimlar
+                  </p>
                 </div>
               </>
             )}

@@ -143,6 +143,7 @@ const JavobTopshiriq = ({ goBack }) => {
             <Loading />
         );
     }
+console.log(item);
 
     return (
         <div className='flex'>
