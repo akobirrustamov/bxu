@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { FaArchive, FaClock, FaUser, FaCheck } from "react-icons/fa";
 import Loading from "../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHandshake } from "@fortawesome/free-solid-svg-icons";
+import { faHandshake, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Pending = () => {
   const [administrator, setAdministrator] = useState(null);
@@ -184,6 +184,15 @@ const Pending = () => {
           backgroundRepeat: "repeat",
         }}
       >
+        <div className="flex items-center justify-between ml-6 mt-6">
+          <button
+            onClick={() => navigate("/mobil/commands/buyruqlar")}
+            className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+            <span className="font-medium">Ortga qaytish</span>
+          </button>
+        </div>
         <div className="flex items-center">
           <div className="w-full max-w-[1440px] mx-auto p-4">
             <h2 className="text-center mb-6 text-gray-600">

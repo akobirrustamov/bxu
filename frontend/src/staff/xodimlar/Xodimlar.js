@@ -4,6 +4,8 @@ import ApiCall from "../../config/index";
 import Sidebar from "../Sidebar";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function Xodimlar() {
   const navigation = useNavigate();
@@ -93,6 +95,15 @@ function Xodimlar() {
       >
         <div className="px-4 sm:px-6 lg:px-8 pb-8">
           <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between mb-6">
+              <button
+                onClick={() => navigate("/mobil/commands")}
+                className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+                <span className="font-medium">Ortga qaytish</span>
+              </button>
+            </div>
             {/* Sarlavha */}
             <div className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl font-bold text-blue-800 mb-3">

@@ -4,8 +4,12 @@ import newbg from "./../images/newbg.jpg";
 import ApiCall from "../../config/index";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function DarsJadvalHafta() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -125,6 +129,15 @@ function DarsJadvalHafta() {
         }}
       >
         <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => navigate("/mobil/groups/" + id)}
+              className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+              <span className="font-medium">Ortga qaytish</span>
+            </button>
+          </div>
           <div className="p-6 mb-6">
             <h1 className="text-2xl font-bold text-blue-800 mb-4">
               Haftalik Dars Jadvali:{" "}

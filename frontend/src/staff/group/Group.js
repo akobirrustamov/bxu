@@ -4,6 +4,8 @@ import newbg from "./../images/newbg.jpg";
 import ApiCall from "../../config/index";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function Group() {
   const navigate = useNavigate();
@@ -81,6 +83,15 @@ function Group() {
         }}
       >
         <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => navigate("/mobil")}
+              className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+              <span className="font-medium">Ortga qaytish</span>
+            </button>
+          </div>
           <div className="rounded-xl overflow-hidden">
             <div className="p-6 text-white">
               <h1 className="text-5xl font-bold text-center text-blue-600">

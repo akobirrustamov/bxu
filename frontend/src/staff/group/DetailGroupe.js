@@ -4,9 +4,13 @@ import ApiCall, { baseUrl } from "../../config/index";
 import Loading from "../components/Loading";
 import { useParams } from "react-router-dom";
 import Sidebar from "../Sidebar";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 // import { saveAs } from "file-saver";
 
 const DetailGroupe = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -102,6 +106,15 @@ const DetailGroupe = () => {
           backgroundAttachment: "fixed",
         }}
       >
+        <div className="flex items-center justify-between mb-6">
+          <button
+            onClick={() => navigate("/mobil/groups")}
+            className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+            <span className="font-medium">Ortga qaytish</span>
+          </button>
+        </div>
         {loading || downloading ? ( // 🔥 loading yoki downloading bo'lsa Loading component
           <Loading />
         ) : students.length !== 0 ? (

@@ -8,13 +8,7 @@ import {
 } from "react-icons/fa";
 import ApiCall, { baseUrl } from "../../../config/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArchive,
-  faClock,
-  faUser,
-  faFile,
-  faDownload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import newbg from "../../../staff/images/newbg.jpg";
@@ -196,6 +190,15 @@ function BatafsilBuyruq() {
         className="p-4 sm:ml-64 w-full min-h-screen"
         style={{ backgroundImage: `url(${newbg})`, backgroundRepeat: "repeat" }}
       >
+        <div className="flex items-center justify-between ml-6 mt-6">
+          <button
+            onClick={() => navigate("/mobil/commands/buyruqlar")}
+            className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+            <span className="font-medium">Ortga qaytish</span>
+          </button>
+        </div>
         <div className="p-6 max-w-6xl mx-auto rounded-lg">
           <div className="bg-white p-4 rounded shadow mb-4">
             <h1 className="text-2xl font-bold mb-4">{item?.text}</h1>

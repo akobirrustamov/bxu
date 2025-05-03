@@ -3,8 +3,12 @@ import Sidebar from "./../Sidebar";
 import ApiCall from "../../config/index";
 import newbg from "./../images/newbg.jpg";
 import Loading from "../components/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function DarsJadvali() {
+  const navigate = useNavigate();
   const [jadval, setJadval] = useState([]);
   const [loading, setLoading] = useState(true);
   const [todayDate, setTodayDate] = useState("");
@@ -110,6 +114,15 @@ function DarsJadvali() {
       >
         <div className="min-h-screen px-4 md:px-8 pt-4">
           <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => navigate("/mobil")}
+                className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+                <span className="font-medium">Ortga qaytish</span>
+              </button>
+            </div>
             {/* Sarlavha */}
             <div className="text-center mb-2">
               <h1>

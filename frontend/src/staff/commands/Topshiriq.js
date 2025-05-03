@@ -4,6 +4,8 @@ import ApiCall from "../../config/index";
 import newbg from "./../images/newbg.jpg";
 import bbg from "./../images/img.png";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../components/Loading";
 
 function Topshiriq() {
@@ -72,6 +74,15 @@ function Topshiriq() {
           backgroundRepeat: "repeat",
         }}
       >
+        <div className="flex items-center justify-between ml-6 mt-6">
+          <button
+            onClick={() => navigation("/mobil")}
+            className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+            <span className="font-medium">Ortga qaytish</span>
+          </button>
+        </div>
         {isLoading ? (
           <Loading />
         ) : (

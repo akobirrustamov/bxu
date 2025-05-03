@@ -5,6 +5,8 @@ import Sidebar from "../Sidebar";
 import Loading from "../components/Loading";
 import { useLocation, useNavigate } from "react-router-dom";
 import defLogo from "./download.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function BatafsilXodimlar() {
   const { state } = useLocation();
@@ -124,11 +126,21 @@ function BatafsilXodimlar() {
       }}
     >
       <Sidebar />
+
       <div className="p-4 sm:ml-64 w-full min-h-screen">
         {isLoading ? (
           <Loading />
         ) : (
           <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => navigate("/mobil/commands/xodimlar")}
+                className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+                <span className="font-medium">Ortga qaytish</span>
+              </button>
+            </div>
             {/* Xodim ma'lumotlari */}
             <div className="flex justify-center">
               <div className="text-center">
