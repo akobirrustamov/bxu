@@ -39,6 +39,7 @@ public class Student {
     private String province;
     private String level;
     private String passport_pin;
+    @Column(unique = true)
     private String passport_number;
     @CreationTimestamp
     private LocalDateTime updated_at;

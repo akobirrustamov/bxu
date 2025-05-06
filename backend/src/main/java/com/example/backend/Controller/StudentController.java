@@ -105,9 +105,22 @@ public class StudentController {
                     .updated_at(LocalDateTime.now()) // Set current timestamp
                     .build();
 
-            Student save = studentRepo.save(student);
-            logger.info("Student data saved successfully: {}", student);
-            return save;
+//            Student save = studentRepo.save(student);
+//            logger.info("Student data saved successfully: {}", student);
+//            return save;
+
+            try {
+                Student savedStudent = studentRepo.save(student);
+                logger.info("Student saved successfully: {}", savedStudent);
+                return savedStudent;
+            } catch (Exception saveEx) {
+                Optional<Student> byPassportPin = studentRepo.findByPassport_pin(student.getPassport_pin());
+                if (byPassportPin.isPresent()) {
+                    return byPassportPin.get();
+                }
+                logger.error("❌ Error during studentRepo.save: {}", saveEx.getMessage(), saveEx);
+                return null;
+            }
         } catch (Exception e) {
             logger.error("Error saving student data: ", e);
             return null;
@@ -129,7 +142,7 @@ public class StudentController {
 
     @GetMapping("/account/{token}")
     public HttpEntity<?> getStudentByToken(@PathVariable String token) {
-        System.out.println(token);
+        System.out.println("Token received: " + token);
         try {
             RestTemplate restTemplate = new RestTemplate();
             String externalApiUrl = baseUrl + "/v1/account/me";
@@ -145,22 +158,35 @@ public class StudentController {
 
             if (response.getStatusCode() == HttpStatus.OK) {
                 Map<String, Object> responseBody = response.getBody();
+                if (responseBody == null || !responseBody.containsKey("data")) {
+                    return new ResponseEntity<>("Invalid API response", HttpStatus.BAD_REQUEST);
+                }
+
                 Map<String, Object> data = (Map<String, Object>) responseBody.get("data");
-                Student student1 = saveStudentData(data);
+                String passportNumber = (String) data.get("passport_number");
 
+                // ✅ Try to find the student in the DB
+                Optional<Student> optionalStudent = studentRepo.findByPassport_pin(passportNumber);
+                if (optionalStudent.isPresent()) {
+                    logger.info("Student already exists in DB: {}", optionalStudent.get());
+                    return ResponseEntity.ok(optionalStudent.get());
+                }
 
+                // ❗If not exists, create and save new student
+                Student newStudent = saveStudentData(data);
+                if (newStudent == null) {
+                    return new ResponseEntity<>("Error saving student", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
 
-              return ResponseEntity.ok(student1);
+                return ResponseEntity.ok(newStudent);
             } else {
                 return new ResponseEntity<>("Failed to fetch student data", HttpStatus.BAD_REQUEST);
             }
-
         } catch (Exception e) {
             logger.error("Error fetching student data by token: ", e);
             return new ResponseEntity<>("Error occurred while fetching student data", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
     @GetMapping("/debt/{token}")
     public HttpEntity<?> getDebtOfStudent(@PathVariable String token) {

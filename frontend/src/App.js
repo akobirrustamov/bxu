@@ -43,6 +43,7 @@ import Commander1 from "./appAdmin/Commander";
 import Books from "./admin/Books";
 import Book from "./pages/book/Book";
 import Memorandum from "./admin/Memorandum";
+import QuestionnaireAdmin from "./admin/QuestionnaireAdmin";
 import { useTranslation } from "react-i18next";
 import HemisToken from "./appAdmin/HemisToken";
 import NewspaperVestnik from "./pages/newspaper/NewspaperVestnik";
@@ -101,9 +102,14 @@ import InProgressTopshiriq from "./staff/commands/topshiriqlarim/InProgress";
 import JavobTopshiriq from "./staff/commands/topshiriqlarim/JavobTopshiriq";
 import PendingTopshiriq from "./staff/commands/topshiriqlarim/Pending";
 import CompletedTopshiriq from "./staff/commands/topshiriqlarim/Completed";
+
+
+
 import TestSuitsidStatistic from "./admin/TestSuitsidStatistic";
 import Test from "./TEST/Test";
 import TestLogin from "./TEST/TestLogin";
+import TestDone from "./TEST/TestDone";
+import Questionnaire from "./questionnaire/Questionnaire";
 
 function App() {
   const { t } = useTranslation();
@@ -179,6 +185,7 @@ function App() {
         <Route path={"/dashboard/memorandum"} element={<Memorandum />} />
         <Route path={"/dashboard/youtube"} element={<Company />} />
         <Route path={"/dashboard/test-suitsid"} element={<TestSuitsidStatistic />} />
+        <Route path={"/dashboard/questionnaire"} element={<QuestionnaireAdmin />} />
         <Route path={"/*"} element={<PageNotFound />} />
 
         {/*  University */}
@@ -317,6 +324,10 @@ function App() {
         {/* TEST PAGES */}
         <Route path={"/test"} element={<Test />} />
         <Route path={"/test/login"} element={<TestLogin />} />
+        <Route path={"/test/done"} element={<TestDone />} />
+
+      {/*  Questionnaire*/}
+        <Route path={"/questionaire"} element={<Questionnaire/>}/>
       </Routes>
     </div>
   );

@@ -99,7 +99,6 @@ function Home(props) {
             <div className="hidden lg:block">
                 <TablePage />
             </div>
-
             <Footer />
 
             {/* Modal */}

@@ -21,7 +21,6 @@ public class TestSuitsidController {
     private final TestSuitsidRepo testSuitsidRepo;
     private final StatisticTestSuitsidRepo statisticTestSuitsidRepo;
     private final StudentRepo studentRepo;
-    private Student student;
     @GetMapping
     public HttpEntity<?> testSuitsid(){
         List<TestSuitsid> all = testSuitsidRepo.findAll();
@@ -39,6 +38,15 @@ public class TestSuitsidController {
         return ResponseEntity.ok("Test submitted successfully");
     }
 
+
+    @GetMapping("/student/{studentId}")
+    public HttpEntity<?> testSuitsidStudent(@PathVariable UUID studentId){
+        Optional<StatisticTestSuitsid> byId = statisticTestSuitsidRepo.findByStuentId(studentId);
+        if (byId.isEmpty()){
+            return ResponseEntity.ok(false);
+        }
+        return ResponseEntity.ok(true);
+    }
 
     @GetMapping("/statistic")
     public HttpEntity<?> gettestSuitsidStatistic() {
@@ -71,14 +79,13 @@ public class TestSuitsidController {
         return ResponseEntity.ok(resultMap);
     }
 
-
-
-
     @GetMapping("/statistic-all")
     public HttpEntity<?> getAlltestSuitsidStatistic(){
 
         List<StatisticTestSuitsid> all = statisticTestSuitsidRepo.findAll();
         return ResponseEntity.ok(all);
     }
+
+
 
 }

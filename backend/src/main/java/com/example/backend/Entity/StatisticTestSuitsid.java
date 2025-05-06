@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Builder
-@Table(name = "statistic-test_suitsid")
+@Table(name = "statistic_test_suitsid")
 public class StatisticTestSuitsid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

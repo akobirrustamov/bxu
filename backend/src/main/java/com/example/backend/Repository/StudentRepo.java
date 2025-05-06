@@ -16,4 +16,6 @@ public interface StudentRepo extends JpaRepository<Student, UUID> {
 
     @Query(value = "SELECT * FROM students WHERE group_name = :groupName", nativeQuery = true)
     List<Student> findAllByGroup(@Param("groupName") String groupName);
+
+
 }
