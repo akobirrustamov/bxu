@@ -12,6 +12,10 @@ function Test() {
 
   useEffect(() => {
 
+    console.log(token)
+    if (!token){
+      navigate("/test/login")
+    }
     fetchStudent();
     fetchTest();
   }, []);
@@ -38,7 +42,10 @@ function Test() {
         navigate("/test/login");
       }
       setStudent(response.data);
-      await checkTest(response.data.id)
+      if (!response.error){
+        await checkTest(response.data.id)
+
+      }
     } catch (error) {
       if (
           error.response &&
@@ -69,9 +76,9 @@ function Test() {
 
     test.forEach((item) => {
       if (answers[item.id] === "answer1") {
-        mark += item.ball1 || 3;
+        mark += item.ball1 ;
       } else if (answers[item.id] === "answer2") {
-        mark += item.ball2 || 0;
+        mark += item.ball2;
       }
     });
 
@@ -107,13 +114,13 @@ function Test() {
         </div>
 
         <div className="space-y-6">
-          {test.map((item) => (
+          {test.map((item, index) => (
               <div
                   className="bg-white shadow-md rounded-xl p-6 mx-12 border border-gray-200"
                   key={item.id}
               >
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  {item.id}. {item.testSuidsit}
+                  {index+1}. {item.testSuidsit}
                 </h3>
                 <div className="space-y-3">
                   <label className="flex items-center p-3 border rounded-lg cursor-pointer transition hover:bg-gray-50 hover:shadow-sm">

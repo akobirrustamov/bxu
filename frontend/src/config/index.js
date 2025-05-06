@@ -1,8 +1,8 @@
 import axios from "axios";
 export let baseUrl;
-baseUrl ="http://localhost:8080";
+// baseUrl ="http://localhost:8080";
 // baseUrl ="https://buxpxti.uz";
-// baseUrl = "";
+baseUrl = "";
 export default function (url, method, data, param) {
   let token = localStorage.getItem("access_token");
   // console.log(param)
@@ -33,7 +33,7 @@ export default function (url, method, data, param) {
           };
         }
         return axios({
-          url: `http://localhost:8080/api/v1/auth/refresh?refreshToken=${localStorage.getItem(
+          url: `${baseUrl}/api/v1/auth/refresh?refreshToken=${localStorage.getItem(
             "refresh_token"
           )}`,
           method: "POST",
@@ -42,7 +42,7 @@ export default function (url, method, data, param) {
             localStorage.setItem("access_token", res.data);
             // Returning the inner promise
             return axios({
-              url: "http://localhost:8080" + url,
+              url: baseUrl + url,
               method: method,
               data: data,
               headers: {

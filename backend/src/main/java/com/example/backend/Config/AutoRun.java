@@ -35,6 +35,8 @@ public class AutoRun implements CommandLineRunner {
         if (rankRepo.findAll().isEmpty()) {
             saveRanks();
         }
+
+        testSuitsidRepo.deleteAll();
        if ( testSuitsidRepo.findAll().isEmpty()) {
             saveTestSuitsid();
         }
@@ -42,36 +44,49 @@ public class AutoRun implements CommandLineRunner {
 
     }
 
-        private void saveTestSuitsid() {
-            List<String> questions = List.of(
-                    "Menda o‘zimga ishonch hissi yetishmaydi.",
-                    "Vaqti kelib hech narsaga yaroqsizdek bo‘lib qoladigandek his qilaman.",
-                    "Menda o‘zimni bir joyga qo‘ya olmaydigan darajada bezovtalanish bo‘ladi.",
-                    "Menda oldimda turgan qiyinchiliklarni siqib chiqarish ruhi yetishmaydi.",
-                    "Menga oldimda shunday bartaraf etish mumkin bo‘lmaydigan qiyinchilik turgandek tuyuladi.",
-                    "Men ko‘pincha qo‘rqinchli tushlar ko‘raman.",
-                    "Men haddan ortiq behalovatman.",
-                    "Deyarli har doim biror kishi yoki biror narsadan bezovtalanishni his qilaman.",
-                    "Shunday asabiylashish bo‘ladiki, men uxlay olmay qiynalaman.",
-                    "Men tez asabiylashadigan odamman.",
-                    "Men ba’zan hech narsadan, hech narsasiz asabiylashaman.",
-                    "Meni hayotdagi muammolar juda ham qiynab yuborgan.",
-                    "Ayrim odamlar bilan bo‘lgan muloqotim meni qiyin ahvolga soladi.",
-                    "Men ba’zan bu dunyoni tark etmoqchi bo‘laman.",
-                    "Men fikrlarim va tuyg‘ularim hech kimni qiziqtirmaydi."
-            );
+    private void saveTestSuitsid() {
+        List<String> questions = List.of(
+                "Men hayotda yaxshi orzular bilan yashayapman.",
+                "Men juda omadsizman. Juda ko‘p muammolar qurshovida qolib ketayapman.",
+                "Men juda omadli insonman, hamisha o‘zimni rivojlantirib boryapman.",
+                "Negadir men tushkunlik holatiga tushib, qiynalayapman va menga hech kim yordam bermayapti.",
+                "Hayotni sevish va undan zavqlanib yashash, o‘qish va ishlash kerak deb o‘ylayman.",
+                "Ko‘pincha o‘zimni boshqara olmay kundan kunga asabiy holatlarga duch kelayapman.",
+                "Kelajakdan umidim katta, barcha yaxshi tilaklarimni to‘laqonli amalga oshishiga ishonaman.",
+                "Meni o‘z ichki muammolarim juda ko‘p qiynaydi. Ko‘pincha o‘zimni o‘zim boshqara olmay qolyapman.",
+                "Men o‘z imkoniyatlarimga, hissiyotlarimga va barcha yaqinlarimga ishonaman, ular bilan baxtliman.",
+                "Meni juda qiyin ahvolga solib kelayotgan hayotimdagi voqealar, yaqinlarimning meni mutlaqo tushunmasliklari va kutilmagan ko‘ngilsizliklar tufayli kundan kunga asabiylashib boryapman.",
+                "Men kuchliman, hayotdagi har qanday qiyinchiliklarni yengib o‘tishga harakat qilyapman.",
+                "Negadir hozirda men o‘zimdagi kuchsizlik va ojizlikni his qilyapman. Shu sabab ehtimol hayotga bo‘lgan qiziqishlarim so‘nib borayotganday go‘yo.",
+                "Har bir inson o‘z hayotini, o‘z yaqinlarini, o‘z kasbini va o‘z-o‘zini sevib yashashi kerak deb o‘ylayman.",
+                "Atrofimda va o‘z ichki kechinmalarimda yuz berayotgan o‘ta ziddiyatli holatlarni yengib o‘ta olmayotganligimni tan olish hissi meni havotirga solmoqda.",
+                "Men hayotdan faxrlanib yashayman. O‘zimni yaxshi his qilyapman.",
+                "Men hayotdan charchadim, muammolarim ko‘p. Shuning uchun o‘zimni yomon his qilyapman.",
+                "Yaxshi niyatli insonlarga havasim keladi. Men ham ulardek bo‘lishni xohlayman.",
+                "Ba’zi insonlarning muomalasi meni juda ham asabiylashtirmoqda va men ulardan nafratlanaman.",
+                "Men har doim yaxshi kayfiyatda bo‘lishga harakat qilaman. Bunga juda ko‘p asoslar bor.",
+                "Menga ba’zan bu dunyoni tark etish hissi bezovta qiladi va bu holat menda negadir ko‘proq uchrayapti."
+        );
 
-            for (String question : questions) {
-                TestSuitsid test = TestSuitsid.builder()
-                        .testSuidsit(question)
-                        .answer1("ha")
-                        .ball1(3)
-                        .answer2("yoq")
-                        .ball2(0)
-                        .build();
-                testSuitsidRepo.save(test);
-            }
+        for (int i = 0; i < questions.size(); i++) {
+            String question = questions.get(i);
+            int index = i + 1; // 1-based index
+
+            int ball1 = (index % 2 == 0) ? 1 : 0;
+            int ball2 = (index % 2 != 0) ? 1 : 0;
+
+            TestSuitsid test = TestSuitsid.builder()
+                    .testSuidsit(question)
+                    .answer1("ha")
+                    .ball1(ball1)
+                    .answer2("yo‘q")
+                    .ball2(ball2)
+                    .build();
+
+            testSuitsidRepo.save(test);
         }
+    }
+
 
 
     private void saveRanks() {

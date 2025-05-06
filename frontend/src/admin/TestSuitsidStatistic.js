@@ -9,12 +9,11 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A020F0'];
 
 const scoreCategories = [
     { label: "Barchasi", min: 0, max: 45 },
-    { label: "0-5 ball (bezotalanishning quyi darajasi)", min: 0, max: 5 },
-    { label: "5-15 ball (bezotalanishning quyi darajasi)", min: 5, max: 15 },
-    { label: "15-25 ball (o'rtacha bezotalanish)", min: 15, max: 25 },
-    { label: "25-35 ball (yuqori bezotalanish)", min: 25, max: 35 },
-    { label: "35-45 ball (juda yuqori bezotalanish)", min: 35, max: 45 }
+    { label: "0-4 ball (Minimal bezotalanish)", min: 0, max: 5 },
+    { label: "5-13 ball (O‘rtacha bezotalanish)", min: 5, max: 14 },
+    { label: "14-20 ball (Yuqori bezotalanish)", min: 14, max: 21 }
 ];
+
 
 const TestSuitsidStatistic = () => {
     const [studentResults, setStudentResults] = useState([]);
@@ -100,6 +99,7 @@ const TestSuitsidStatistic = () => {
         XLSX.utils.book_append_sheet(wb, ws, "Test Natijalari");
         XLSX.writeFile(wb, "test_natijalari.xlsx");
     };
+
 
     const getScoreCategory = (score) => {
         for (const category of scoreCategories.slice(1)) {
