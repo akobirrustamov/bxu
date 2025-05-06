@@ -20,6 +20,7 @@ public class AutoRun implements CommandLineRunner {
     private final FacultyRepo facultyRepo;
     private final RankRepo rankRepo;
     private final CommanderRepo commanderRepo;
+    private final TestSuitsidRepo testSuitsidRepo;
     @Override
     public void run(String... args) throws Exception {
         String adminPhone = "admin1234";
@@ -34,9 +35,43 @@ public class AutoRun implements CommandLineRunner {
         if (rankRepo.findAll().isEmpty()) {
             saveRanks();
         }
+       if ( testSuitsidRepo.findAll().isEmpty()) {
+            saveTestSuitsid();
+        }
+
 
     }
 
+        private void saveTestSuitsid() {
+            List<String> questions = List.of(
+                    "Menda o‘zimga ishonch hissi yetishmaydi.",
+                    "Vaqti kelib hech narsaga yaroqsizdek bo‘lib qoladigandek his qilaman.",
+                    "Menda o‘zimni bir joyga qo‘ya olmaydigan darajada bezovtalanish bo‘ladi.",
+                    "Menda oldimda turgan qiyinchiliklarni siqib chiqarish ruhi yetishmaydi.",
+                    "Menga oldimda shunday bartaraf etish mumkin bo‘lmaydigan qiyinchilik turgandek tuyuladi.",
+                    "Men ko‘pincha qo‘rqinchli tushlar ko‘raman.",
+                    "Men haddan ortiq behalovatman.",
+                    "Deyarli har doim biror kishi yoki biror narsadan bezovtalanishni his qilaman.",
+                    "Shunday asabiylashish bo‘ladiki, men uxlay olmay qiynalaman.",
+                    "Men tez asabiylashadigan odamman.",
+                    "Men ba’zan hech narsadan, hech narsasiz asabiylashaman.",
+                    "Meni hayotdagi muammolar juda ham qiynab yuborgan.",
+                    "Ayrim odamlar bilan bo‘lgan muloqotim meni qiyin ahvolga soladi.",
+                    "Men ba’zan bu dunyoni tark etmoqchi bo‘laman.",
+                    "Men fikrlarim va tuyg‘ularim hech kimni qiziqtirmaydi."
+            );
+
+            for (String question : questions) {
+                TestSuitsid test = TestSuitsid.builder()
+                        .testSuidsit(question)
+                        .answer1("ha")
+                        .ball1(3)
+                        .answer2("yoq")
+                        .ball2(0)
+                        .build();
+                testSuitsidRepo.save(test);
+            }
+        }
 
 
     private void saveRanks() {
