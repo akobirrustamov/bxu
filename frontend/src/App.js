@@ -101,6 +101,7 @@ import InProgressTopshiriq from "./staff/commands/topshiriqlarim/InProgress";
 import JavobTopshiriq from "./staff/commands/topshiriqlarim/JavobTopshiriq";
 import PendingTopshiriq from "./staff/commands/topshiriqlarim/Pending";
 import CompletedTopshiriq from "./staff/commands/topshiriqlarim/Completed";
+import TestSuitsidStatistic from "./admin/TestSuitsidStatistic";
 import Test from "./TEST/Test";
 import TestLogin from "./TEST/TestLogin";
 
@@ -177,6 +178,7 @@ function App() {
         <Route path={"/dashboard/teachers"} element={<AdminTeacher />} />
         <Route path={"/dashboard/memorandum"} element={<Memorandum />} />
         <Route path={"/dashboard/youtube"} element={<Company />} />
+        <Route path={"/dashboard/test-suitsid"} element={<TestSuitsidStatistic />} />
         <Route path={"/*"} element={<PageNotFound />} />
 
         {/*  University */}
