@@ -101,6 +101,8 @@ import InProgressTopshiriq from "./staff/commands/topshiriqlarim/InProgress";
 import JavobTopshiriq from "./staff/commands/topshiriqlarim/JavobTopshiriq";
 import PendingTopshiriq from "./staff/commands/topshiriqlarim/Pending";
 import CompletedTopshiriq from "./staff/commands/topshiriqlarim/Completed";
+import Test from "./TEST/Test";
+import TestLogin from "./TEST/TestLogin";
 
 function App() {
   const { t } = useTranslation();
@@ -309,6 +311,10 @@ function App() {
           path={"/mobil/daily-control/:subfolderId"}
           element={<Subfolder />}
         />
+
+        {/* TEST PAGES */}
+        <Route path={"/test"} element={<Test />} />
+        <Route path={"/test/login"} element={<TestLogin />} />
       </Routes>
     </div>
   );

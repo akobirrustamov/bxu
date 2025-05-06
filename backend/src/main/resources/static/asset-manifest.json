@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.fdead2c1.css",
-    "main.js": "/static/js/main.ada5cf52.js",
+    "main.js": "/static/js/main.df20fb0c.js",
     "static/js/453.a074a449.chunk.js": "/static/js/453.a074a449.chunk.js",
     "static/media/simpozium.JPG": "/static/media/simpozium.1327983be01ba8fbaada.JPG",
     "static/media/gimn.mp3": "/static/media/gimn.e71423c07edf4a192a39.mp3",
@@ -139,11 +139,11 @@
     "static/media/react-bootstrap-carousel.woff": "/static/media/react-bootstrap-carousel.96e0693824065d5b7d56.woff",
     "static/media/react-bootstrap-carousel.svg": "/static/media/react-bootstrap-carousel.190d0d1bf1c865be7a1b.svg",
     "main.fdead2c1.css.map": "/static/css/main.fdead2c1.css.map",
-    "main.ada5cf52.js.map": "/static/js/main.ada5cf52.js.map",
+    "main.df20fb0c.js.map": "/static/js/main.df20fb0c.js.map",
     "453.a074a449.chunk.js.map": "/static/js/453.a074a449.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fdead2c1.css",
-    "static/js/main.ada5cf52.js"
+    "static/js/main.df20fb0c.js"
   ]
 }
