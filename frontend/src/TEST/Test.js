@@ -1,13 +1,22 @@
-import React, { use } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ApiCall from "../config/index";
-import { useEffect, useState } from "react";
 
 function Test() {
   let token = localStorage.getItem("student_token");
   const [student, setStudent] = useState({});
+  const [test, setTest] = useState([]);
+  const [answers, setAnswers] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     fetchStudent();
+    fetchTest();
   }, []);
+
+  const handleFinishTest = () => {
+    navigate("/");
+  };
+
   const fetchStudent = async () => {
     try {
       const response = await ApiCall(
@@ -22,33 +31,105 @@ function Test() {
         (error.response.status === 401 || error.response.status === 403)
       ) {
         console.error("error fetching student data");
-        // Handle the error (e.g., show an error message to the user)
       }
     }
   };
 
+  const fetchTest = async () => {
+    try {
+      const response = await ApiCall("/api/v1/test-suitsid", "GET", null);
+      setTest(response.data);
+    } catch (error) {
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        console.error("error fetching test data");
+      }
+    }
+  };
+  //   asnwer1: "Ha",
+  //   answer2: "Yo'q",
+  //   bu answersga saqalanadi
+  const handleOptionChange = (testId, value) => {
+    setAnswers((prev) => ({ ...prev, [testId]: value }));
+  };
+
+  const allAnswered = test.length > 0 && test.every((item) => answers[item.id]);
+
   return (
-    <div class="">
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 shadow-lg flex items-center justify-center gap-6 text-center">
+    <div>
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 shadow-lg flex items-center justify-center gap-6 text-center">
         <div>
           <img
-            class="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover"
+            className="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover"
             src={student.image}
-            alt="Student photo"
+            alt="Student"
           />
         </div>
         <div>
-          <h2 class="text-xl font-bold text-gray-800">{student.second_name}</h2>
-          <h2 class="text-xl font-bold text-gray-800">{student.first_name}</h2>
-          <p class="text-indigo-600 font-medium">
+          <h2 className="text-xl font-bold text-gray-800">
+            {student.second_name}
+          </h2>
+          <h2 className="text-xl font-bold text-gray-800">
+            {student.first_name}
+          </h2>
+          <p className="text-indigo-600 font-medium">
             Guruhi talabasi: {student.group_name}
           </p>
         </div>
       </div>
 
-      <div>
-        <div></div>
-        <div></div>
+      <div className="space-y-6">
+        {test.map((item) => (
+          <div
+            className="bg-white shadow-md rounded-xl p-6 mx-12 border border-gray-200"
+            key={item.id}
+          >
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              {item.id}. {item.testSuidsit}
+            </h3>
+            <div className="space-y-3">
+              <label className="flex items-center p-3 border rounded-lg cursor-pointer transition hover:bg-gray-50 hover:shadow-sm">
+                <input
+                  type="radio"
+                  className="form-radio text-blue-600 w-5 h-5 mr-3"
+                  name={`options-${item.id}`}
+                  value="answer1"
+                  onChange={() => handleOptionChange(item.id, "answer1")}
+                  checked={answers[item.id] === "answer1"}
+                />
+                <span className="text-gray-700">{item.answer1}</span>
+              </label>
+
+              <label className="flex items-center p-3 border rounded-lg cursor-pointer transition hover:bg-gray-50 hover:shadow-sm">
+                <input
+                  type="radio"
+                  className="form-radio text-blue-600 w-5 h-5 mr-3"
+                  name={`options-${item.id}`}
+                  value="answer2"
+                  onChange={() => handleOptionChange(item.id, "answer2")}
+                  checked={answers[item.id] === "answer2"}
+                />
+                <span className="text-gray-700">{item.answer2}</span>
+              </label>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-center">
+        <button
+          onClick={handleFinishTest}
+          className={`mt-8 mb-2 ${
+            allAnswered
+              ? "bg-blue-600 hover:bg-blue-700"
+              : "bg-blue-400 cursor-not-allowed"
+          } text-white font-semibold py-2 px-12 rounded-lg shadow-md transition duration-300`}
+          disabled={!allAnswered}
+        >
+          Yakunlash
+        </button>
       </div>
     </div>
   );
