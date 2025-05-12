@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3e41cd0e.css",
-    "main.js": "/static/js/main.6721c26e.js",
+    "main.css": "/static/css/main.a7fdf9f1.css",
+    "main.js": "/static/js/main.6eaaf2a6.js",
     "static/js/453.a074a449.chunk.js": "/static/js/453.a074a449.chunk.js",
     "static/media/simpozium.JPG": "/static/media/simpozium.1327983be01ba8fbaada.JPG",
     "static/media/gimn.mp3": "/static/media/gimn.e71423c07edf4a192a39.mp3",
@@ -139,12 +139,12 @@
     "index.html": "/index.html",
     "static/media/react-bootstrap-carousel.woff": "/static/media/react-bootstrap-carousel.96e0693824065d5b7d56.woff",
     "static/media/react-bootstrap-carousel.svg": "/static/media/react-bootstrap-carousel.190d0d1bf1c865be7a1b.svg",
-    "main.3e41cd0e.css.map": "/static/css/main.3e41cd0e.css.map",
-    "main.6721c26e.js.map": "/static/js/main.6721c26e.js.map",
+    "main.a7fdf9f1.css.map": "/static/css/main.a7fdf9f1.css.map",
+    "main.6eaaf2a6.js.map": "/static/js/main.6eaaf2a6.js.map",
     "453.a074a449.chunk.js.map": "/static/js/453.a074a449.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e41cd0e.css",
-    "static/js/main.6721c26e.js"
+    "static/css/main.a7fdf9f1.css",
+    "static/js/main.6eaaf2a6.js"
   ]
 }

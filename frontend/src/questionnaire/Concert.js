@@ -40,27 +40,38 @@ function Concert() {
         onSubmit={handleSubmit}
         className="bg-white shadow-xl rounded-lg p-6 md:p-8 w-full max-w-2xl space-y-6 transition-all duration-300 hover:shadow-2xl"
       >
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-          <img
-            src={logo}
-            alt="Buxoro xalqaro universiteti logosi"
-            className="h-24 w-auto object-contain md:mr-4"
-          />
+        <div className="">
+          <div className="flex  flex-col md:flex-row items-center md:items-start gap-6">
+            <img
+              src={logo}
+              alt="Buxoro xalqaro universiteti logosi"
+              className="h-24 w-auto object-contain md:mr-4"
+            />
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-blue-800">
+                Buxoro Xalqaro Universiteti
+              </h1>
+              <h1 className="text-lg md:text-2xl text-blue-700 mt-1 text-center uppercase">
+                Konsertda qatnashish bepul.
+              </h1>
+            </div>
+          </div>
           <div className="text-center md:text-left">
-            <h1 className="text-xl md:text-2xl font-bold text-blue-800">
-              Buxoro Xalqaro Universiteti
-            </h1>
-            <div className="w-16 h-1 bg-blue-600 mx-auto md:mx-0 my-3"></div>
-            <h2 className="text-lg md:text-xl text-gray-700 mt-4">
-              So'rovnomada qatnashing - bizga yordam bering eng yaxshi tadbirni
-              tashkil etishimizga!
+            <h2 className="text-lg md:text-xl text-gray-700 mt-1">
+              So'rovnomada qatnashing - eng yaxshi tadbir tashkil etishda o'z
+              hissangizni qo'shing! Tadbirda Siz, yaqinlaringiz (oila
+              a'zolaringiz, qarindoshlaringiz va do'stlaringiz) bilan birga
+              qatnashing. Konsert ishtirokchilariga ajratilgan{" "}
+              <span className="text-blue-500 font-semibold">sovg'alardan</span>{" "}
+              biriga ega bo'ling!
+              <br /> Konsert boshlanish vaqti 19:00 da.
             </h2>
             <h2 className="text-lg md:text-xl text-gray-700 mt-3">
               21-may kuni Buxoro Xalqaro Universitetida bo'lib o'tadigan "Yozgi
               Konsert"ning
               <span className="text-blue-800 font-semibold">
                 {" "}
-                asosiy mehmoni - Zahriddin Hamrayev
+                asosiy mehmoni - Zahriddin Xamrayev
               </span>{" "}
               bo'ladi!
             </h2>
@@ -70,6 +81,9 @@ function Concert() {
         {/* Xarita qismi */}
 
         <div className="space-y-6">
+          <h2 className="text-lg md:text-xl mt-4 text-center text-blue-500 font-semibold uppercase">
+            Konsertda dasturida sizni ko'rishdan mamnunmiz!
+          </h2>
           <div className="space-y-2">
             <label htmlFor="reason" className="block text-gray-700 font-medium">
               <span className="text-blue-600">1.</span> Siz nechi kishi bo'lib
