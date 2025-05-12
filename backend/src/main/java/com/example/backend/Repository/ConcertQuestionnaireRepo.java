@@ -1,7 +1,7 @@
 package com.example.backend.Repository;
 
-import com.example.backend.Entity.ConsertQuestionnarie;
+import com.example.backend.Entity.ConcertQuestionnaire;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ConsertQuestionnarieRepo extends JpaRepository<ConsertQuestionnarie,Integer> {
+public interface ConcertQuestionnaireRepo extends JpaRepository<ConcertQuestionnaire,Integer> {
 }
