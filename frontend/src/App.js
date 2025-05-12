@@ -111,6 +111,7 @@ import TestLogin from "./TEST/TestLogin";
 import TestDone from "./TEST/TestDone";
 import Questionnaire from "./questionnaire/Questionnaire";
 import Concert from "./questionnaire/Concert";
+import ConcertAdmin from "./admin/ConcertAdmin";
 
 function App() {
   const { t } = useTranslation();
@@ -187,6 +188,7 @@ function App() {
         <Route path={"/dashboard/youtube"} element={<Company />} />
         <Route path={"/dashboard/test-suitsid"} element={<TestSuitsidStatistic />} />
         <Route path={"/dashboard/questionnaire"} element={<QuestionnaireAdmin />} />
+        <Route path={"/dashboard/concert"} element={<ConcertAdmin />} />
         <Route path={"/*"} element={<PageNotFound />} />
 
         {/*  University */}

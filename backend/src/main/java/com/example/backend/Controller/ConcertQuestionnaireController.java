@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
-@RequestMapping("/api/v1/app/concert-questionnaire")
+@RequestMapping("/api/v1/concert-questionnaire")
 public class ConcertQuestionnaireController {
 
     private final ConcertQuestionnaireRepo concertQuestionnaireRepo;
