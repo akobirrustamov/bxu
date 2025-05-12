@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Table(name = "consert_questionnarie")
-public class ConsertQuestionnarie {
+public class ConcertQuestionnaire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class ConsertQuestionnarie {
     private String description;
 
 
-    public ConsertQuestionnarie(Integer count, String answer, String description) {
+    public ConcertQuestionnaire(Integer count, String answer, String description) {
         this.count = count;
         this.answer = answer;
         this.description = description;
