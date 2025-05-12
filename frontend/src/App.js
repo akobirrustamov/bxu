@@ -110,6 +110,7 @@ import Test from "./TEST/Test";
 import TestLogin from "./TEST/TestLogin";
 import TestDone from "./TEST/TestDone";
 import Questionnaire from "./questionnaire/Questionnaire";
+import Concert from "./questionnaire/Concert";
 
 function App() {
   const { t } = useTranslation();
@@ -328,6 +329,8 @@ function App() {
 
       {/*  Questionnaire*/}
         <Route path={"/questionaire"} element={<Questionnaire/>}/>
+        <Route path={"/concert-questionnaire"} element={<Concert/>}/>
+
       </Routes>
     </div>
   );
