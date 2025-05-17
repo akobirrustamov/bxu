@@ -27,7 +27,7 @@ const AdminNews = () => {
         try {
             const response = await ApiCall('/api/v1/news', 'GET', null, null, true);
             setNewsList(response.data);
-            console.log(response.data)
+            
         } catch (error) {
             setNewsList([]);
             console.error("Error fetching news:", error);

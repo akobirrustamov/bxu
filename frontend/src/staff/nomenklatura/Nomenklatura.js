@@ -4,7 +4,7 @@ import ApiCall from "../../config/index";
 import newbg from "./../images/newbg.jpg";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function Nomenklatura(props) {
   const [nomenklaturaData, setNomenklaturaData] = useState([]);
@@ -130,6 +130,29 @@ function Nomenklatura(props) {
           >
             <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
             <span className="font-medium">Ortga qaytish</span>
+          </button>
+          <button
+            onClick={() => navigate("/mobil/nomenklatura/word-nomenklatura")}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-lg px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            style={{
+              animation: "float 3s ease-in-out infinite",
+            }}
+          >
+            MUNDAREJA
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
           </button>
         </div>
         <h2 className="text-2xl font-bold text-center my-6">

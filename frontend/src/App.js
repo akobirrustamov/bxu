@@ -103,8 +103,6 @@ import JavobTopshiriq from "./staff/commands/topshiriqlarim/JavobTopshiriq";
 import PendingTopshiriq from "./staff/commands/topshiriqlarim/Pending";
 import CompletedTopshiriq from "./staff/commands/topshiriqlarim/Completed";
 
-
-
 import TestSuitsidStatistic from "./admin/TestSuitsidStatistic";
 import Test from "./TEST/Test";
 import TestLogin from "./TEST/TestLogin";
@@ -112,6 +110,7 @@ import TestDone from "./TEST/TestDone";
 import Questionnaire from "./questionnaire/Questionnaire";
 import Concert from "./questionnaire/Concert";
 import ConcertAdmin from "./admin/ConcertAdmin";
+import WordFileNomenklatura from "./staff/nomenklatura/WordFileNomenklatura";
 
 function App() {
   const { t } = useTranslation();
@@ -186,8 +185,14 @@ function App() {
         <Route path={"/dashboard/teachers"} element={<AdminTeacher />} />
         <Route path={"/dashboard/memorandum"} element={<Memorandum />} />
         <Route path={"/dashboard/youtube"} element={<Company />} />
-        <Route path={"/dashboard/test-suitsid"} element={<TestSuitsidStatistic />} />
-        <Route path={"/dashboard/questionnaire"} element={<QuestionnaireAdmin />} />
+        <Route
+          path={"/dashboard/test-suitsid"}
+          element={<TestSuitsidStatistic />}
+        />
+        <Route
+          path={"/dashboard/questionnaire"}
+          element={<QuestionnaireAdmin />}
+        />
         <Route path={"/dashboard/concert"} element={<ConcertAdmin />} />
         <Route path={"/*"} element={<PageNotFound />} />
 
@@ -305,6 +310,7 @@ function App() {
           element={<CompletedTopshiriq />}
         />
         <Route path={"/mobil/nomenklatura"} element={<NomenklaturaStaff />} />
+        <Route path={"/mobil/nomenklatura/word-nomenklatura"} element={<WordFileNomenklatura />} />
         <Route
           path={"/mobil/nomenklatura-detail"}
           element={<NomenklaturaFolder />}
@@ -329,10 +335,9 @@ function App() {
         <Route path={"/test/login"} element={<TestLogin />} />
         <Route path={"/test/done"} element={<TestDone />} />
 
-      {/*  Questionnaire*/}
-        <Route path={"/questionaire"} element={<Questionnaire/>}/>
-        <Route path={"/concert-questionnaire"} element={<Concert/>}/>
-
+        {/*  Questionnaire*/}
+        <Route path={"/questionaire"} element={<Questionnaire />} />
+        <Route path={"/concert-questionnaire"} element={<Concert />} />
       </Routes>
     </div>
   );
