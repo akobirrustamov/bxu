@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/static/css/main.19a5d706.css",
-    "main.js": "/static/js/main.1c6eff2a.js",
+    "main.js": "/static/js/main.9470be63.js",
     "static/js/453.a074a449.chunk.js": "/static/js/453.a074a449.chunk.js",
-    "static/media/rasm75.JPG": "/static/media/rasm75.1327983be01ba8fbaada.JPG",
+    "static/media/simp.png": "/static/media/simp.1327983be01ba8fbaada.png",
     "static/media/gimn.mp3": "/static/media/gimn.e71423c07edf4a192a39.mp3",
     "static/media/1.jpg": "/static/media/1.7a58f24772e0304874ee.jpg",
     "static/media/pri.jpg": "/static/media/pri.9c2e223957897ec37636.jpg",
@@ -140,11 +140,11 @@
     "static/media/react-bootstrap-carousel.woff": "/static/media/react-bootstrap-carousel.96e0693824065d5b7d56.woff",
     "static/media/react-bootstrap-carousel.svg": "/static/media/react-bootstrap-carousel.190d0d1bf1c865be7a1b.svg",
     "main.19a5d706.css.map": "/static/css/main.19a5d706.css.map",
-    "main.1c6eff2a.js.map": "/static/js/main.1c6eff2a.js.map",
+    "main.9470be63.js.map": "/static/js/main.9470be63.js.map",
     "453.a074a449.chunk.js.map": "/static/js/453.a074a449.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.19a5d706.css",
-    "static/js/main.1c6eff2a.js"
+    "static/js/main.9470be63.js"
   ]
 }

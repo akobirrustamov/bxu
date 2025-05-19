@@ -1,7 +1,7 @@
 import React from "react";
 import image1 from "./img/img1.jpg";
 import image2 from "./img/imageslider.jpg";
-import image3 from "./img/rasm75.JPG";
+import image3 from "./img/simp.png";
 import "bootstrap/dist/css/bootstrap.css";
 import Carousel from "react-bootstrap/Carousel";
 import { Fade, Zoom } from "react-reveal";
