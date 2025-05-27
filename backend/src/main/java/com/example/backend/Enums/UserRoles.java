@@ -8,5 +8,6 @@ public enum UserRoles {
     ROLE_COMPANY,
     ROLE_TEACHER,
     ROLE_ADMINISTRATOR,
-    ROLE_RECTOR
+    ROLE_RECTOR,
+    ROLE_LANGUAGE
 }

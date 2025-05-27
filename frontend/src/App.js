@@ -112,6 +112,7 @@ import Concert from "./questionnaire/Concert";
 import ConcertAdmin from "./admin/ConcertAdmin";
 import WordFileNomenklatura from "./staff/nomenklatura/WordFileNomenklatura";
 import Languages from "./questionnaire/Languages";
+import QuestionnaireAdminLanguage from "./adminLanguage/QuestionnaireAdminLanguage";
 
 function App() {
   const { t } = useTranslation();
@@ -340,6 +341,11 @@ function App() {
         <Route path={"/questionaire"} element={<Questionnaire />} />
         <Route path={"/languages"} element={<Languages />} />
         <Route path={"/concert-questionnaire"} element={<Concert />} />
+        <Route path={"/language/questionnaire"} element={<QuestionnaireAdminLanguage />} />
+
+
+
+
       </Routes>
     </div>
   );
