@@ -29,10 +29,10 @@ function Languages() {
   };
 
   const sourceOptions = [
-    { value: "Ingliz tili", label: "Ingliz tili" },
-    { value: "Rus tili", label: "Rus tili" },
-    { value: "Turk tili", label: "Turk tili" },
-    { value: "Nemis tili", label: "Nemis tili" },
+    { value: "0", label: "Ingliz tili" },
+    { value: "1", label: "Rus tili" },
+    { value: "2", label: "Turk tili" },
+    { value: "3", label: "Nemis tili" },
   ];
 
   const handleChange = (e) => {
@@ -70,10 +70,10 @@ function Languages() {
           />
           <div className="text-center md:text-left">
             <h1 className="text-xl md:text-2xl font-bold text-blue-800">
-              Buxoro xalqaro universiteti <br /> va Muarrix-Usmonova o‘quv
+              Buxoro Xalqaro Universiteti <br /> va Muarrix-Usmanova o‘quv
               markazi hamkorligida
             </h1>
-            <p className="text-red-500 font-semibold text-lg">
+            <p className="text-red-500 font-semibold text-xl">
               Ingliz, rus, turk, nemis tillarini o‘rganing!
             </p>
           </div>
