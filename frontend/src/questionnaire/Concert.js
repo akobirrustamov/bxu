@@ -27,7 +27,6 @@ function Concert() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
       await ApiCall("/api/v1/concert-questionnaire", "POST", formData);
       setShowSuccess(true);
