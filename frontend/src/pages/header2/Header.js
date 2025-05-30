@@ -84,7 +84,7 @@ function Header(props) {
                 href="https://t.me/bxu_uz"
                 target="_blank"
               >
-                <i class="fa-brands fa-telegram"></i> 
+                <i class="fa-brands fa-telegram"></i>
               </a>
             </li>
             <li>
@@ -93,7 +93,7 @@ function Header(props) {
                 href="https://www.instagram.com/bxu.uz"
                 target="_blank"
               >
-                <i class="fa-brands fa-square-instagram"></i> 
+                <i class="fa-brands fa-square-instagram"></i>
               </a>
             </li>
             <li>
@@ -102,7 +102,7 @@ function Header(props) {
                 href="https://www.facebook.com/share/16Cvb6AEEv/"
                 target="_blank"
               >
-                <i class="fa-brands fa-square-facebook"></i> 
+                <i class="fa-brands fa-square-facebook"></i>
               </a>
             </li>
             <li>
@@ -111,13 +111,13 @@ function Header(props) {
                 href="https://youtube.com/@bxu_uz"
                 target="_blank"
               >
-                <i class="fa-brands fa-youtube"></i> 
+                <i class="fa-brands fa-youtube"></i>
               </a>
             </li>
           </ul>
           <button
             onClick={() =>
-              window.open("https://qabul-new.buxpxti.uz", "_blank")
+              window.open("https://qabul.bxu.uz/", "_blank")
             }
             className="py-2 px-8 bg-blue-800 hover:bg-blue-400 text-white rounded-xl text-xl font-semibold shadow-lg animate-pulse hover:animate-none hover:shadow-blue-500/50 transition-all duration-300"
           >
@@ -126,9 +126,8 @@ function Header(props) {
         </div>
       </div>
       <div
-        className={`w-full bg-blue-800 transition-all duration-300 ease-in-out text-start z-20 fixed lg:${
-          isScrolled ? "fixed top-0 left-0" : "relative"
-        } `}
+        className={`w-full bg-blue-800 transition-all duration-300 ease-in-out text-start z-20 fixed lg:${isScrolled ? "fixed top-0 left-0" : "relative"
+          } `}
       >
         <nav
           id="blur-header"
@@ -244,9 +243,9 @@ function Header(props) {
                             {t("university.about.partnership")}
                           </Link>
                           <Link
-                              to="/university/scientificactivity"
-                              onClick={toggleDrawer}
-                              className="block px-2 py-1 decoration-0 no-underline  hover:text-white text-black rounded-1 dark:hover:bg-blue-600 dark:hover:text-white"
+                            to="/university/scientificactivity"
+                            onClick={toggleDrawer}
+                            className="block px-2 py-1 decoration-0 no-underline  hover:text-white text-black rounded-1 dark:hover:bg-blue-600 dark:hover:text-white"
                           >
                             {t("university.about.scientificactivity")}
                           </Link>
@@ -482,7 +481,7 @@ function Header(props) {
 
               <li className=" relative">
                 <a
-                  href="https://qabul-new.buxpxti.uz"
+                  href="https://qabul.bxu.uz/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block px-2 py-1 no-underline font-semibold text-white hover:text-blue-500 shadow-lg animate-pulse hover:animate-none hover:shadow-blue-500/50 transition-all duration-250"
@@ -602,7 +601,7 @@ function Header(props) {
                   {t("navbar.nav_item_title5")}
                 </Link>
               </li>
-             
+
             </ul>
           </div>
 
@@ -653,9 +652,8 @@ function Header(props) {
                     <li>
                       <button
                         onClick={() => selectLanguage("uz")}
-                        className={`flex items-center px-2 py-1 text-left hover:text-blue-900 dark:hover:bg-blue-200 dark:hover:text-blue-900 ${
-                          i18n.language === "uz" ? "bg-blue-100 " : ""
-                        }`}
+                        className={`flex items-center px-2 py-1 text-left hover:text-blue-900 dark:hover:bg-blue-200 dark:hover:text-blue-900 ${i18n.language === "uz" ? "bg-blue-100 " : ""
+                          }`}
                       >
                         <img src={uz} className="w-6 h-4 me-2" alt="Uzbek" />
                         UZB
@@ -664,9 +662,8 @@ function Header(props) {
                     <li>
                       <button
                         onClick={() => selectLanguage("ru")}
-                        className={`flex items-center px-2 py-1 text-left hover:text-blue-900 dark:hover:bg-blue-200 dark:hover:text-blue-900 ${
-                          i18n.language === "ru" ? "bg-blue-100" : ""
-                        }`}
+                        className={`flex items-center px-2 py-1 text-left hover:text-blue-900 dark:hover:bg-blue-200 dark:hover:text-blue-900 ${i18n.language === "ru" ? "bg-blue-100" : ""
+                          }`}
                       >
                         <img src={ru} className="w-6 h-4 me-2" alt="Russian" />
                         RUS
@@ -675,9 +672,8 @@ function Header(props) {
                     <li>
                       <button
                         onClick={() => selectLanguage("en")}
-                        className={`flex items-center px-2 py-1 text-left hover:text-blue-900 dark:hover:bg-blue-200 dark:hover:text-blue-900 ${
-                          i18n.language === "en" ? "bg-blue-100" : ""
-                        }`}
+                        className={`flex items-center px-2 py-1 text-left hover:text-blue-900 dark:hover:bg-blue-200 dark:hover:text-blue-900 ${i18n.language === "en" ? "bg-blue-100" : ""
+                          }`}
                       >
                         <img src={eng} className="w-6 h-4 me-2" alt="English" />
                         ENG
@@ -1087,7 +1083,7 @@ function Header(props) {
 
             {/* Admission 2025 Button */}
             <a
-              href="https://qabul-new.buxpxti.uz"
+              href="https://qabul.bxu.uz/"
               target="_blank"
               rel="noopener noreferrer"
               className="block p-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold text-center rounded-lg shadow-lg hover:from-blue-500 hover:to-blue-400 transition-all duration-300"
