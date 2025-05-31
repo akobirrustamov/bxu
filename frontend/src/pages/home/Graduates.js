@@ -40,7 +40,7 @@ const Kampus = () => {
         <div className="graduates p-4">
             <div className="p-4 graduates_bg">
                 <div className="p-2">
-                    <h1 className="text-3xl">{t('diplom.title')}</h1>
+                    <h1 className="text-2xl">{t('diplom.title')}</h1>
                     <p className="my-2 w-full lg:w-3/4">
                         {t('diplom.text')}
                     </p>
