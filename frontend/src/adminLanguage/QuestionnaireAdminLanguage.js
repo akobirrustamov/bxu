@@ -34,11 +34,19 @@ const QuestionnaireAdminLanguage = () => {
     };
 
     const downloadExcel = () => {
-        const worksheet = XLSX.utils.json_to_sheet(filteredData);
+        const formatted = filteredData.map((item, index) => ({
+            "#": index + 1,
+            "Ism": item.name,
+            "Telefon": item.phone,
+            "Til": getLanguageLabel(item.language),
+        }));
+
+        const worksheet = XLSX.utils.json_to_sheet(formatted);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "So'rovnoma");
         XLSX.writeFile(workbook, "sorovnoma.xlsx");
     };
+
 
     const sources = [
         "Barchasi",

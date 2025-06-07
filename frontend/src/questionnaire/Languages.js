@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import logo from "./logoMain.jpg";
-import collab from "./logoM.PNG";
+import collab from "./logoM.png";
 import { useNavigate } from "react-router-dom";
 import ApiCall from "../config/index";
 
@@ -73,7 +73,7 @@ function Languages() {
               Buxoro Xalqaro Universiteti <br /> va Muarrix-Usmanova o‘quv
               markazi hamkorligida
             </h1>
-            <p className="text-red-500 font-semibold text-xl">
+            <p className="text-red-500 font-semibold text-[20px]">
               Ingliz, rus, turk, nemis tillarini o‘rganing!
             </p>
           </div>
@@ -85,21 +85,19 @@ function Languages() {
         </div>
 
         {/* Description */}
-        <div className="text-gray-700 space-y-2 text-sm md:text-base">
-          <p>So‘rovnomada qatnashing — til sertifikati egasi bo‘ling!</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>C1 darajadagi ustozlar orqali amaliy darslar</li>
-            <li>
-              Turk tilidan milliy sertifikat, TYS; Ingliz tilidan CEFR/IELTS
-              (7+)
-            </li>
-            <li>Rus tilida erkin muloqot qilish imkoniyati</li>
-            <li>Nemis tili orqali xorijda o‘qish va ishlash imkoniyati</li>
+        <div className="text-gray-700  text-sm md:text-base">
+          <p className={"text-blue-800 text-[20px]"}>So‘rovnomada qatnashing — til sertifikati egasi bo‘ling!</p>
+          <ul className="pst-disc pl-5 space-y-0 text-decoration-none">
+            <p className={"p-0 m-0"}><i className='fa fa-check text-blue-600 font-bold' ></i> C1 darajadagi ustozlar bilan amaliy darslar</p>
+            <p className={"p-0 m-0"}><i className='fa fa-check text-blue-600 font-bold' ></i> Turk tilidan milliy sertifikat, TYS; Ingliz tilidan CEFR/IELTS (7+)</p>
+            <p className={"p-0 m-0"}><i className='fa fa-check text-blue-600 font-bold' ></i> Rus tilida erkin muloqot qilish imkoniyati</p>
+            <p className={"p-0 m-0"}><i className='fa fa-check text-blue-600 font-bold' ></i> Nemis tili orqali xorijda o‘qish va ishlash imkoniyati</p>
           </ul>
           <p>
             Dars mashg'ulotlari <strong>Buxoro Xalqaro Universiteti</strong>{" "}
             binosida o'tiladi.
           </p>
+          <p className={"text-[20px] text-red-500 text-center"}>Biz bilan TEZ va OSON o'rgan!</p>
           <p>
             Batafsil ma'lumot uchun: <strong>+998 50 726 30 20</strong>
           </p>
@@ -114,7 +112,7 @@ function Languages() {
             <input
               type="text"
               name="name"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outpne-none"
               placeholder="Ismingizni kiriting"
               onChange={handleChange}
               required
@@ -131,7 +129,7 @@ function Languages() {
               value={tel}
               onChange={handleChangeNum}
               onClick={() => setTel("+998")}
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outpne-none"
               placeholder="+998 __ ___ __ __"
               required
             />
