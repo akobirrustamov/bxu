@@ -200,7 +200,7 @@ function NomenklaturaFolder() {
             <div className="flex-shrink-0">
               <input
                 type="file"
-                accept="application/pdf"
+                // accept="application/pdf"
                 onChange={handleFileChange}
                 className="hidden"
                 id="file-upload"
