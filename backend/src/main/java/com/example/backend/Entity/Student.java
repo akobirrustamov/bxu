@@ -27,6 +27,7 @@ public class Student {
     private String image;
     private String phone;
     private String group_name;
+    private String group_id;
     private String gender;
     private String specialty;
     private String studentStatus;
@@ -39,6 +40,9 @@ public class Student {
     private String province;
     private String level;
     private String passport_pin;
+    private String hemis_id;
+    private String login;
+    private String password;
     @Column(unique = true)
     private String passport_number;
     @CreationTimestamp

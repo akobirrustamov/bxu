@@ -2,9 +2,11 @@ package com.example.backend.Controller;
 
 
 import com.example.backend.DTO.ReqStudentLogin;
+import com.example.backend.Entity.Contract;
 import com.example.backend.Entity.Role;
 import com.example.backend.Entity.Student;
 import com.example.backend.Enums.UserRoles;
+import com.example.backend.Repository.ContractRepo;
 import com.example.backend.Repository.RoleRepo;
 import com.example.backend.Repository.StudentRepo;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +32,11 @@ public class StudentController {
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     private final String baseUrl = "https://student.buxpxti.uz/rest";
     private final RoleRepo roleRepo;
-
+    private final ContractRepo contractRepo;
 
 
     @PostMapping("/login")
     public HttpEntity<?> loginStudent(@RequestBody ReqStudentLogin studentLogin) {
-        System.out.println(studentLogin);
         try {
             RestTemplate restTemplate = new RestTemplate();
             String loginUrl = baseUrl + "/v1/auth/login";
@@ -68,7 +69,20 @@ public class StudentController {
 
                 // Extract token and process student data
                 String token = (String) data.get("token");
-                getStudentByToken(token); // Save student data to the database
+                Optional<Student> student = studentRepo.findByLogin(studentLogin.getLogin());
+                if (student.isPresent()) {
+                    Student stud = student.get();
+                    stud.setPassword(studentLogin.getPassword());
+                    studentRepo.save(stud);
+                }
+                getStudentByToken(token);
+                Optional<Student> student1 = studentRepo.findByLogin(studentLogin.getLogin());
+                if (student1.isPresent()) {
+                    Student stud = student1.get();
+                    stud.setPassword(studentLogin.getPassword());
+                    studentRepo.save(stud);
+                }
+                // Save student data to the database
 
                 Role byName = roleRepo.findByName(UserRoles.ROLE_STUDENT);
                 return ResponseEntity.ok(Map.of("token", token, "role", byName.getName()));
@@ -88,7 +102,9 @@ public class StudentController {
                     .third_name((String) data.get("third_name"))
                     .image((String) data.get("image"))
                     .phone((String) data.get("phone"))
+                    .login((String) data.get("student_id_number"))
                     .group_name(((Map<String, Object>) data.get("group")).get("name").toString())
+                    .group_id(((Map<Integer, Object>) data.get("group")).get("id").toString())
                     .gender(((Map<String, Object>) data.get("gender")).get("name").toString())
                     .specialty(((Map<String, Object>) data.get("specialty")).get("name").toString())
                     .studentStatus(((Map<String, Object>) data.get("studentStatus")).get("name").toString())
@@ -193,7 +209,7 @@ public class StudentController {
         try {
             System.out.println(token);
             RestTemplate restTemplate = new RestTemplate();
-            String externalApiUrl = "https://student.bmti.uz/rest/v1/education/subject-list";
+            String externalApiUrl = baseUrl+"/v1/education/subject-list";
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + token);
             HttpEntity<String> request = new HttpEntity<>(headers);
@@ -239,6 +255,7 @@ public class StudentController {
                                 return result;
                             })
                             .toList();
+                    System.out.println(filteredResults);
 
                     return ResponseEntity.ok(filteredResults);
                 } else {
@@ -255,44 +272,13 @@ public class StudentController {
     }
 
 
-    @GetMapping("/contract/{passportPin}/{level}")
-    public HttpEntity<?> getContractByPassportPin(@PathVariable String passportPin, @PathVariable String level) {
-//        String filePath = "/Users/akobirrustamov/Desktop/contract.xlsx"; // Path to your Excel file
-        String filePath = "./contract.xlsx"; // Path to your Excel file
-        String sheetName = level; // Sheet name based on the level
-        logger.info("Retrieving contract data for Passport Pin: {} at Level: {}", passportPin, level);
-
-        try (FileInputStream fis = new FileInputStream(new File(filePath));
-             Workbook workbook = WorkbookFactory.create(fis)) {
-
-            Sheet sheet = workbook.getSheet(sheetName); // Get the sheet by level name
-            if (sheet == null) {
-                logger.error("Sheet not found: {}", sheetName);
-                return new ResponseEntity<>("Sheet not found: " + sheetName, HttpStatus.BAD_REQUEST);
-            }
-            for (Row row : sheet) {
-                String cellValue = getCellValue(row.getCell(2)).toString(); // Retrieve value from the 3rd column (passport pin)
-                if (cellValue.equals(passportPin)) {
-                    System.out.println(row.getCell(26).getNumericCellValue());
-                    System.out.println(row.getCell(27).getNumericCellValue());
-                    System.out.println(row.getCell(28).getNumericCellValue());
-                    DecimalFormat decimalFormat = new DecimalFormat("#");
-
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("kontrakt", decimalFormat.format(row.getCell(26).getNumericCellValue()));
-                    data.put("tolov", decimalFormat.format(row.getCell(27).getNumericCellValue()));
-                    data.put("qarzi", decimalFormat.format(row.getCell(28).getNumericCellValue()));
-                    data.put("ortiqcha", decimalFormat.format(row.getCell(29).getNumericCellValue()));
-                    return ResponseEntity.ok(data);
-
-                }
-            }
-            logger.error("Passport Pin {} not found in the contract sheet", passportPin);
-            return new ResponseEntity<>("Passport PIN not found", HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            logger.error("Error occurred while reading contract data: ", e);
-            return new ResponseEntity<>("Error occurred while reading contract data", HttpStatus.INTERNAL_SERVER_ERROR);
+    @GetMapping("/contract/{hemisId}")
+    public HttpEntity<?> getContractByPassportPin(@PathVariable Long hemisId) {
+        Contract byHemisId = contractRepo.findByHemisId(hemisId);
+        if (byHemisId == null) {
+            return new ResponseEntity<>("Invalid hemisId", HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<>(byHemisId, HttpStatus.OK);
     }
 
     private Object getCellValue(Cell cell) {

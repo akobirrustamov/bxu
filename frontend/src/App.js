@@ -113,6 +113,7 @@ import ConcertAdmin from "./admin/ConcertAdmin";
 import WordFileNomenklatura from "./staff/nomenklatura/WordFileNomenklatura";
 import Languages from "./questionnaire/Languages";
 import QuestionnaireAdminLanguage from "./adminLanguage/QuestionnaireAdminLanguage";
+import Contract from "./appAdmin/Contract";
 
 function App() {
   const { t } = useTranslation();
@@ -252,6 +253,8 @@ function App() {
         <Route path={"/app/ranks"} element={<Rank />} />
         <Route path={"/app/staff"} element={<Staff />} />
         <Route path={"/app/commander"} element={<Commander1 />} />
+        <Route path={"/app/contract"} element={<Contract />} />
+
         <Route path={"/app/folders"} element={<Nomenklatura />} />
         <Route path={"/app/daily-control"} element={<DailyControl />} />
         <Route path={"/generator/login"} element={<AppLogin />} />

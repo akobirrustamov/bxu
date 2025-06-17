@@ -161,10 +161,6 @@ function Sidebar() {
                                 to="/app/daily-control"
                                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${isActive("/app/ranks")}`}
                             >
-
-
-
-
                                 <svg
                                     className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                     aria-hidden="true"
@@ -177,6 +173,25 @@ function Sidebar() {
                                     <polyline points="17 11 19 13 23 9"/>
                                 </svg>
                                 <span className="flex-1 ms-3 whitespace-nowrap">Kunlik nazorat</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/app/contract"
+                                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${isActive("/app/contract")}`}
+                            >
+                                <svg
+                                    className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor"
+                                    viewBox="0 0 18 18"
+                                >
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="8.5" cy="7" r="4"/>
+                                    <polyline points="17 11 19 13 23 9"/>
+                                </svg>
+                                <span className="flex-1 ms-3 whitespace-nowrap">Kontract</span>
                             </Link>
                         </li>
                         <li>

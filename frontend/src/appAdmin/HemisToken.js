@@ -122,22 +122,7 @@ const HemisToken = () => {
                 </div>
 
                 <div className="p-10 pt-0 sm:ml-64 ">
-                    <div className="flex space-x-4 mb-4">
-                        <input
-                            type="text"
-                            placeholder="Filter by Tool Name"
-                            value={toolNameFilter}
-                            onChange={(e) => setToolNameFilter(e.target.value)}
-                            className="border rounded py-2 px-3"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Filter by Time Added"
-                            value={timeAddedFilter}
-                            onChange={(e) => setTimeAddedFilter(e.target.value)}
-                            className="border rounded py-2 px-3"
-                        />
-                    </div>
+
                     <table className="min-w-full table-auto border-collapse border border-gray-300">
                         <thead>
                         <tr className="bg-gray-200">
